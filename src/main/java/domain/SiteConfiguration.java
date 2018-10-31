@@ -3,14 +3,18 @@ package domain;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
+
+import org.hibernate.validator.constraints.URL;
 
 public class SiteConfiguration {
 
 	public String								siteName;
 	public String								bannerUrl;
 	public String								welcomeMessage;
-	public Collection<String>					spamWords;
-	public HashMap<String, Collection<String>>	scoreWords;
+	public Set<String>							spamWords;
+	public Set<String> 							goodWords;
+	public Set<String> 							badWords;
 	public Float								vatRate;
 	public Integer								defaultCountryCode;
 	public Integer								finderResLimit;
@@ -20,11 +24,11 @@ public class SiteConfiguration {
 	public String getSiteName() {
 		return this.siteName;
 	}
-
+	
 	public void setSiteName(final String siteName) {
 		this.siteName = siteName;
 	}
-
+	@URL
 	public String getBannerUrl() {
 		return this.bannerUrl;
 	}
@@ -40,21 +44,29 @@ public class SiteConfiguration {
 	public void setWelcomeMessage(final String welcomeMessage) {
 		this.welcomeMessage = welcomeMessage;
 	}
-
+	
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
 
-	public void setSpamWords(final Collection<String> spamWords) {
+	public void setSpamWords(Set<String> spamWords) {
 		this.spamWords = spamWords;
 	}
-
-	public HashMap<String, Collection<String>> getScoreWords() {
-		return this.scoreWords;
+	
+	public Set<String> getGoodWords() {
+		return goodWords;
 	}
 
-	public void setScoreWords(final HashMap<String, Collection<String>> scoreWords) {
-		this.scoreWords = scoreWords;
+	public void setGoodWords(Set<String> goodWords) {
+		this.goodWords = goodWords;
+	}
+
+	public Set<String> getBadWords() {
+		return badWords;
+	}
+
+	public void setBadWords(Set<String> badWords) {
+		this.badWords = badWords;
 	}
 
 	public Float getVatRate() {

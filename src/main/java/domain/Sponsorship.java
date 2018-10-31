@@ -1,6 +1,8 @@
 
 package domain;
 
+import org.hibernate.validator.constraints.URL;
+
 public class Sponsorship extends DomainEntity {
 
 	//relations
@@ -18,7 +20,7 @@ public class Sponsorship extends DomainEntity {
 	public void setAuthor(final Actor author) {
 		this.author = author;
 	}
-
+	@URL
 	public String getBannerUrl() {
 		return this.bannerUrl;
 	}
@@ -26,7 +28,7 @@ public class Sponsorship extends DomainEntity {
 	public void setBannerUrl(final String bannerUrl) {
 		this.bannerUrl = bannerUrl;
 	}
-
+	@URL
 	public String getTargetPage() {
 		return this.targetPage;
 	}
