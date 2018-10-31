@@ -1,20 +1,29 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Note {
 
 	//relations
-	public Report				reference;
-	public Actor				author;
+	public Report		reference;
+	public Actor		author;
 	//attributes
-	public Date					publishDate;
-	public String				description;
-	public Collection<String>	comments;
+	public Date			publishDate;
+	public String		description;
+	public List<String>	comments;
 
 
+	@NotNull
 	public Report getReference() {
 		return this.reference;
 	}
@@ -23,6 +32,7 @@ public class Note {
 		this.reference = reference;
 	}
 
+	@NotNull
 	public Actor getAuthor() {
 		return this.author;
 	}
@@ -31,6 +41,10 @@ public class Note {
 		this.author = author;
 	}
 
+	@NotNull
+	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublishDate() {
 		return this.publishDate;
 	}
@@ -39,6 +53,7 @@ public class Note {
 		this.publishDate = publishDate;
 	}
 
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}
@@ -47,11 +62,11 @@ public class Note {
 		this.description = description;
 	}
 
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final List<String> comments) {
 		this.comments = comments;
 	}
 

@@ -4,9 +4,12 @@ package domain;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.validation.Valid;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Endorsement extends DomainEntity {
 
@@ -19,7 +22,6 @@ public class Endorsement extends DomainEntity {
 
 
 	@NotNull
-	@Valid
 	public Actor getAuthor() {
 		return this.author;
 	}
@@ -29,7 +31,6 @@ public class Endorsement extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	public Actor getReference() {
 		return this.reference;
 	}
@@ -40,6 +41,8 @@ public class Endorsement extends DomainEntity {
 
 	@NotNull
 	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublishDate() {
 		return this.publishDate;
 	}

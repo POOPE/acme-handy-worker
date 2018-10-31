@@ -1,8 +1,6 @@
 
 package domain;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -11,10 +9,12 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class MessageBox extends DomainEntity {
 
-	public Actor				owner;
-	public String				name;
-	public ArrayList<Message>	messages;
-	public String				category;
+	//relation
+	public Actor		owner;
+	public MessageBox	parent;
+	//attributes
+	public String		name;
+	public String		category;
 
 
 	@NotNull
@@ -26,6 +26,15 @@ public class MessageBox extends DomainEntity {
 		this.owner = owner;
 	}
 
+	//if null : root folder
+	public MessageBox getParent() {
+		return this.parent;
+	}
+
+	public void setParent(final MessageBox parent) {
+		this.parent = parent;
+	}
+
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -35,14 +44,7 @@ public class MessageBox extends DomainEntity {
 		this.name = name;
 	}
 
-	public ArrayList<Message> getMessages() {
-		return this.messages;
-	}
-
-	public void setMessages(final ArrayList<Message> messages) {
-		this.messages = messages;
-	}
-
+	@NotBlank
 	public String getCategory() {
 		return this.category;
 	}

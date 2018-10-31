@@ -4,13 +4,15 @@ package domain;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
 public class FixupApplication extends DomainEntity {
 
 	//relations
@@ -25,6 +27,8 @@ public class FixupApplication extends DomainEntity {
 
 	@NotNull
 	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getFilingDate() {
 		return this.publishDate;
 	}
@@ -33,7 +37,7 @@ public class FixupApplication extends DomainEntity {
 		this.publishDate = filingDate;
 	}
 
-	@NotNull
+	@Digits(integer = 10, fraction = 2)
 	public Float getOfferedRate() {
 		return this.offeredRate;
 	}
@@ -50,7 +54,8 @@ public class FixupApplication extends DomainEntity {
 	public void setStatus(final String status) {
 		this.status = status;
 	}
-
+	
+	
 	public ArrayList<String> getComments() {
 		return this.comments;
 	}

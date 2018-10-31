@@ -4,21 +4,22 @@ package domain;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
 public class FixupTask extends DomainEntity {
 
 	//relations
 	public Actor					author;
-	public Category					category;
 	public Warranty					warranty;
 	public ArrayList<WorkPlanPhase>	phases;
+	public Category					category;
 	//attributes
 	public String					ticker;
 	public Date						publishDate;
@@ -32,7 +33,6 @@ public class FixupTask extends DomainEntity {
 
 
 	@NotNull
-	@Valid
 	public Actor getAuthor() {
 		return this.author;
 	}
@@ -52,6 +52,8 @@ public class FixupTask extends DomainEntity {
 
 	@NotNull
 	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublishDate() {
 		return this.publishDate;
 	}
@@ -78,6 +80,8 @@ public class FixupTask extends DomainEntity {
 		this.address = address;
 	}
 
+	@NotNull
+	@Digits(integer = 10, fraction = 2)
 	public Float getOfferedRate() {
 		return this.offeredRate;
 	}
@@ -86,6 +90,8 @@ public class FixupTask extends DomainEntity {
 		this.offeredRate = offeredRate;
 	}
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -94,6 +100,8 @@ public class FixupTask extends DomainEntity {
 		this.startDate = startDate;
 	}
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;
 	}
@@ -118,14 +126,6 @@ public class FixupTask extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 
-	public Category getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(final Category category) {
-		this.category = category;
-	}
-
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
@@ -140,6 +140,14 @@ public class FixupTask extends DomainEntity {
 
 	public void setPhases(final ArrayList<WorkPlanPhase> phases) {
 		this.phases = phases;
+	}
+
+	public Category getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(final Category category) {
+		this.category = category;
 	}
 
 }

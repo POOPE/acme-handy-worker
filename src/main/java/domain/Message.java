@@ -1,27 +1,56 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
 public class Message extends DomainEntity {
 
 	//relations
-	public Actor					sender;
-	public Collection<Actor>		recipients;
-	public Collection<MessageBox>	container;
+	public Actor			sender;
+	public Set<Actor>		recipients;
+	public Set<MessageBox>	container;
 	//attributes
-	public String					subject;
-	public Date						deliveryDate;
-	public String					message;
-	public MessagePriority			priority;
-	public Boolean					read;
+	public String			subject;
+	public Date				deliveryDate;
+	public String			body;
+	public String			priority;
 
+
+	@NotNull
+	public Actor getSender() {
+		return this.sender;
+	}
+
+	public void setSender(final Actor sender) {
+		this.sender = sender;
+	}
+
+	@NotNull
+	public Set<Actor> getRecipients() {
+		return this.recipients;
+	}
+
+	public void setRecipients(final Set<Actor> recipients) {
+		this.recipients = recipients;
+	}
+
+	@NotNull
+	public Set<MessageBox> getContainer() {
+		return this.container;
+	}
+
+	public void setContainer(final Set<MessageBox> container) {
+		this.container = container;
+	}
 
 	public String getSubject() {
 		return this.subject;
@@ -31,16 +60,10 @@ public class Message extends DomainEntity {
 		this.subject = subject;
 	}
 
-	@NotBlank
-	public Collection<Actor> getRecipients() {
-		return this.recipients;
-	}
-
-	public void setRecipients(final Collection<Actor> recipients) {
-		this.recipients = recipients;
-	}
-
-	@NotBlank
+	@NotNull
+	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDeliveryDate() {
 		return this.deliveryDate;
 	}
@@ -49,44 +72,20 @@ public class Message extends DomainEntity {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public String getMessage() {
-		return this.message;
+	public String getBody() {
+		return this.body;
 	}
 
-	public void setMessage(final String message) {
-		this.message = message;
+	public void setBody(final String body) {
+		this.body = body;
 	}
 
-	public MessagePriority getPriority() {
+	@NotBlank
+	public String getPriority() {
 		return this.priority;
 	}
 
-	public void setPriority(final MessagePriority priority) {
+	public void setPriority(final String priority) {
 		this.priority = priority;
 	}
-
-	public Boolean getRead() {
-		return this.read;
-	}
-
-	public void setRead(final Boolean read) {
-		this.read = read;
-	}
-
-	public Actor getSender() {
-		return this.sender;
-	}
-
-	public void setSender(final Actor sender) {
-		this.sender = sender;
-	}
-
-	public Collection<MessageBox> getContainer() {
-		return this.container;
-	}
-
-	public void setContainer(final Collection<MessageBox> container) {
-		this.container = container;
-	}
-
 }

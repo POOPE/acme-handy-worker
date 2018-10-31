@@ -1,11 +1,13 @@
 
 package domain;
 
-import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
 public class WorkPlanPhase extends DomainEntity {
 
 	public String	title;
@@ -31,7 +33,9 @@ public class WorkPlanPhase extends DomainEntity {
 		this.description = description;
 	}
 
-	@NotBlank
+	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public String getStartDate() {
 		return this.startDate;
 	}
@@ -40,7 +44,8 @@ public class WorkPlanPhase extends DomainEntity {
 		this.startDate = startDate;
 	}
 
-	@NotBlank
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public String getEndDate() {
 		return this.endDate;
 	}

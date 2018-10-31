@@ -1,7 +1,6 @@
 
 package domain;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,7 +14,6 @@ public class Category extends DomainEntity {
 
 
 	@NotNull
-	@Valid
 	public Category getParent() {
 		return this.parent;
 	}
