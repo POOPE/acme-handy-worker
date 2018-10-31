@@ -1,8 +1,8 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,12 +15,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Note {
 
 	//relations
-	public Report		reference;
-	public Actor		author;
+	public Report				reference;
+	public Actor				author;
 	//attributes
-	public Date			publishDate;
-	public String		description;
-	public List<String>	comments;
+	public Date					publishDate;
+	public String				description;
+	public Collection<String>	comments;
 
 
 	@NotNull
@@ -62,11 +62,11 @@ public class Note {
 		this.description = description;
 	}
 
-	public List<String> getComments() {
+	public Collection<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final List<String> comments) {
+	public void setComments(final Collection<String> comments) {
 		this.comments = comments;
 	}
 

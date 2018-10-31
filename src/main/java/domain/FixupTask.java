@@ -1,7 +1,7 @@
 
 package domain;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Temporal;
@@ -16,20 +16,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class FixupTask extends DomainEntity {
 
 	//relations
-	public Actor					author;
-	public Warranty					warranty;
-	public ArrayList<WorkPlanPhase>	phases;
-	public Category					category;
+	public Actor						author;
+	public Warranty						warranty;
+	public Collection<WorkPlanPhase>	phases;
+	public Category						category;
 	//attributes
-	public String					ticker;
-	public Date						publishDate;
-	public String					description;
-	public String					address;
-	public Float					offeredRate;
-	public Date						startDate;
-	public Date						endDate;
-	public boolean					locked;
-	public CreditCard				creditCard;
+	public String						ticker;
+	public Date							publishDate;
+	public String						description;
+	public String						address;
+	public Float						offeredRate;
+	public Date							startDate;
+	public Date							endDate;
+	public boolean						locked;
+	public CreditCard					creditCard;
 
 
 	@NotNull
@@ -134,11 +134,11 @@ public class FixupTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
-	public ArrayList<WorkPlanPhase> getPhases() {
+	public Collection<WorkPlanPhase> getPhases() {
 		return this.phases;
 	}
 
-	public void setPhases(final ArrayList<WorkPlanPhase> phases) {
+	public void setPhases(final Collection<WorkPlanPhase> phases) {
 		this.phases = phases;
 	}
 

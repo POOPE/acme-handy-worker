@@ -1,8 +1,8 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,14 +15,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Message extends DomainEntity {
 
 	//relations
-	public Actor			sender;
-	public Set<Actor>		recipients;
-	public Set<MessageBox>	container;
+	public Actor					sender;
+	public Collection<Actor>		recipients;
+	public Collection<MessageBox>	container;
 	//attributes
-	public String			subject;
-	public Date				deliveryDate;
-	public String			body;
-	public String			priority;
+	public String					subject;
+	public Date						deliveryDate;
+	public String					body;
+	public String					priority;
 
 
 	@NotNull
@@ -35,20 +35,20 @@ public class Message extends DomainEntity {
 	}
 
 	@NotNull
-	public Set<Actor> getRecipients() {
+	public Collection<Actor> getRecipients() {
 		return this.recipients;
 	}
 
-	public void setRecipients(final Set<Actor> recipients) {
+	public void setRecipients(final Collection<Actor> recipients) {
 		this.recipients = recipients;
 	}
 
 	@NotNull
-	public Set<MessageBox> getContainer() {
+	public Collection<MessageBox> getContainer() {
 		return this.container;
 	}
 
-	public void setContainer(final Set<MessageBox> container) {
+	public void setContainer(final Collection<MessageBox> container) {
 		this.container = container;
 	}
 
