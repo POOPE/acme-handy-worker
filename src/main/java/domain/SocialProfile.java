@@ -1,16 +1,13 @@
 
 package domain;
 
-import javax.persistence.Entity;
-
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-@Entity
 public class SocialProfile extends DomainEntity {
 
 	public String	nick;
-	public String	site;
+	public String	siteName;
 	public String	url;
 
 
@@ -24,12 +21,12 @@ public class SocialProfile extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getSite() {
-		return this.site;
+	public String getSiteName() {
+		return this.siteName;
 	}
 
-	public void setSite(final String site) {
-		this.site = site;
+	public void setSiteName(final String site) {
+		this.siteName = site;
 	}
 
 	@NotBlank

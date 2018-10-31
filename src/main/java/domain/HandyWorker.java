@@ -1,24 +1,15 @@
 
 package domain;
 
-import javax.persistence.Entity;
+import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
-public class HandyWorker extends DomainEntity {
+public class HandyWorker extends Actor {
 
-	public Actor	actor;
 	public String	make;
 	public Float	score;
 
 
-	public Actor getActor() {
-		return this.actor;
-	}
-
-	public void setActor(final Actor actor) {
-		this.actor = actor;
-	}
-
+	@NotBlank
 	public String getMake() {
 		return this.make;
 	}

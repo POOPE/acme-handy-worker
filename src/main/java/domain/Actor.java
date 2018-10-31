@@ -2,6 +2,7 @@
 package domain;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -57,6 +58,7 @@ public class Actor extends DomainEntity {
 		this.photo = photo;
 	}
 	@Email
+	@NotNull
 	public String getEmail() {
 		return this.email;
 	}
@@ -65,7 +67,7 @@ public class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@NotBlank
+	@NotNull
 	public UserAccount getUser() {
 		return this.user;
 	}
