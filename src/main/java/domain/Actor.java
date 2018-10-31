@@ -18,6 +18,7 @@ public class Actor extends DomainEntity {
 	public String		surname;
 	public String		photo;
 	public String		email;
+	public String		phoneNumber;
 	public String		address;
 	public boolean		flagged;
 
@@ -71,6 +72,14 @@ public class Actor extends DomainEntity {
 
 	public void setUser(final UserAccount user) {
 		this.user = user;
+	}
+
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setPhoneNumber(final String number) {
+		this.phoneNumber = number;
 	}
 
 	public String getAddress() {

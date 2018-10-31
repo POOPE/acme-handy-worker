@@ -4,6 +4,7 @@ package domain;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,6 +16,15 @@ public class MessageBox extends DomainEntity {
 	public ArrayList<Message>	messages;
 	public String				category;
 
+
+	@NotNull
+	public Actor getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(final Actor owner) {
+		this.owner = owner;
+	}
 
 	@NotBlank
 	public String getName() {
