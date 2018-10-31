@@ -2,29 +2,27 @@
 package domain;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
 
 import org.hibernate.validator.constraints.URL;
 
 public class SiteConfiguration {
 
-	public String								siteName;
-	public String								bannerUrl;
-	public String								welcomeMessage;
-	public Set<String>							spamWords;
-	public Set<String> 							goodWords;
-	public Set<String> 							badWords;
-	public Float								vatRate;
-	public Integer								defaultCountryCode;
-	public Integer								finderResLimit;
-	public Integer								finderTimeLimit;
+	public String				siteName;
+	public String				bannerUrl;
+	public String				welcomeMessage;
+	public Collection<String>	spamWords;
+	public Collection<String>	goodWords;
+	public Collection<String>	badWords;
+	public Float				vatRate;
+	public Integer				defaultCountryCode;
+	public Integer				finderResLimit;
+	public Integer				finderTimeLimit;
 
 
 	public String getSiteName() {
 		return this.siteName;
 	}
-	
+
 	public void setSiteName(final String siteName) {
 		this.siteName = siteName;
 	}
@@ -44,28 +42,28 @@ public class SiteConfiguration {
 	public void setWelcomeMessage(final String welcomeMessage) {
 		this.welcomeMessage = welcomeMessage;
 	}
-	
+
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
 
-	public void setSpamWords(Set<String> spamWords) {
+	public void setSpamWords(final Collection<String> spamWords) {
 		this.spamWords = spamWords;
 	}
-	
-	public Set<String> getGoodWords() {
-		return goodWords;
+
+	public Collection<String> getGoodWords() {
+		return this.goodWords;
 	}
 
-	public void setGoodWords(Set<String> goodWords) {
+	public void setGoodWords(final Collection<String> goodWords) {
 		this.goodWords = goodWords;
 	}
 
-	public Set<String> getBadWords() {
-		return badWords;
+	public Collection<String> getBadWords() {
+		return this.badWords;
 	}
 
-	public void setBadWords(Set<String> badWords) {
+	public void setBadWords(final Collection<String> badWords) {
 		this.badWords = badWords;
 	}
 

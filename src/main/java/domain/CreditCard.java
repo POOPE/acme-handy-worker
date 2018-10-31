@@ -1,13 +1,13 @@
 
 package domain;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-public class CreditCard extends DomainEntity {
+public class CreditCard {
 
 	//relation
 	public CreditCardMake	creditCardMake;
@@ -36,7 +36,7 @@ public class CreditCard extends DomainEntity {
 	public void setHolder(final String holder) {
 		this.holder = holder;
 	}
-	@Range(min=1, max = 12)
+	@Range(min = 1, max = 12)
 	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
@@ -44,11 +44,12 @@ public class CreditCard extends DomainEntity {
 	public void setExpirationMonth(final int expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
-	
-	@Range(min=2, max=2)
+
+	@Digits(integer = 2, fraction = 0)
 	public int getExpirationYear() {
 		return this.expirationYear;
 	}
+
 	public void setExpirationYear(final int expirationYear) {
 		this.expirationYear = expirationYear;
 	}
@@ -60,7 +61,7 @@ public class CreditCard extends DomainEntity {
 	public void setNumber(final int number) {
 		this.number = number;
 	}
-	@Range(min=100,max=999)
+	@Range(min = 100, max = 999)
 	public int getCCV() {
 		return this.CCV;
 	}

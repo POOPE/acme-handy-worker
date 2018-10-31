@@ -43,7 +43,7 @@ public class JsonSerializeTest {
 
 		final Message message1 = new Message();
 		message1.setDeliveryDate(new Date());
-		message1.setMessage("Buenas. Tengo una bici rota.");
+		message1.setBody("Buenas. Tengo una bici rota.");
 		message1.setSender(customer1);
 
 		final Collection<MessageBox> messageContainers = new HashSet<MessageBox>();
