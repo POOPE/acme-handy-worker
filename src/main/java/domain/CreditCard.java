@@ -5,11 +5,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 public class CreditCard extends DomainEntity {
 
 	//relation
-	public CreditCardMake	bank;
+	public CreditCardMake	creditCardMake;
 	//attributes
 	public String			holder;
 	public int				expirationMonth;
@@ -19,13 +20,12 @@ public class CreditCard extends DomainEntity {
 
 
 	@NotNull
-	@Valid
-	public CreditCardMake getBank() {
-		return this.bank;
+	public CreditCardMake getCreditCardMake() {
+		return this.creditCardMake;
 	}
 
-	public void setBank(final CreditCardMake bank) {
-		this.bank = bank;
+	public void setBank(final CreditCardMake creditCardMake) {
+		this.creditCardMake = creditCardMake;
 	}
 
 	@NotBlank
@@ -36,7 +36,7 @@ public class CreditCard extends DomainEntity {
 	public void setHolder(final String holder) {
 		this.holder = holder;
 	}
-
+	@Range(min=1, max = 12)
 	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
@@ -44,11 +44,11 @@ public class CreditCard extends DomainEntity {
 	public void setExpirationMonth(final int expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
-
+	
+	@Range(min=2, max=2)
 	public int getExpirationYear() {
 		return this.expirationYear;
 	}
-
 	public void setExpirationYear(final int expirationYear) {
 		this.expirationYear = expirationYear;
 	}
@@ -60,7 +60,7 @@ public class CreditCard extends DomainEntity {
 	public void setNumber(final int number) {
 		this.number = number;
 	}
-
+	@Range(min=100,max=999)
 	public int getCCV() {
 		return this.CCV;
 	}
