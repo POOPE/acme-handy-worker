@@ -1,7 +1,9 @@
 
 package domain;
 
-import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -10,46 +12,39 @@ public class Tutorial extends DomainEntity {
 
 	//relations
 	public Actor				author;
-	public ArrayList<Section>	sections;
 	//attributes
 	public String				title;
 	public String				description;
-	public ArrayList<String>	photos;
-	
-	
+	public Collection<String>	photos;
+
+
+	@NotNull
 	public Actor getAuthor() {
-		return author;
+		return this.author;
 	}
-	public void setAuthor(Actor author) {
+	public void setAuthor(final Actor author) {
 		this.author = author;
 	}
-	public ArrayList<Section> getSections() {
-		return sections;
-	}
-	public void setSections(ArrayList<Section> sections) {
-		this.sections = sections;
-	}
+
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 	@URL
-	public ArrayList<String> getPhotos() {
-		return photos;
+	public Collection<String> getPhotos() {
+		return this.photos;
 	}
-	public void setPhotos(ArrayList<String> photos) {
+	public void setPhotos(final Collection<String> photos) {
 		this.photos = photos;
 	}
-	
-	
 
 }
