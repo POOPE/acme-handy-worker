@@ -41,7 +41,6 @@ public class Note {
 		this.author = author;
 	}
 
-	@NotNull
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)

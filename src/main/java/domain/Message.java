@@ -60,7 +60,6 @@ public class Message extends DomainEntity {
 		this.subject = subject;
 	}
 
-	@NotNull
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
