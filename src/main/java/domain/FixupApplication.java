@@ -4,6 +4,10 @@ package domain;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
@@ -13,11 +17,13 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class FixupApplication extends DomainEntity {
 
 	//relations
 	public FixupTask			fixupTask;
-	public Actor				author;
+	public HandyWorker			author;
 	//attributes
 	public Date					publishDate;
 	public Float				offeredRate;
@@ -25,16 +31,34 @@ public class FixupApplication extends DomainEntity {
 	public ArrayList<String>	comments;
 
 
+	@ManyToOne(optional = false)
+	public FixupTask getFixupTask() {
+		return this.fixupTask;
+	}
+
+	public void setFixupTask(final FixupTask fixupTask) {
+		this.fixupTask = fixupTask;
+	}
+
+	@ManyToOne(optional = false)
+	public HandyWorker getAuthor() {
+		return this.author;
+	}
+
+	public void setAuthor(final HandyWorker author) {
+		this.author = author;
+	}
+
 	@NotNull
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getFilingDate() {
+	public Date getPublishDate() {
 		return this.publishDate;
 	}
 
-	public void setFilingDate(final Date filingDate) {
-		this.publishDate = filingDate;
+	public void setPublishDate(final Date publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	@Digits(integer = 10, fraction = 2)
@@ -54,8 +78,7 @@ public class FixupApplication extends DomainEntity {
 	public void setStatus(final String status) {
 		this.status = status;
 	}
-	
-	
+
 	public ArrayList<String> getComments() {
 		return this.comments;
 	}

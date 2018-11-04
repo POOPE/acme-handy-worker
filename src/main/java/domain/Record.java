@@ -3,6 +3,15 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Access(AccessType.PROPERTY)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Record extends DomainEntity {
 
 	public Collection<String>	comments;

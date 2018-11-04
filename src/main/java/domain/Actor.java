@@ -1,7 +1,11 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -11,9 +15,12 @@ import org.hibernate.validator.constraints.URL;
 import security.UserAccount;
 
 @Entity
+@Access(AccessType.PROPERTY)
 public class Actor extends DomainEntity {
 
+	//relations
 	public UserAccount	user;
+	//attributes
 	public String		name;
 	public String		middleName;
 	public String		surname;
@@ -23,6 +30,15 @@ public class Actor extends DomainEntity {
 	public String		address;
 	public boolean		flagged;
 
+
+	@OneToOne(cascade = CascadeType.ALL)
+	public UserAccount getUser() {
+		return this.user;
+	}
+
+	public void setUser(final UserAccount user) {
+		this.user = user;
+	}
 
 	@NotBlank
 	public String getName() {
@@ -65,15 +81,6 @@ public class Actor extends DomainEntity {
 
 	public void setEmail(final String email) {
 		this.email = email;
-	}
-
-	@NotNull
-	public UserAccount getUser() {
-		return this.user;
-	}
-
-	public void setUser(final UserAccount user) {
-		this.user = user;
 	}
 
 	public String getPhoneNumber() {

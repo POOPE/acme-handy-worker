@@ -1,23 +1,41 @@
 
 package domain;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Curriculum extends DomainEntity {
 
+	//attributes
 	public String			ticker;
 	public String			fullName;
 	public String			email;
 	public String			phoneNumber;
 	public String			photo;
-
-	public HandyWorker		handyWork;
+	//relations
 	public SocialProfile	socialProfile;
+	public Record			record;
+	public HandyWorker		owner;
 
+
+	@OneToOne(optional = false)
+	public HandyWorker getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(final HandyWorker owner) {
+		this.owner = owner;
+	}
 
 	// Do constraint of pattern 'yymmdd-xxxxxx'
 	@NotBlank
@@ -64,15 +82,6 @@ public class Curriculum extends DomainEntity {
 		this.photo = photo;
 	}
 
-	@NotNull
-	public HandyWorker getHandyWork() {
-		return this.handyWork;
-	}
-
-	public void setHandyWork(final HandyWorker handyWork) {
-		this.handyWork = handyWork;
-	}
-
 	public SocialProfile getSocialProfile() {
 		return this.socialProfile;
 	}
@@ -80,4 +89,14 @@ public class Curriculum extends DomainEntity {
 	public void setSocialProfile(final SocialProfile socialProfile) {
 		this.socialProfile = socialProfile;
 	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	public Record getRecord() {
+		return this.record;
+	}
+
+	public void setRecord(final Record record) {
+		this.record = record;
+	}
+
 }

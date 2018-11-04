@@ -1,12 +1,17 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class CreditCard {
 
 	//relation
@@ -19,7 +24,7 @@ public class CreditCard {
 	public int				CCV;
 
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public CreditCardMake getCreditCardMake() {
 		return this.creditCardMake;
 	}

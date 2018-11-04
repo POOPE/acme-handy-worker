@@ -4,6 +4,11 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
@@ -13,10 +18,12 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class FixupTask extends DomainEntity {
 
 	//relations
-	public Actor						author;
+	public Customer						author;
 	public Warranty						warranty;
 	public Collection<WorkPlanPhase>	phases;
 	public Category						category;
@@ -32,12 +39,12 @@ public class FixupTask extends DomainEntity {
 	public CreditCard					creditCard;
 
 
-	@NotNull
-	public Actor getAuthor() {
+	@ManyToOne(optional = false)
+	public Customer getAuthor() {
 		return this.author;
 	}
 
-	public void setAuthor(final Actor author) {
+	public void setAuthor(final Customer author) {
 		this.author = author;
 	}
 
@@ -126,6 +133,7 @@ public class FixupTask extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 
+	@ManyToOne(optional = false)
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
@@ -134,6 +142,7 @@ public class FixupTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
+	@OneToMany
 	public Collection<WorkPlanPhase> getPhases() {
 		return this.phases;
 	}
@@ -142,6 +151,7 @@ public class FixupTask extends DomainEntity {
 		this.phases = phases;
 	}
 
+	@ManyToOne(optional = false)
 	public Category getCategory() {
 		return this.category;
 	}
