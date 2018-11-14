@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -39,6 +40,7 @@ public class Warranty extends DomainEntity {
 		this.terms = terms;
 	}
 
+	@ManyToMany
 	public Collection<Law> getLaws() {
 		return this.laws;
 	}
