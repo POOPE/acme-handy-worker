@@ -1,6 +1,8 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -17,15 +19,15 @@ import org.hibernate.validator.constraints.URL;
 public class Curriculum extends DomainEntity {
 
 	//attributes
-	public String			ticker;
-	public String			fullName;
-	public String			email;
-	public String			phoneNumber;
-	public String			photo;
+	public String				ticker;
+	public String				fullName;
+	public String				email;
+	public String				phoneNumber;
+	public String				photo;
 	//relations
-	public SocialProfile	socialProfile;
-	public Record			record;
-	public HandyWorker		owner;
+	public SocialProfile		socialProfile;
+	public Collection<Record>	records;
+	public HandyWorker			owner;
 
 
 	@OneToOne(optional = false)
@@ -82,6 +84,7 @@ public class Curriculum extends DomainEntity {
 		this.photo = photo;
 	}
 
+	@OneToOne(optional = true)
 	public SocialProfile getSocialProfile() {
 		return this.socialProfile;
 	}
@@ -91,12 +94,12 @@ public class Curriculum extends DomainEntity {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	public Record getRecord() {
-		return this.record;
+	public Collection<Record> getRecords() {
+		return this.records;
 	}
 
-	public void setRecord(final Record record) {
-		this.record = record;
+	public void setRecords(final Collection<Record> records) {
+		this.records = records;
 	}
 
 }

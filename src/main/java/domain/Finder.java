@@ -7,7 +7,8 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Past;
@@ -18,25 +19,25 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	public Date				creationDate;
+	public Date						creationDate;
 
-	public String			keyWord;
+	public String					keyWord;
 
-	public String			category;
+	public String					category;
 
-	public String			warranty;
+	public String					warranty;
 
-	public Double			minPrice;
+	public Double					minPrice;
 
-	public Double			maxPrice;
+	public Double					maxPrice;
 
-	public Date				minDate;
+	public Date						minDate;
 
-	public Date				maxDate;
+	public Date						maxDate;
 
-	public HandyWorker		handyWorker;
+	public HandyWorker				handyWorker;
 
-	Collection<FixupTask>	fixUpTasks;
+	public Collection<FixupTask>	fixUpTasks;
 
 
 	@Past
@@ -108,7 +109,7 @@ public class Finder extends DomainEntity {
 		this.maxDate = maxDate;
 	}
 
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}
@@ -117,6 +118,7 @@ public class Finder extends DomainEntity {
 		this.handyWorker = handyWorker;
 	}
 
+	@OneToMany
 	public Collection<FixupTask> getFixUpTasks() {
 		return this.fixUpTasks;
 	}

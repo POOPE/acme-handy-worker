@@ -41,6 +41,7 @@ public class Message extends DomainEntity {
 		this.sender = sender;
 	}
 
+	// admin can send message to multiple recipients
 	@ManyToMany
 	public Collection<Actor> getRecipients() {
 		return this.recipients;
@@ -51,6 +52,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotNull
+	@ManyToMany
 	public Collection<MessageBox> getContainer() {
 		return this.container;
 	}

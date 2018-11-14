@@ -20,6 +20,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Note {
 
 	//relations
+
+	public Report				report;
+
 	public Actor				author;
 	public Report				reference;
 	//attributes
@@ -27,6 +30,15 @@ public class Note {
 	public String				description;
 	public Collection<String>	comments;
 
+
+	@ManyToOne(optional = false)
+	public Report getReport() {
+		return this.report;
+	}
+
+	public void setReport(final Report report) {
+		this.report = report;
+	}
 
 	@ManyToOne(optional = false)
 	public Actor getAuthor() {

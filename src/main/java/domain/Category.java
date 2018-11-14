@@ -4,7 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,7 +18,7 @@ public class Category extends DomainEntity {
 	public String	title;
 
 
-	@NotNull
+	@ManyToOne(optional = true)
 	public Category getParent() {
 		return this.parent;
 	}

@@ -21,7 +21,7 @@ public class SocialProfile extends DomainEntity {
 	public Actor	owner;
 
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	public Actor getOwner() {
 		return this.owner;
 	}

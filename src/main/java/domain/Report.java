@@ -8,9 +8,9 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -22,7 +22,7 @@ public class Report extends DomainEntity {
 
 	//relations
 	public Actor				author;
-	public Complaint			reference;
+	public Complaint			complaint;
 	//attribute
 	public Date					publishDate;
 	public String				description;
@@ -31,7 +31,7 @@ public class Report extends DomainEntity {
 	public ArrayList<String>	comments;
 
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public Actor getAuthor() {
 		return this.author;
 	}
@@ -40,13 +40,13 @@ public class Report extends DomainEntity {
 		this.author = author;
 	}
 
-	@NotNull
-	public Complaint getReference() {
-		return this.reference;
+	@ManyToOne(optional = false)
+	public Complaint getComplaint() {
+		return this.complaint;
 	}
 
-	public void setReference(final Complaint reference) {
-		this.reference = reference;
+	public void setComplaint(final Complaint complaint) {
+		this.complaint = complaint;
 	}
 
 	@Past
