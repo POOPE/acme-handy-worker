@@ -50,7 +50,8 @@ public class ClassFinder {
 		final File[] files = scannedDir.listFiles();
 		if (files != null)
 			for (final File file : scannedDir.listFiles())
-				classes.addAll(ClassFinder.find(file, scannedPackage));
+				if (!file.getName().startsWith("domain.DomainEntity"))
+					classes.addAll(ClassFinder.find(file, scannedPackage));
 		return classes;
 	}
 

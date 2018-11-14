@@ -1,7 +1,7 @@
 
 package domain;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -24,7 +24,7 @@ public class Endorsement extends DomainEntity {
 	public Actor				reference;
 	//attributes
 	public Date					publishDate;
-	public ArrayList<String>	comments;
+	public Collection<String>	comments;
 
 
 	@ManyToOne(optional = false)
@@ -57,11 +57,11 @@ public class Endorsement extends DomainEntity {
 		this.publishDate = publishDate;
 	}
 
-	public ArrayList<String> getComments() {
+	public Collection<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final ArrayList<String> comments) {
+	public void setComments(final Collection<String> comments) {
 		this.comments = comments;
 	}
 

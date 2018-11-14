@@ -3,7 +3,10 @@ package utilities;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -56,13 +59,10 @@ public class AutoPopulate {
 
 				document.appendChild(root);
 
-				//build dependecy tree
-				final ArrayList<Class<?>> dependencyTree = new ArrayList<>();
-				final ArrayList<Class<?>> cList = new ArrayList<>();
-				cList.addAll(AutoPopulate.classList);
-				for (final Class<?> c : cList)
-					//get attributes
-					if (!dependencyTree.contains(c) && AutoPopulate.findSuper(c) == null)
+				//for each class in domain
+				for (final Class<?> c : AutoPopulate.classList)
+					//get declared fields
+					if (AutoPopulate.findSuper(c) == null)
 						for (int i = 1; i < iter + 1; i++) {
 							final Element bean = document.createElement("bean");
 							final Attr beanId = document.createAttribute("id");
@@ -73,16 +73,71 @@ public class AutoPopulate {
 							bean.setAttributeNode(beanId);
 							bean.setAttributeNode(beanClass);
 
+							//for each field in class
 							final Field[] fields = c.getDeclaredFields();
 							for (final Field field : fields) {
-								final Class<?> f = field.getClass();
+								final Class<?> f = field.getType();
 
-								if (AutoPopulate.classList.contains(f) && !dependencyTree.contains(c))
-									dependencyTree.add(f);
+								final Element property = document.createElement("property");
+								final Attr propertyName = document.createAttribute("name");
+								propertyName.setValue(field.getName());
+								property.setAttributeNode(propertyName);
 
+								//check if class of field is a collection
+								if (Collection.class.isAssignableFrom(f)) {
+									final Element list = document.createElement("list");
+
+									final Type collectionType = c.getField(field.getName()).getGenericType();
+									final ParameterizedType pt = (ParameterizedType) collectionType;
+									final Class<?> pc = (Class<?>) pt.getActualTypeArguments()[0];
+
+									//check if class is in domain class list
+									final boolean inDomain = AutoPopulate.classList.contains(pc);
+									for (int j = 1; j < iter + 1; j++) {
+										final Element listBean = document.createElement("bean");
+										//TODO: CHECK INHERITANCE
+										if (!inDomain) {
+											//if its not:
+											//set name for bean
+											final Attr listBeanClass = document.createAttribute("class");
+											listBeanClass.setValue(pc.getName());
+											listBean.setAttributeNode(listBeanClass);
+											//add a property for each declared type
+											final Field[] beanFields = pc.getDeclaredFields();
+											for (int x = 0; x < beanFields.length; x++) {
+												final Element listProperty = document.createElement("property");
+												final Attr listPropertyName = document.createAttribute("name");
+												listPropertyName.setValue(beanFields[x].getName());
+												listProperty.setAttributeNode(listPropertyName);
+
+												final Attr listPropertyValue = document.createAttribute("value");
+												listPropertyValue.setValue("TODO");
+												listProperty.setAttributeNode(listPropertyValue);
+												listBean.appendChild(listProperty);
+											}
+										} else {
+											//if class is in domain add ref attribute
+											final Attr beanRef = document.createAttribute("ref");
+											beanRef.setValue("TODO");
+											listBean.setAttributeNode(beanRef);
+										}
+										list.appendChild(listBean);
+									}
+									property.appendChild(list);
+								} else if (!AutoPopulate.classList.contains(f)) {
+									//if not a collection and not in domain class list
+									final Attr propertyValue = document.createAttribute("value");
+									propertyValue.setValue("TODO");
+									property.setAttributeNode(propertyValue);
+								} else {
+									//if not a collection and in domain class list
+									final Attr propertyRef = document.createAttribute("ref");
+									propertyRef.setValue("TODO");
+									property.setAttributeNode(propertyRef);
+								}
+								bean.appendChild(property);
 							}
 							root.appendChild(bean);
-							dependencyTree.add(c);
 						}
 
 				//DOM to xml
