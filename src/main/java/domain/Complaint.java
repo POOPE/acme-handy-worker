@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Complaint extends DomainEntity {
 
 	//relations
-	public Actor				author;
 	public FixupTask			reference;
 	//attributes
 	public String				ticker;
@@ -26,15 +25,6 @@ public class Complaint extends DomainEntity {
 	public String				description;
 	public Collection<String>	attachments;
 
-
-	@ManyToOne(optional = false)
-	public Actor getAuthor() {
-		return this.author;
-	}
-
-	public void setAuthor(final Actor author) {
-		this.author = author;
-	}
 
 	@ManyToOne(optional = false)
 	public FixupTask getReference() {

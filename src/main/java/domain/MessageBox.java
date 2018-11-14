@@ -5,7 +5,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -21,7 +20,6 @@ public class MessageBox extends DomainEntity {
 	public String		category;
 
 
-	@NotNull
 	@ManyToOne(optional = false)
 	public Actor getOwner() {
 		return this.owner;

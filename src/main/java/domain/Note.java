@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,13 +20,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Note {
 
 	//relations
-	public Report				reference;
 	public Actor				author;
+	public Report				reference;
 	//attributes
 	public Date					publishDate;
 	public String				description;
 	public Collection<String>	comments;
 
+
+	@ManyToOne(optional = false)
+	public Actor getAuthor() {
+		return this.author;
+	}
+
+	public void setAuthor(final Actor author) {
+		this.author = author;
+	}
 
 	@ManyToOne(optional = false)
 	public Report getReference() {
@@ -36,15 +44,6 @@ public class Note {
 
 	public void setReference(final Report reference) {
 		this.reference = reference;
-	}
-
-	@NotNull
-	public Actor getAuthor() {
-		return this.author;
-	}
-
-	public void setAuthor(final Actor author) {
-		this.author = author;
 	}
 
 	@Past
