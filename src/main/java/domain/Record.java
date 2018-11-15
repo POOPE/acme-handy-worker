@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -19,6 +20,7 @@ public class Record extends DomainEntity {
 
 
 	@NotNull
+	@ElementCollection
 	public Collection<String> getComments() {
 		return this.comments;
 	}
