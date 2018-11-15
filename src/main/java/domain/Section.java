@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -37,7 +36,6 @@ public class Section extends DomainEntity {
 		this.description = description;
 	}
 
-	@URL
 	public ArrayList<String> getPhotos() {
 		return this.photos;
 	}

@@ -20,7 +20,7 @@ public class CreditCard {
 	public String			holder;
 	public int				expirationMonth;
 	public int				expirationYear;
-	public int				number;
+	public String			number;
 	public int				CCV;
 
 
@@ -63,11 +63,12 @@ public class CreditCard {
 		this.expirationYear = expirationYear;
 	}
 
-	public int getNumber() {
+	@NotBlank
+	public String getNumber() {
 		return this.number;
 	}
 
-	public void setNumber(final int number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
 	@Range(min = 100, max = 999)

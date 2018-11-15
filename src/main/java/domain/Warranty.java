@@ -31,7 +31,6 @@ public class Warranty extends DomainEntity {
 		this.title = title;
 	}
 
-	@NotBlank
 	public ArrayList<String> getTerms() {
 		return this.terms;
 	}

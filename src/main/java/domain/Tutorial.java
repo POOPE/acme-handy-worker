@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -51,7 +50,7 @@ public class Tutorial extends DomainEntity {
 	public void setDescription(final String description) {
 		this.description = description;
 	}
-	@URL
+
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return this.photos;

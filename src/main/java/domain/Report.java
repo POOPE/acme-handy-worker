@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Report extends DomainEntity {
 
 	//relations
-	public Actor				author;
+	public Referee				author;
 	public Complaint			complaint;
 	//attribute
 	public Date					publishDate;
@@ -32,11 +32,11 @@ public class Report extends DomainEntity {
 
 
 	@ManyToOne(optional = false)
-	public Actor getAuthor() {
+	public Referee getAuthor() {
 		return this.author;
 	}
 
-	public void setAuthor(final Actor author) {
+	public void setAuthor(final Referee author) {
 		this.author = author;
 	}
 

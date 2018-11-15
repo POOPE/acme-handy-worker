@@ -33,7 +33,7 @@ public class FixupTask extends DomainEntity {
 	public Date							publishDate;
 	public String						description;
 	public String						address;
-	public Float						offeredRate;
+	public Float						maximumPrice;
 	public Date							startDate;
 	public Date							endDate;
 	public boolean						locked;
@@ -90,12 +90,12 @@ public class FixupTask extends DomainEntity {
 
 	@NotNull
 	@Digits(integer = 10, fraction = 2)
-	public Float getOfferedRate() {
-		return this.offeredRate;
+	public Float getMaximumPrice() {
+		return this.maximumPrice;
 	}
 
-	public void setOfferedRate(final Float offeredRate) {
-		this.offeredRate = offeredRate;
+	public void setMaximumPrice(final Float maximumPrice) {
+		this.maximumPrice = maximumPrice;
 	}
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
