@@ -59,7 +59,7 @@
 
 	<bean id="customerUserAccount1" class="security.UserAccount">
 		<property name="username" value="customer1" />
-		<property name="password" value="customer1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -71,7 +71,7 @@
 
 	<bean id="customerUserAccount2" class="security.UserAccount">
 		<property name="username" value="customer2" />
-		<property name="password" value="customer2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -83,7 +83,7 @@
 
 	<bean id="handyWorkerUserAccount1" class="security.UserAccount">
 		<property name="username" value="handyWorker1" />
-		<property name="password" value="handyWorker1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -95,7 +95,7 @@
 
 	<bean id="handyWorkerUserAccount2" class="security.UserAccount">
 		<property name="username" value="handyWorker2" />
-		<property name="password" value="handyWorker2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -107,7 +107,7 @@
 
 	<bean id="refereeUserAccount1" class="security.UserAccount">
 		<property name="username" value="referee1" />
-		<property name="password" value="referee1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -119,7 +119,7 @@
 
 	<bean id="refereeUserAccount2" class="security.UserAccount">
 		<property name="username" value="referee2" />
-		<property name="password" value="referee2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -131,7 +131,7 @@
 
 	<bean id="sponsorUserAccount1" class="security.UserAccount">
 		<property name="username" value="sponsor1" />
-		<property name="password" value="sponsor1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -143,7 +143,7 @@
 
 	<bean id="sponsorUserAccount2" class="security.UserAccount">
 		<property name="username" value="sponsor2" />
-		<property name="password" value="sponsor2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -155,7 +155,7 @@
 
 	<bean id="adminUserAccount1" class="security.UserAccount">
 		<property name="username" value="admin1" />
-		<property name="password" value="admin1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -167,7 +167,7 @@
 
 	<bean id="adminUserAccount2" class="security.UserAccount">
 		<property name="username" value="admin2" />
-		<property name="password" value="admin2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -184,10 +184,10 @@
 		<property name="siteName" value="Acme Handy Worker" />
 		<property name="bannerUrl" value="http://www.sample-banner.com/banner.png" />
 		<property name="welcomeMessage" value="" />
-		<property name="vatRate" value="" />
+		<property name="vatRate" value="0.20" />
 		<property name="defaultCountryCode" value="34" />
-		<property name="finderResLimit" value="" />
-		<property name="finderTimeLimit" value="" />
+		<property name="finderResLimit" value="10" />
+		<property name="finderTimeLimit" value="3600" />
 		<property name="spamWords">
 			<list>
 				<value>sex</value>
@@ -805,7 +805,7 @@
 	
 	<!-- FIX UP TASK -->
 	
-	<bean id="fixUpTask1" class="domain.FixupTask">
+	<bean id="fixupTask1" class="domain.FixupTask">
 		<property name="ticker" value="20181010-ABCDEF" />
 		<property name="publishDate" value="2018/10/10" />
 		<property name="description" value="A mi bici no le funcionan los frenos." />
@@ -840,6 +840,52 @@
 		<property name="endDate" value="2018/10/19" />
 	</bean>
 	
+	<bean id="fixupTask2" class="domain.FixupTask">
+		<property name="ticker" value="20181010-ABCDGF" />
+		<property name="publishDate" value="2018/10/10" />
+		<property name="description" value="El techo esta roto" />
+		<property name="address" value="Calle de customers, 7" />
+		<property name="maximumPrice" value="40.50" />
+		<property name="startDate" value="2018/10/10" />
+		<property name="endDate" value="2018/10/20" />
+		<property name="locked" value="true" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="phases">
+			<list>
+				<ref bean="task2Phase1"/>
+			</list>
+		</property>
+		<property name="author" ref="customer2" />
+		<property name="category" ref="category2" />
+		<property name="warranty" ref="warranty1" />
+	</bean>
+	
+	<bean id="task2Phase1" class="domain.WorkPlanPhase">
+		<property name="title" value="Arreglar el techo" />
+		<property name="description" value="Ponemo uno nuevo" />
+		<property name="startDate" value="2018/10/16" />
+		<property name="endDate" value="2018/10/17" />
+	</bean>
+	
+	
+	
+	<!-- Credit Card Makes -->
+	
+	<bean id="creditCardMake1" class="domain.CreditCardMake">
+		<property name="name" value="VISA" />
+	</bean>
+	
+	<bean id="creditCardMake2" class="domain.CreditCardMake">
+		<property name="name" value="MASTER" />
+	</bean>
+	
+	<bean id="creditCardMake3" class="domain.CreditCardMake">
+		<property name="name" value="DINNERS" />
+	</bean>
+	
+	<bean id="creditCardMake4" class="domain.CreditCardMake">
+		<property name="name" value="AMEX" />
+	</bean>
 	
 	<!-- Credit Cards -->
 	
@@ -852,11 +898,7 @@
 		<property name="creditCardMake" ref="creditCardMake1" />
 	</bean>
 	
-	<!-- Credit Card Makes -->
 	
-	<bean id="creditCardMake1" class="domain.CreditCardMake">
-		<property name="name" value="MasterCard" />
-	</bean>
 	
 	<!-- Category -->
 	
@@ -877,10 +919,80 @@
 		<property name="parent" ref="category1" />
 	</bean>
 	
+	<bean id="category3" class="domain.Category">
+		<property name="title" value="Carpentry" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category4" class="domain.Category">
+		<property name="title" value="Cleaning" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category5" class="domain.Category">
+		<property name="title" value="Concrete work" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category6" class="domain.Category">
+		<property name="title" value="Doors" />
+		<property name="parent" ref="category3" />
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="title" value="Electrical wiring" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+		<property name="title" value="Fan installation" />
+		<property name="parent" ref="category7" />
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+		<property name="title" value="Fence installation" />
+		<property name="parent" ref="category3" />
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+		<property name="title" value="Fence fixing" />
+		<property name="parent" ref="category3" />
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+		<property name="title" value="Home security system" />
+		<property name="parent" ref="category7" />
+	</bean>
+	
+	<bean id="category12" class="domain.Category">
+		<property name="title" value="Insulation installation" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category13" class="domain.Category">
+		<property name="title" value="Solar panels" />
+		<property name="parent" ref="category3" />
+	</bean>
+	
+	<bean id="category14" class="domain.Category">
+		<property name="title" value="Soundproofing" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category15" class="domain.Category">
+		<property name="title" value="Sprinkler repair" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
+	<bean id="category16" class="domain.Category">
+		<property name="title" value="Windows repair" />
+		<property name="parent" ref="category0" />
+	</bean>
+	
 	<!-- Warranty -->
 	
 	<bean id="warranty1" class="domain.Warranty">
-		<property name="title" value="Estándar" />
+		<property name="title" value="Default" />
 		<property name="terms" >
 			<list>
 				<value>term 1</value>
@@ -890,6 +1002,38 @@
 			<list>
 				<ref bean="law1" />
 				<ref bean="law2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="warranty2" class="domain.Warranty">
+		<property name="title" value="Thef" />
+		<property name="terms" >
+			<list>
+				<value>prove that it was a theft</value>
+			</list>
+		</property>
+		<property name="laws" >
+			<list>
+				<ref bean="law1" />
+				<ref bean="law2" />
+				<ref bean="law3" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="warranty3" class="domain.Warranty">
+		<property name="title" value="Total destruction" />
+		<property name="terms" >
+			<list>
+				<value>prove that it was the handyworkers fault</value>
+				<value>idk</value>
+			</list>
+		</property>
+		<property name="laws" >
+			<list>
+				<ref bean="law4" />
+				<ref bean="law5" />
 			</list>
 		</property>
 	</bean>
@@ -904,9 +1048,113 @@
 		<property name="relevantText" value="relevant text 1"/>
 	</bean>
 	
+	<bean id="law3" class="domain.Law">
+		<property name="title" value="Law 3" />
+		<property name="relevantText" value="relevant text 1"/>
+	</bean>
 	
+	<bean id="law4" class="domain.Law">
+		<property name="title" value="Law 4" />
+		<property name="relevantText" value="relevant text 1"/>
+	</bean>
 	
+	<bean id="law5" class="domain.Law">
+		<property name="title" value="Law 5" />
+		<property name="relevantText" value="relevant text 1"/>
+	</bean>
 	
+	<!-- fixupapplication -->
+	
+	<bean id="fixupApplication1" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="15/10/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication2" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="10/11/2017 20:32" />
+		<property name="offeredRate" value="500" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it for less</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication3" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="08/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication4" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="15/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication5" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="15/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication6" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="01/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixupApplication7" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments" >
+			<list>
+				<value>no like</value>
+			</list>
+		</property>
+	</bean>
 	
 	
 </beans>
