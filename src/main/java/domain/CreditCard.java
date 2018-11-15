@@ -29,6 +29,10 @@ public class CreditCard {
 		return this.creditCardMake;
 	}
 
+	public void setCreditCardMake(final CreditCardMake creditCardMake) {
+		this.creditCardMake = creditCardMake;
+	}
+
 	public void setBank(final CreditCardMake creditCardMake) {
 		this.creditCardMake = creditCardMake;
 	}

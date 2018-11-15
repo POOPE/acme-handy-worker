@@ -1,12 +1,12 @@
 
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -28,7 +28,7 @@ public class Report extends DomainEntity {
 	public String				description;
 	public boolean				locked;
 	public Collection<String>	attachments;
-	public ArrayList<String>	comments;
+	public Collection<String>	comments;
 
 
 	@ManyToOne(optional = false)
@@ -77,6 +77,7 @@ public class Report extends DomainEntity {
 		this.locked = locked;
 	}
 
+	@ElementCollection
 	public Collection<String> getAttachments() {
 		return this.attachments;
 	}
@@ -85,11 +86,12 @@ public class Report extends DomainEntity {
 		this.attachments = attachments;
 	}
 
-	public ArrayList<String> getComments() {
+	@ElementCollection
+	public Collection<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final ArrayList<String> comments) {
+	public void setComments(final Collection<String> comments) {
 		this.comments = comments;
 	}
 
