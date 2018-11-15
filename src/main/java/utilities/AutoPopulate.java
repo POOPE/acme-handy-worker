@@ -26,10 +26,12 @@ public class AutoPopulate {
 
 	public static List<Class<?>>	classList	= new ArrayList<>();
 
+	public static Document			doc;
 
-	public static void main(final String[] args) {
+
+	public void main(final String[] args) {
 		//by default create 3 intances of each class
-		final int iter = 3;
+		final int iter = 5;
 
 		//get all class names in package domain
 		AutoPopulate.classList = ClassFinder.find("domain");
@@ -41,33 +43,33 @@ public class AutoPopulate {
 				final DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 				final DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
 				final Document document = documentBuilder.newDocument();
-
+				AutoPopulate.doc = document;
 				// root element
-				final Element root = document.createElement("beans");
-				final Attr xmlns = document.createAttribute("xmlns");
+				final Element root = AutoPopulate.doc.createElement("beans");
+				final Attr xmlns = AutoPopulate.doc.createAttribute("xmlns");
 				xmlns.setValue("http://www.springframework.org/schema/beans");
 
-				final Attr xmlnsxsi = document.createAttribute("xmlns:xsi");
+				final Attr xmlnsxsi = AutoPopulate.doc.createAttribute("xmlns:xsi");
 				xmlnsxsi.setValue("http://www.w3.org/2001/XMLSchema-instance");
 
-				final Attr xsischemaLocation = document.createAttribute("xsi:schemaLocation");
+				final Attr xsischemaLocation = AutoPopulate.doc.createAttribute("xsi:schemaLocation");
 				xsischemaLocation.setValue("http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd");
 
 				root.setAttributeNode(xmlns);
 				root.setAttributeNode(xmlnsxsi);
 				root.setAttributeNode(xsischemaLocation);
 
-				document.appendChild(root);
-
+				AutoPopulate.doc.appendChild(root);
+				final List<Class<?>> cList = ClassFinder.find("domain");
 				//for each class in domain
-				for (final Class<?> c : AutoPopulate.classList)
+				for (final Class<?> c : cList)
 					//get declared fields
 					if (AutoPopulate.findSuper(c) == null)
 						for (int i = 1; i < iter + 1; i++) {
-							final Element bean = document.createElement("bean");
-							final Attr beanId = document.createAttribute("id");
+							final Element bean = AutoPopulate.doc.createElement("bean");
+							final Attr beanId = AutoPopulate.doc.createAttribute("id");
 							beanId.setValue(c.getSimpleName() + i);
-							final Attr beanClass = document.createAttribute("class");
+							final Attr beanClass = AutoPopulate.doc.createAttribute("class");
 							beanClass.setValue(c.getName());
 
 							bean.setAttributeNode(beanId);
@@ -78,14 +80,14 @@ public class AutoPopulate {
 							for (final Field field : fields) {
 								final Class<?> f = field.getType();
 
-								final Element property = document.createElement("property");
-								final Attr propertyName = document.createAttribute("name");
+								final Element property = AutoPopulate.doc.createElement("property");
+								final Attr propertyName = AutoPopulate.doc.createAttribute("name");
 								propertyName.setValue(field.getName());
 								property.setAttributeNode(propertyName);
 
 								//check if class of field is a collection
 								if (Collection.class.isAssignableFrom(f)) {
-									final Element list = document.createElement("list");
+									final Element list = this.createListElement();
 
 									final Type collectionType = c.getField(field.getName()).getGenericType();
 									final ParameterizedType pt = (ParameterizedType) collectionType;
@@ -93,45 +95,22 @@ public class AutoPopulate {
 
 									//check if class is in domain class list
 									final boolean inDomain = AutoPopulate.classList.contains(pc);
-									for (int j = 1; j < iter + 1; j++) {
-										final Element listBean = document.createElement("bean");
+									for (int j = 1; j < iter + 1; j++)
 										//TODO: CHECK INHERITANCE
-										if (!inDomain) {
-											//if its not:
-											//set name for bean
-											final Attr listBeanClass = document.createAttribute("class");
-											listBeanClass.setValue(pc.getName());
-											listBean.setAttributeNode(listBeanClass);
-											//add a property for each declared type
-											final Field[] beanFields = pc.getDeclaredFields();
-											for (int x = 0; x < beanFields.length; x++) {
-												final Element listProperty = document.createElement("property");
-												final Attr listPropertyName = document.createAttribute("name");
-												listPropertyName.setValue(beanFields[x].getName());
-												listProperty.setAttributeNode(listPropertyName);
-
-												final Attr listPropertyValue = document.createAttribute("value");
-												listPropertyValue.setValue("TODO");
-												listProperty.setAttributeNode(listPropertyValue);
-												listBean.appendChild(listProperty);
-											}
-										} else {
+										if (!inDomain)
+											list.appendChild(this.createBeanListValueElement());
+										else
 											//if class is in domain add ref attribute
-											final Attr beanRef = document.createAttribute("ref");
-											beanRef.setValue("TODO");
-											listBean.setAttributeNode(beanRef);
-										}
-										list.appendChild(listBean);
-									}
+											list.appendChild(this.createBeanListRefElement());
 									property.appendChild(list);
 								} else if (!AutoPopulate.classList.contains(f)) {
 									//if not a collection and not in domain class list
-									final Attr propertyValue = document.createAttribute("value");
+									final Attr propertyValue = AutoPopulate.doc.createAttribute("value");
 									propertyValue.setValue("TODO");
 									property.setAttributeNode(propertyValue);
 								} else {
 									//if not a collection and in domain class list
-									final Attr propertyRef = document.createAttribute("ref");
+									final Attr propertyRef = AutoPopulate.doc.createAttribute("ref");
 									propertyRef.setValue("TODO");
 									property.setAttributeNode(propertyRef);
 								}
@@ -143,7 +122,7 @@ public class AutoPopulate {
 				//DOM to xml
 				final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 				final Transformer transformer = transformerFactory.newTransformer();
-				final DOMSource domSource = new DOMSource(document);
+				final DOMSource domSource = new DOMSource(AutoPopulate.doc);
 				final StreamResult streamResult = new StreamResult(new File(AutoPopulate.xmlFilePath));
 				transformer.transform(domSource, streamResult);
 				System.out.println("Done creating XML File");
@@ -151,6 +130,25 @@ public class AutoPopulate {
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
+	}
+
+	private Element createListElement() {
+		final Element res = AutoPopulate.doc.createElement("list");
+		return res;
+	}
+
+	private Element createBeanListRefElement() {
+		final Element res = AutoPopulate.doc.createElement("ref");
+		final Attr beanRef = AutoPopulate.doc.createAttribute("bean");
+		beanRef.setValue("TODO");
+		res.setAttributeNode(beanRef);
+		return res;
+	}
+
+	private Element createBeanListValueElement() {
+		final Element res = AutoPopulate.doc.createElement("value");
+		res.appendChild(AutoPopulate.doc.createTextNode("TODO"));
+		return res;
 	}
 
 	private static Class<?> findSuper(final Class<?> root) {
