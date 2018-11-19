@@ -805,6 +805,25 @@
 	
 	<!-- FIX UP TASK -->
 	
+	<bean id="fixupTask0" class="domain.FixupTask">
+		<property name="ticker" value="20181010-ABZZEF" />
+		<property name="publishDate" value="2018/10/10" />
+		<property name="description" value="A mi bici no le funcionan los frenos." />
+		<property name="address" value="Calle de customers, 1, 3ºD" />
+		<property name="maximumPrice" value="40.50" />
+		<property name="startDate" value="2018/10/10" />
+		<property name="endDate" value="2018/10/20" />
+		<property name="locked" value="true" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="phases">
+			<list>
+			</list>
+		</property>
+		<property name="author" ref="customer1" />
+		<property name="category" ref="category2" />
+		<property name="warranty" ref="warranty1" />
+	</bean>
+	
 	<bean id="fixupTask1" class="domain.FixupTask">
 		<property name="ticker" value="20181010-ABCDEF" />
 		<property name="publishDate" value="2018/10/10" />
