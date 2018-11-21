@@ -14,4 +14,5 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
 	@Query("select a from Message a where a.container.id = ?1")
 	Collection<Message> findByMessageBox(int messageBoxId);
+
 }
