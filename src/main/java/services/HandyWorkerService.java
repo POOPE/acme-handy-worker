@@ -1,19 +1,47 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.HandyWorker;
+import repositories.HandyWorkerRepository;
 
 @Service
 @Transactional
-public interface HandyWorkerService extends JpaRepository<HandyWorker, Integer> {
+public class HandyWorkerService {
+	// Managed repository -----------------------------------------------------
 
-	@Query("select r from HandyWorker r where r.userAccount.id = ?1")
-	HandyWorker findByUserAccountId(int userAccountId);
+	@Autowired
+	private HandyWorkerRepository handyWorkerRepository;
+
+	// Supporting services ----------------------------------------------------
+
+
+	// Constructors -----------------------------------------------------------
+
+	public HandyWorkerService() {
+		super();
+	}
+
+	// Simple CRUD methods ----------------------------------------------------
+
+	// Other business methods -------------------------------------------------
+
+	public Collection<HandyWorker> getHandyWorkerById(int handyWorkerId) {
+		Collection<HandyWorker> result;
+
+		result = this.handyWorkerRepository.findByUserAccountId(handyWorkerId);
+		Assert.notNull(result);
+		Assert.isTrue(handyWorkerId == 0 || !result.isEmpty());
+		Assert.isTrue(handyWorkerId != 0 || result.isEmpty());
+
+		return result;
+	}
 
 }
