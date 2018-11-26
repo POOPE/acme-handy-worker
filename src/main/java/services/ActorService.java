@@ -14,18 +14,16 @@ import domain.Actor;
 
 @Service
 @Transactional
-public class ActorService extends DomainService {
+public class ActorService {
 
 	@Autowired
 	private ActorRepository	actorRepository;
 
 
-	@Override
 	public List<Actor> findAll() {
 		return this.actorRepository.findAll();
 	}
 
-	@Override
 	public Actor findById(int id) {
 		return this.actorRepository.findOne(id);
 	}
