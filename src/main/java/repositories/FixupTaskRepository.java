@@ -12,12 +12,12 @@ import domain.FixupTask;
 @Repository
 public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
-	@Query("select f from FixupTask f where f.maximumPrice >= ?1 and f.maximumPrice <= ?2 and f.locked = FALSE")
+	@Query("select a from FixupTask a where a.maximumPrice >= ?1 and a.maximumPrice <= ?2 and a.locked = FALSE")
 	public List<FixupTask> findInRange(Float min, Float max);
 
-	@Query("select f from FixupTask f where f.category.id = ?1")
+	@Query("select a from FixupTask a where a.category.id = ?1")
 	public List<FixupTask> findByCategory(int categoryId);
 
-	@Query("select f from FixupTask f where f.locked = FALSE")
+	@Query("select a from FixupTask a where a.locked = FALSE")
 	public List<FixupTask> findApplicable();
 }

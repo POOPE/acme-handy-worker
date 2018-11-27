@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,12 @@ public class ActorService {
 		return this.actorRepository.findByUser(LoginService.getPrincipal().getId());
 	}
 
-	public Collection<Authority> getPrincipalAuthority() {
-		Collection<Authority> res = this.findPrincipal().getUser().getAuthorities();
+	public Collection<String> getPrincipalAuthority() {
+		Collection<Authority> auth = this.findPrincipal().getUser().getAuthorities();
+		Collection<String> res = new HashSet<>();
+		for (Authority a : auth) {
+			res.add(a.getAuthority());
+		}
 		return res;
 	}
 

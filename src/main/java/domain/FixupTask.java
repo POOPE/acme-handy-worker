@@ -1,12 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,20 +23,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class FixupTask extends DomainEntity {
 
 	//relations
-	public Customer						author;
-	public Warranty						warranty;
-	public Collection<WorkPlanPhase>	phases;
-	public Category						category;
+	public Customer				author;
+	public Warranty				warranty;
+	public List<WorkPlanPhase>	phases;
+	public Category				category;
 	//attributes
-	public String						ticker;
-	public Date							publishDate;
-	public String						description;
-	public String						address;
-	public Float						maximumPrice;
-	public Date							startDate;
-	public Date							endDate;
-	public boolean						locked;
-	public CreditCard					creditCard;
+	public String				ticker;
+	public Date					publishDate;
+	public String				description;
+	public String				address;
+	public Float				maximumPrice;
+	public Date					startDate;
+	public Date					endDate;
+	public boolean				locked;
+	public CreditCard			creditCard;
 
 
 	@ManyToOne(optional = false)
@@ -143,12 +142,12 @@ public class FixupTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<WorkPlanPhase> getPhases() {
+	@OneToMany
+	public List<WorkPlanPhase> getPhases() {
 		return this.phases;
 	}
 
-	public void setPhases(final Collection<WorkPlanPhase> phases) {
+	public void setPhases(List<WorkPlanPhase> phases) {
 		this.phases = phases;
 	}
 

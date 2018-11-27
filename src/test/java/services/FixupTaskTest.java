@@ -30,6 +30,18 @@ public class FixupTaskTest extends AbstractTest {
 
 
 	@Test
+	public void testFindApplicable() {
+		List<FixupTask> all = this.fts.findApplicable();
+		Assert.isTrue(all.size() > 0);
+	}
+
+	@Test
+	public void testFindInRange() {
+		List<FixupTask> range = this.fts.findByPriceRange(30f, 50f);
+		Assert.isTrue(range.size() > 0);
+	}
+
+	@Test
 	public void testCreate() {
 		super.authenticate("customer1");
 
@@ -40,7 +52,7 @@ public class FixupTaskTest extends AbstractTest {
 		f.setMaximumPrice(40f);
 		FixupTask saved = this.fts.initialize(f);
 
-		List<FixupTask> all = this.fts.findAll();
+		List<FixupTask> all = this.fts.findApplicable();
 		Assert.isTrue(all.contains(saved));
 	}
 }

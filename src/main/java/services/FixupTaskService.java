@@ -17,6 +17,7 @@ import repositories.FixupTaskRepository;
 import domain.Category;
 import domain.Customer;
 import domain.FixupTask;
+import domain.WorkPlanPhase;
 
 @Service
 @Transactional
@@ -30,18 +31,22 @@ public class FixupTaskService {
 
 
 	public FixupTask create() {
+		Customer customer = this.cs.findPrincipal();
 		FixupTask res = new FixupTask();
 		res.setLocked(false);
+		res.setAuthor(customer);
 		return res;
 	}
 
 	public FixupTask initialize(FixupTask fixupTask) {
-		Customer customer = this.cs.findPrincipal();
 		fixupTask.setPublishDate(new Date());
-		fixupTask.setAuthor(customer);
 		fixupTask.setTicker(this.createTicker());
+		fixupTask.setPhases(new ArrayList<WorkPlanPhase>());
+		return this.save(fixupTask);
+	}
 
-		return this.ftr.save(fixupTask);
+	public FixupTask save(FixupTask f) {
+		return this.ftr.save(f);
 	}
 
 	private String createTicker() {
