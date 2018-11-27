@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import repositories.MessageBoxRepository;
 import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
@@ -34,8 +33,39 @@ public class MessageBoxService {
 	private MessageService			messageService;
 
 
+	public MessageBox create() {
+		MessageBox messageBox = new MessageBox();
+		messageBox.setOwner(this.actorService.findPrincipal());
+		messageBox.setCategory("USERBOX");
+		return messageBox;
+	}
+
+	public MessageBox save(MessageBox messageBox) {
+
+		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on update: Cannot modify system box");
+
+		return this.messageBoxRepository.save(messageBox);
+	}
+
+	public List<MessageBox> createDefaultBoxes(Actor actor) {
+		List<MessageBox> res = new ArrayList<>();
+		res.add(this.systemCreate("Inbox", actor));
+		res.add(this.systemCreate("Outbox", actor));
+		res.add(this.systemCreate("Spambox", actor));
+		res.add(this.systemCreate("Trashbox", actor));
+		return res;
+	}
+
+	private MessageBox systemCreate(String name, Actor owner) {
+		MessageBox res = new MessageBox();
+		res.setCategory(name.toUpperCase());
+		res.setName(name);
+		res.setOwner(owner);
+		return this.messageBoxRepository.save(res);
+	}
+
 	//gives a list of children given a messageBox
-	public Collection<MessageBox> findParentChain(MessageBox parent) {
+	private Collection<MessageBox> findParentChain(MessageBox parent) {
 		List<MessageBox> chain = new ArrayList<>();
 		while (parent != null) {
 			chain.add(parent);
@@ -47,15 +77,16 @@ public class MessageBoxService {
 	public void deleteAll(MessageBox messageBox) {
 		//check if messageBox is a system box
 		//data constraint
-		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "System boxes cannot be deleted");
+		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on delete: System boxes cannot be deleted");
 		//check owner is the one deleting
 		//access constraint
-		UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isTrue(messageBox.getOwner().equals(userAccount), "Owner inconsistency");
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on delete: Owner inconsistency");
 
 		//for each messageBox in the chain (messageBox + all of its children) delete all message and the messagebox
 		Collection<MessageBox> chain = this.findParentChain(messageBox);
 		for (MessageBox container : chain) {
+			Assert.isTrue(container.getOwner().equals(actor), "Error on delete: Owner inconsistency");
 			Collection<Message> messages = this.messageService.findByMessageBox(container);
 			for (Message message : messages) {
 				this.messageService.save(this.messageService.remove(message, container));
@@ -64,24 +95,27 @@ public class MessageBoxService {
 		}
 	}
 
-	public void delete(MessageBox messageBox) {
+	//can only be accessed from deleteall method
+	private void delete(MessageBox messageBox) {
 		this.messageBoxRepository.delete(messageBox.getId());
 	}
 
-	public Collection<MessageBox> findAllByActor(int actorId) {
-		return this.messageBoxRepository.findByActor(actorId);
+	public List<MessageBox> findAllByActor(Actor actor) {
+		return this.messageBoxRepository.findByActor(actor.getId());
+	}
+
+	public List<MessageBox> findAllLogged() {
+		Actor actor = this.actorService.findPrincipal();
+		List<MessageBox> res = this.messageBoxRepository.findByActor(actor.getId());
+		return res;
 	}
 
 	public MessageBox findByCategory(String category) {
-		return this.messageBoxRepository.findByCategory(this.actorService.findByUser(LoginService.getPrincipal()).getId(), category).iterator().next();
+		return this.messageBoxRepository.findByCategory(this.actorService.findPrincipal().getId(), category).iterator().next();
 	}
 
 	public MessageBox findByCategory(Actor actor, String category) {
-		return this.messageBoxRepository.findByCategory(actor.getId(), category).iterator().next();
-	}
-
-	public MessageBox save(MessageBox messageBox) {
-		return this.messageBoxRepository.save(messageBox);
+		return this.messageBoxRepository.findByCategory(actor.getId(), category).get(0);
 	}
 
 }

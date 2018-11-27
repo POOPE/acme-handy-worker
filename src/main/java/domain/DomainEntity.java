@@ -68,16 +68,17 @@ public abstract class DomainEntity {
 	public boolean equals(final Object other) {
 		boolean result;
 
-		if (this == other)
+		if (this == other) {
 			result = true;
-		else if (other == null)
+		} else if (other == null) {
 			result = false;
-		else if (other instanceof Integer)
+		} else if (other instanceof Integer) {
 			result = (this.getId() == (Integer) other);
-		else if (!this.getClass().isInstance(other))
+		} else if (!this.getClass().isInstance(other)) {
 			result = false;
-		else
+		} else {
 			result = (this.getId() == ((DomainEntity) other).getId());
+		}
 
 		return result;
 	}

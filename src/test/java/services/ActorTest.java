@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -27,11 +28,37 @@ public class ActorTest extends AbstractTest {
 
 
 	@Test
+	public void testCreate() {
+		Actor actor, saved;
+		List<Actor> actors;
+
+		actor = this.actorService.create();
+		actor.setEmail("testmail@acme.com");
+		actor.setName("test");
+		actor.setSurname("bot");
+		saved = this.actorService.save(actor);
+
+		actors = this.actorService.findAll();
+		Assert.isTrue(actors.contains(saved));
+	}
+
+	@Test
 	public void testFindAll() {
 		//testing domain service generic services
-		List<Actor> actors = (List<Actor>) this.actorService.findAll();
+		List<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(actors.size() > 0);
-		System.out.println(actors.size());
+	}
+
+	@Test
+	public void testFindAllSuspicious() {
+		Collection<Actor> actors = this.actorService.findAllSuspicious();
+		Assert.isTrue(actors.size() > 0);
+	}
+
+	@Test
+	public void testFindByEmail() {
+		Actor actor = this.actorService.findByEmail("customer1@gmail.com");
+		Assert.isTrue(actor.getEmail().equals("customer1@gmail.com"));
 	}
 
 }

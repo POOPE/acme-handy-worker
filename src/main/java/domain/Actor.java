@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -34,7 +35,9 @@ public class Actor extends DomainEntity {
 	public boolean		flagged;
 
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@Valid
+	@NotNull
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public UserAccount getUser() {
 		return this.user;
 	}

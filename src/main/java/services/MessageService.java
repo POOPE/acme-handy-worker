@@ -26,12 +26,15 @@ public class MessageService {
 	@Autowired
 	MessageBoxService			messageBoxService;
 
+	@Autowired
+	ActorService				actorService;
+
 
 	public List<Message> findByMessageBox(MessageBox messageBox) {
 		//check owner is the one requesting
 		//access constraint
-		UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isTrue(messageBox.getOwner().equals(userAccount), "Owner inconsistency");
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on findByMessageBox: Owner inconsistency");
 
 		return this.messageRepository.findByMessageBox(messageBox.getId());
 	}
@@ -39,8 +42,9 @@ public class MessageService {
 	public Message send(Message message) {
 		//check for author is the one sending the message
 		//access constraint
-		UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isTrue(message.getSender().equals(userAccount), "Owner inconsistency");
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(message.getSender().equals(actor), "Error on send: Owner inconsistency");
+		Assert.isTrue(message.getId() == 0, "Error on send: Message already exists");
 
 		//for each recipient, update the message containers to include their INBOX
 		for (Actor recipient : message.getRecipients()) {
@@ -57,8 +61,8 @@ public class MessageService {
 	public Message remove(Message message, MessageBox messageBox) {
 		//check user owns messageBox
 		//access constraint
-		UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isTrue(messageBox.getOwner().equals(userAccount), "Owner inconsistency");
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on remove: Owner inconsistency");
 
 		Collection<MessageBox> newRelation = message.getContainer();
 		newRelation.remove(messageBox);
@@ -67,7 +71,7 @@ public class MessageService {
 		return this.save(message);
 	}
 
-	public Message save(Message message) {
+	Message save(Message message) {
 		return this.messageRepository.save(message);
 	}
 
@@ -75,13 +79,14 @@ public class MessageService {
 		//check if user owns both messageBoxes
 		//access constraint
 		UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isTrue(from.getOwner().equals(userAccount), "Owner inconsistency");
-		Assert.isTrue(to.getOwner().equals(userAccount), "Owner inconsistency");
+		Assert.isTrue(from.getOwner().equals(userAccount), "Error on move: Owner inconsistency");
+		Assert.isTrue(to.getOwner().equals(userAccount), "Error on move: Owner inconsistency");
 
 		Collection<MessageBox> newRelation = message.getContainer();
 		newRelation.remove(from);
 		newRelation.add(to);
 		message.setContainer(newRelation);
+
 		return this.save(message);
 	}
 }

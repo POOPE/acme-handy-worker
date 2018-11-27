@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.ActorRepository;
-import security.UserAccount;
+import security.LoginService;
 import domain.Actor;
 
 @Service
@@ -17,16 +17,36 @@ import domain.Actor;
 public class ActorService {
 
 	@Autowired
-	private ActorRepository	actorRepository;
+	private ActorRepository		actorRepository;
 
+	@Autowired
+	private MessageBoxService	messageBoxService;
+
+
+	//CRUD ---------------------------------------------------------------
+
+	public Actor create() {
+		Actor actor = new Actor();
+
+		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
+		actor.setFlagged(false);
+
+		return actor;
+	}
+
+	public Actor save(Actor actor) {
+		return this.actorRepository.save(actor);
+	}
 
 	public List<Actor> findAll() {
 		return this.actorRepository.findAll();
 	}
 
-	public Actor findById(int id) {
-		return this.actorRepository.findOne(id);
+	public Actor find(Actor actor) {
+		return this.actorRepository.findOne(actor.getId());
 	}
+
+	//OTHER ----------------------------------------------------------------
 
 	public Collection<Actor> findAllSuspicious() {
 		return this.actorRepository.findAllSuspicious();
@@ -36,8 +56,8 @@ public class ActorService {
 		return this.actorRepository.findByEmail(email).iterator().next();
 	}
 
-	public Actor findByUser(UserAccount user) {
-		return this.actorRepository.findByUser(user.getId()).iterator().next();
+	public Actor findPrincipal() {
+		return this.actorRepository.findByUser(LoginService.getPrincipal().getId());
 	}
 
 }
