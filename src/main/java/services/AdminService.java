@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AdminRepository;
+import security.Authority;
 import domain.Admin;
 
 @Service
@@ -54,7 +55,7 @@ public class AdminService {
 	// Other business methods -------------------------------------------------
 
 	public Admin findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority() == "ADMIN", "The user logged is not an admin.");
+		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.ADMIN), "The user logged is not an admin.");
 		return (Admin) this.actorService.findPrincipal();
 	}
 
