@@ -114,7 +114,7 @@ public class MessageBoxService {
 	}
 
 	public MessageBox findByCategory(String category) {
-		return this.messageBoxRepository.findByCategory(this.actorService.findPrincipal().getId(), category).iterator().next();
+		return this.messageBoxRepository.findByCategory(this.actorService.findPrincipal().getId(), category).get(0);
 	}
 
 	public MessageBox findByCategory(Actor actor, String category) {

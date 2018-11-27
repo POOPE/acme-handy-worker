@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Message;
 import domain.MessageBox;
 
 @ContextConfiguration(locations = {
@@ -34,15 +37,69 @@ public class MessageTest extends AbstractTest {
 
 
 	@Test
-	public void testCreateDefault() {
-		List<MessageBox> sys, all;
+	public void testSend() {
+		Message m;
+		List<Message> all;
 
 		super.authenticate("admin1");
 		Actor actor = this.as.findPrincipal();
-		sys = this.mbs.createDefaultBoxes(actor);
-		all = this.mbs.findAllByActor(actor);
+		m = this.ms.create();
+		Actor recipient = this.as.findByEmail("admin2@gmail.com");
+		Collection<Actor> recipients = new HashSet<>();
+		recipients.add(recipient);
+		m.setRecipients(recipients);
 
-		Assert.isTrue(all.containsAll(sys));
+		Message sent = this.ms.send(m);
+
+		Assert.isTrue(sent.getContainer().contains(this.mbs.findByCategory(recipient, "INBOX")));
+		Assert.isTrue(sent.getContainer().contains(this.mbs.findByCategory(actor, "OUTBOX")));
 	}
 
+	@Test
+	public void testMove() {
+		Message m;
+		List<Message> all;
+
+		super.authenticate("admin1");
+
+		Actor actor = this.as.findPrincipal();
+		m = this.ms.create();
+		Actor recipient = this.as.findByEmail("admin2@gmail.com");
+		Collection<Actor> recipients = new HashSet<>();
+		recipients.add(recipient);
+		m.setRecipients(recipients);
+
+		Message sent = this.ms.send(m);
+
+		MessageBox from = this.mbs.findByCategory("OUTBOX");
+		MessageBox to = this.mbs.findByCategory("TRASHBOX");
+
+		this.ms.move(sent, from, to);
+
+		Assert.isTrue(sent.getContainer().contains(this.mbs.findByCategory("TRASHBOX")));
+	}
+
+	@Test
+	public void testDelete() {
+		Message m;
+		List<Message> all;
+
+		super.authenticate("admin1");
+
+		m = this.ms.create();
+		Actor recipient = this.as.findByEmail("admin2@gmail.com");
+		Collection<Actor> recipients = new HashSet<>();
+		recipients.add(recipient);
+		m.setRecipients(recipients);
+
+		Message sent = this.ms.send(m);
+
+		MessageBox box = this.mbs.findByCategory("OUTBOX");
+		MessageBox inb = this.mbs.findByCategory(recipient, "INBOX");
+
+		this.ms.remove(sent, box);
+
+		Assert.isTrue(!sent.getContainer().contains(box));
+		Assert.isTrue(sent.getContainer().contains(inb));
+	}
 }
