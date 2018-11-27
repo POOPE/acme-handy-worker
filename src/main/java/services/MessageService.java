@@ -31,11 +31,6 @@ public class MessageService {
 
 
 	public List<Message> findByMessageBox(MessageBox messageBox) {
-		//check owner is the one requesting
-		//access constraint
-		Actor actor = this.actorService.findPrincipal();
-		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on findByMessageBox: Owner inconsistency");
-
 		return this.messageRepository.findByMessageBox(messageBox.getId());
 	}
 

@@ -41,8 +41,9 @@ public class MessageBoxService {
 	}
 
 	public MessageBox save(MessageBox messageBox) {
-
-		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on update: Cannot modify system box");
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on save: Owner inconsistency");
+		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on save: Cannot modify system box");
 
 		return this.messageBoxRepository.save(messageBox);
 	}
@@ -65,33 +66,37 @@ public class MessageBoxService {
 	}
 
 	//gives a list of children given a messageBox
-	private Collection<MessageBox> findParentChain(MessageBox parent) {
+	private List<MessageBox> findParentChain(MessageBox parent) {
 		List<MessageBox> chain = new ArrayList<>();
-		while (parent != null) {
-			chain.add(parent);
-			parent = this.messageBoxRepository.findByParent(parent.getId()).iterator().next();
+		List<MessageBox> onHold = new ArrayList<>();
+		onHold.add(parent);
+		while (!onHold.isEmpty()) {
+			chain.addAll(onHold);
+			List<MessageBox> children = new ArrayList<>();
+			for (int i = onHold.size() - 1; i >= 0; i--) {
+				children.addAll(this.messageBoxRepository.findByParent(onHold.get(i).getId()));
+			}
+			onHold = new ArrayList<>();
+			onHold.addAll(children);
 		}
 		return chain;
 	}
 
 	public void deleteAll(MessageBox messageBox) {
-		//check if messageBox is a system box
-		//data constraint
-		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on delete: System boxes cannot be deleted");
-		//check owner is the one deleting
-		//access constraint
 		Actor actor = this.actorService.findPrincipal();
+
+		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on delete: System boxes cannot be deleted");
 		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on delete: Owner inconsistency");
 
 		//for each messageBox in the chain (messageBox + all of its children) delete all message and the messagebox
-		Collection<MessageBox> chain = this.findParentChain(messageBox);
-		for (MessageBox container : chain) {
-			Assert.isTrue(container.getOwner().equals(actor), "Error on delete: Owner inconsistency");
-			Collection<Message> messages = this.messageService.findByMessageBox(container);
+		List<MessageBox> chain = this.findParentChain(messageBox);
+		for (int i = chain.size() - 1; i >= 0; i--) {
+			Assert.isTrue(chain.get(i).getOwner().equals(actor), "Error on delete: Owner inconsistency");
+			Collection<Message> messages = this.messageService.findByMessageBox(chain.get(i));
 			for (Message message : messages) {
-				this.messageService.save(this.messageService.remove(message, container));
+				this.messageService.save(this.messageService.remove(message, chain.get(i)));
 			}
-			this.delete(container);
+			this.delete(chain.get(i));
 		}
 	}
 
@@ -104,7 +109,7 @@ public class MessageBoxService {
 		return this.messageBoxRepository.findByActor(actor.getId());
 	}
 
-	public List<MessageBox> findAllLogged() {
+	public List<MessageBox> findByPrincipal() {
 		Actor actor = this.actorService.findPrincipal();
 		List<MessageBox> res = this.messageBoxRepository.findByActor(actor.getId());
 		return res;
@@ -118,4 +123,21 @@ public class MessageBoxService {
 		return this.messageBoxRepository.findByCategory(actor.getId(), category).get(0);
 	}
 
+	public MessageBox move(MessageBox mb, MessageBox to) {
+		MessageBox res = null;
+		Actor actor = this.actorService.findPrincipal();
+
+		Assert.isTrue(mb.getOwner().equals(actor), "Error on move: Owner inconsistency");
+		Assert.isTrue(to.getOwner().equals(actor), "Error on move: Owner inconsistency");
+
+		if (to == null) {
+			mb.setParent(null);
+			this.messageBoxRepository.save(mb);
+		} else if (!this.findParentChain(mb).contains(to)) {
+			mb.setParent(to);
+			this.messageBoxRepository.save(mb);
+		}
+
+		return res;
+	}
 }
