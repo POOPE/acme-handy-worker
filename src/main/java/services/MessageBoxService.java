@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MessageBoxRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
@@ -22,9 +21,6 @@ public class MessageBoxService {
 
 	@Autowired
 	private MessageBoxRepository	messageBoxRepository;
-
-	@Autowired
-	private LoginService			loginService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -42,6 +38,7 @@ public class MessageBoxService {
 
 	public MessageBox save(MessageBox messageBox) {
 		Actor actor = this.actorService.findPrincipal();
+
 		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on save: Owner inconsistency");
 		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on save: Cannot modify system box");
 
@@ -102,6 +99,7 @@ public class MessageBoxService {
 
 	//can only be accessed from deleteall method
 	private void delete(MessageBox messageBox) {
+
 		this.messageBoxRepository.delete(messageBox.getId());
 	}
 
@@ -128,12 +126,12 @@ public class MessageBoxService {
 		Actor actor = this.actorService.findPrincipal();
 
 		Assert.isTrue(mb.getOwner().equals(actor), "Error on move: Owner inconsistency");
-		Assert.isTrue(to.getOwner().equals(actor), "Error on move: Owner inconsistency");
 
 		if (to == null) {
 			mb.setParent(null);
 			this.messageBoxRepository.save(mb);
 		} else if (!this.findParentChain(mb).contains(to)) {
+			Assert.isTrue(to.getOwner().equals(actor), "Error on move: Owner inconsistency");
 			mb.setParent(to);
 			this.messageBoxRepository.save(mb);
 		}

@@ -129,7 +129,7 @@ public class MessageBoxTest extends AbstractTest {
 		saved3 = this.mbs.save(box3);
 
 		this.mbs.move(saved3, saved2);
-
+		this.mbs.move(saved1, null);
 		all = this.mbs.findByPrincipal();
 
 		Assert.isTrue(all.contains(saved3));
