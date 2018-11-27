@@ -24,6 +24,9 @@ public class ActorService {
 	@Autowired
 	private MessageBoxService	messageBoxService;
 
+	@Autowired
+	private UserAccountService	userAccountService;
+
 
 	//CRUD ---------------------------------------------------------------
 
@@ -75,8 +78,8 @@ public class ActorService {
 	public Actor initializeActor(Actor actor) {
 		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		actor.setFlagged(false);
-
-		// initialize message boxes
+		actor.setUser(this.userAccountService.createUserAccount());
+		this.messageBoxService.createDefaultBoxes(actor);
 
 		return actor;
 	}

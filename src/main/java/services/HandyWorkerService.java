@@ -26,6 +26,9 @@ public class HandyWorkerService {
 	@Autowired
 	private ActorService			actorService;
 
+	@Autowired
+	private UserAccountService		userAccountService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -38,10 +41,15 @@ public class HandyWorkerService {
 	public HandyWorker createHandyWorker() {
 		HandyWorker handyWorker = new HandyWorker();
 		handyWorker = (HandyWorker) this.actorService.initializeActor(handyWorker);
+		handyWorker = this.initializeHandyWorker(handyWorker);
 		return handyWorker;
 	}
 
 	public HandyWorker save(HandyWorker handyWorker) {
+		// if it's saved for the first time (created), assign a proper make given his name
+		if (handyWorker.getId() <= 0) {
+			handyWorker.setMake(handyWorker.getName() + " " + handyWorker.getMiddleName() + " " + handyWorker.getSurname());
+		}
 		return this.handyWorkerRepository.save(handyWorker);
 	}
 
@@ -55,6 +63,11 @@ public class HandyWorkerService {
 	public HandyWorker findPrincipal() {
 		Assert.isTrue(this.actorService.getPrincipalAuthority() == "HANDYWORKER", "The user logged is not a handy-worker.");
 		return (HandyWorker) this.actorService.findPrincipal();
+	}
+
+	public HandyWorker initializeHandyWorker(HandyWorker handyWorker) {
+		handyWorker.setUser(this.userAccountService.addAuthority(handyWorker.getUser(), "HANDYWORKER"));
+		return handyWorker;
 	}
 
 	public Collection<HandyWorker> getHandyWorkerById(int handyWorkerId) {

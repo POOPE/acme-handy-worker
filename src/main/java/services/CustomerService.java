@@ -24,6 +24,9 @@ public class CustomerService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private UserAccountService	userAccountService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -36,6 +39,7 @@ public class CustomerService {
 	public Customer createCustomer() {
 		Customer customer = new Customer();
 		customer = (Customer) this.actorService.initializeActor(customer);
+		customer = this.initializeCustomer(customer);
 		return customer;
 	}
 
@@ -52,5 +56,10 @@ public class CustomerService {
 	public Customer findPrincipal() {
 		Assert.isTrue(this.actorService.getPrincipalAuthority() == "CUSTOMER", "The user logged is not a customer.");
 		return (Customer) this.actorService.findPrincipal();
+	}
+
+	public Customer initializeCustomer(Customer customer) {
+		customer.setUser(this.userAccountService.addAuthority(customer.getUser(), "CUSTOMER"));
+		return customer;
 	}
 }

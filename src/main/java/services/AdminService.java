@@ -17,12 +17,15 @@ public class AdminService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private AdminRepository	adminRepository;
+	private AdminRepository		adminRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private UserAccountService	userAccountService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -36,6 +39,7 @@ public class AdminService {
 	public Admin createAdmin() {
 		Admin admin = new Admin();
 		admin = (Admin) this.actorService.initializeActor(admin);
+		admin = this.initializeAdmin(admin);
 		return admin;
 	}
 
@@ -52,5 +56,10 @@ public class AdminService {
 	public Admin findPrincipal() {
 		Assert.isTrue(this.actorService.getPrincipalAuthority() == "ADMIN", "The user logged is not an admin.");
 		return (Admin) this.actorService.findPrincipal();
+	}
+
+	public Admin initializeAdmin(Admin admin) {
+		admin.setUser(this.userAccountService.addAuthority(admin.getUser(), "ADMIN"));
+		return admin;
 	}
 }
