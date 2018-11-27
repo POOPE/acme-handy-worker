@@ -33,7 +33,6 @@ public class ActorService {
 
 	public Actor create() {
 		Actor actor = new Actor();
-		actor = this.initializeActor(actor);
 
 		return actor;
 	}
@@ -81,13 +80,14 @@ public class ActorService {
 		return res;
 	}
 
-	public Actor initializeActor(Actor actor) {
+	public Actor initialize(Actor actor) {
 		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		actor.setFlagged(false);
 		actor.setUser(this.userAccountService.createUserAccount());
-		this.messageBoxService.createDefaultBoxes(actor);
+		Actor saved = this.actorRepository.save(actor);
+		this.messageBoxService.createDefaultBoxes(saved);
 
-		return actor;
+		return saved;
 	}
 
 }

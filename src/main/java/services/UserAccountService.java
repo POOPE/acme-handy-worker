@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -34,7 +35,11 @@ public class UserAccountService {
 
 	public UserAccount createUserAccount() {
 		UserAccount user = new UserAccount();
-		user.setAuthorities(new HashSet<Authority>());
+		Collection<Authority> auths = new HashSet<>();
+		Authority auth = new Authority();
+		auth.setAuthority("CUSTOMER");
+		auths.add(auth);
+		user.setAuthorities(auths);
 		return user;
 	}
 	// Other business methods -------------------------------------------------

@@ -46,12 +46,13 @@ public class MessageBoxService {
 	}
 
 	public List<MessageBox> createDefaultBoxes(Actor actor) {
-		List<MessageBox> res = new ArrayList<>();
-		res.add(this.systemCreate("Inbox", actor));
-		res.add(this.systemCreate("Outbox", actor));
-		res.add(this.systemCreate("Spambox", actor));
-		res.add(this.systemCreate("Trashbox", actor));
-		return res;
+		List<MessageBox> boxes = new ArrayList<>();
+		boxes.add(this.systemCreate("Inbox", actor));
+		boxes.add(this.systemCreate("Outbox", actor));
+		boxes.add(this.systemCreate("Spambox", actor));
+		boxes.add(this.systemCreate("Trashbox", actor));
+
+		return this.messageBoxRepository.save(boxes);
 	}
 
 	private MessageBox systemCreate(String name, Actor owner) {
@@ -59,7 +60,7 @@ public class MessageBoxService {
 		res.setCategory(name.toUpperCase());
 		res.setName(name);
 		res.setOwner(owner);
-		return this.messageBoxRepository.save(res);
+		return res;
 	}
 
 	//gives a list of children given a messageBox

@@ -39,7 +39,7 @@ public class CustomerService {
 
 	public Customer createCustomer() {
 		Customer customer = new Customer();
-		customer = (Customer) this.actorService.initializeActor(customer);
+		customer = (Customer) this.actorService.initialize(customer);
 		customer = this.initializeCustomer(customer);
 		return customer;
 	}

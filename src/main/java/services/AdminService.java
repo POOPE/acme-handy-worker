@@ -39,7 +39,7 @@ public class AdminService {
 
 	public Admin createAdmin() {
 		Admin admin = new Admin();
-		admin = (Admin) this.actorService.initializeActor(admin);
+		admin = (Admin) this.actorService.initialize(admin);
 		admin = this.initializeAdmin(admin);
 		return admin;
 	}

@@ -41,7 +41,7 @@ public class HandyWorkerService {
 
 	public HandyWorker createHandyWorker() {
 		HandyWorker handyWorker = new HandyWorker();
-		handyWorker = (HandyWorker) this.actorService.initializeActor(handyWorker);
+		handyWorker = (HandyWorker) this.actorService.initialize(handyWorker);
 		handyWorker = this.initializeHandyWorker(handyWorker);
 		return handyWorker;
 	}

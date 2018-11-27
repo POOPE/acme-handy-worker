@@ -36,7 +36,7 @@ public class ActorTest extends AbstractTest {
 		actor.setEmail("testmail@acme.com");
 		actor.setName("test");
 		actor.setSurname("bot");
-		saved = this.actorService.save(actor);
+		saved = this.actorService.initialize(actor);
 
 		actors = this.actorService.findAll();
 		Assert.isTrue(actors.contains(saved));
