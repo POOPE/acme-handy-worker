@@ -27,11 +27,27 @@ public class HandyWorkerTest extends AbstractTest {
 
 
 	@Test
-	public void testFindAll() {
+	public void testFindOne() {
 		//testing domain service generic services
 		Collection<HandyWorker> handyWorkers = this.handyWorkerService.getHandyWorkerById(1068);
 		Assert.isTrue(handyWorkers.size() > 0);
 		System.out.println(handyWorkers.size());
+	}
+
+	@Test
+	public void testFindAll() {
+		//testing domain service generic services
+		Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
+		Assert.isTrue(handyWorkers.size() > 0);
+		System.out.println(handyWorkers.size());
+	}
+
+	@Test
+	public void testCreate() {
+		//testing domain service generic services
+		HandyWorker handyWorker = this.handyWorkerService.createHandyWorker();
+		//Assert.isTrue(handyWorker != null);
+		System.out.println(handyWorker.getId());
 	}
 
 }
