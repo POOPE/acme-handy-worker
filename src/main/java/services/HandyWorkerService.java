@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
+import security.Authority;
 import domain.HandyWorker;
 
 @Service
@@ -61,7 +62,7 @@ public class HandyWorkerService {
 	// Other business methods -------------------------------------------------
 
 	public HandyWorker findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority() == "HANDYWORKER", "The user logged is not a handy-worker.");
+		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.HANDYWORKER), "The user logged is not a handy-worker.");
 		return (HandyWorker) this.actorService.findPrincipal();
 	}
 

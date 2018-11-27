@@ -134,7 +134,7 @@ public class FixupTask extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Warranty getWarranty() {
 		return this.warranty;
 	}

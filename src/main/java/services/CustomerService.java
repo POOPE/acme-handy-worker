@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CustomerRepository;
+import security.Authority;
 import domain.Customer;
 
 @Service
@@ -54,7 +55,7 @@ public class CustomerService {
 	// Other business methods -------------------------------------------------
 
 	public Customer findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority() == "CUSTOMER", "The user logged is not a customer.");
+		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.CUSTOMER), "The user logged is not a customer.");
 		return (Customer) this.actorService.findPrincipal();
 	}
 

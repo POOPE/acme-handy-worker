@@ -71,8 +71,9 @@ public class ActorService {
 		return this.actorRepository.findByUser(LoginService.getPrincipal().getId());
 	}
 
-	public String getPrincipalAuthority() {
-		return ((Authority) this.findPrincipal().getUser().getAuthorities().toArray()[0]).getAuthority();
+	public Collection<Authority> getPrincipalAuthority() {
+		Collection<Authority> res = this.findPrincipal().getUser().getAuthorities();
+		return res;
 	}
 
 	public Actor initializeActor(Actor actor) {
