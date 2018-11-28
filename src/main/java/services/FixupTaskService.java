@@ -17,7 +17,6 @@ import repositories.FixupTaskRepository;
 import domain.Category;
 import domain.Customer;
 import domain.FixupTask;
-import domain.Warranty;
 import domain.WorkPlanPhase;
 
 @Service
@@ -36,7 +35,7 @@ public class FixupTaskService {
 		FixupTask res = new FixupTask();
 		res.setLocked(false);
 		res.setPhases(new ArrayList<WorkPlanPhase>());
-		res.setWarranty(new ArrayList<Warranty>());
+
 		res.setAuthor(customer);
 		return res;
 	}
@@ -44,7 +43,7 @@ public class FixupTaskService {
 	public FixupTask initialize(FixupTask fixupTask) {
 		fixupTask.setPublishDate(new Date());
 		fixupTask.setTicker(this.createTicker());
-		fixupTask.setPhases(new ArrayList<WorkPlanPhase>());
+
 		return this.save(fixupTask);
 	}
 

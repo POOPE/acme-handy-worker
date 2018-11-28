@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -57,6 +58,10 @@ public class HandyWorkerService {
 	public HandyWorker findOne(int handyWorkerId) {
 		Assert.isTrue(handyWorkerId > 0);
 		return this.handyWorkerRepository.findOne(handyWorkerId);
+	}
+
+	public List<HandyWorker> findAll() {
+		return this.handyWorkerRepository.findAll();
 	}
 
 	// Other business methods -------------------------------------------------

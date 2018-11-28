@@ -3,18 +3,20 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-@Embeddable
+@Entity
 @Access(AccessType.PROPERTY)
-public class CreditCard {
+public class CreditCard extends DomainEntity {
 
 	//relation
+	public Actor			owner;
 	public CreditCardMake	creditCardMake;
 	//attributes
 	public String			holder;
@@ -24,7 +26,16 @@ public class CreditCard {
 	public int				CCV;
 
 
-	@ManyToOne(optional = false)
+	@OneToOne
+	public Actor getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(Actor owner) {
+		this.owner = owner;
+	}
+
+	@ManyToOne(optional = true)
 	public CreditCardMake getCreditCardMake() {
 		return this.creditCardMake;
 	}

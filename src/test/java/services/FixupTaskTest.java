@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.CreditCard;
 import domain.FixupTask;
 
 @ContextConfiguration(locations = {
@@ -29,6 +28,9 @@ public class FixupTaskTest extends AbstractTest {
 
 	@Autowired
 	private CategoryService		cats;
+
+	@Autowired
+	private WarrantyService		ws;
 
 
 	@Test
@@ -54,10 +56,11 @@ public class FixupTaskTest extends AbstractTest {
 		f.setMaximumPrice(40f);
 		f.setStartDate(new Date());
 		f.setEndDate(new Date());
-		f.setCreditCard(new CreditCard());
+		f.setWarranty(this.ws.findById(1161));
+
 		FixupTask saved = this.fts.initialize(f);
 
-		FixupTask find = this.fts.findById(saved.getId());
-		Assert.isTrue(find.equals(saved));
+		List<FixupTask> all = this.fts.findAll();
+		Assert.isTrue(all.contains(saved));
 	}
 }

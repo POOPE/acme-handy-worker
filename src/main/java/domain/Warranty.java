@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -30,6 +32,8 @@ public class Warranty extends DomainEntity {
 		this.title = title;
 	}
 
+	@Column
+	@ElementCollection(targetClass = String.class)
 	public List<String> getTerms() {
 		return this.terms;
 	}

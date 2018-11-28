@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,7 +25,7 @@ public class FixupTask extends DomainEntity {
 
 	//relations
 	public Customer				author;
-	public List<Warranty>		warranty;
+	public Warranty				warranty;
 	public List<WorkPlanPhase>	phases;
 	public Category				category;
 	//attributes
@@ -125,6 +126,7 @@ public class FixupTask extends DomainEntity {
 		this.locked = locked;
 	}
 
+	@ManyToOne(optional = true)
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
@@ -133,12 +135,12 @@ public class FixupTask extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 
-	@ManyToOne(optional = true)
-	public List<Warranty> getWarranty() {
+	@ManyToOne(cascade = CascadeType.ALL)
+	public Warranty getWarranty() {
 		return this.warranty;
 	}
 
-	public void setWarranty(List<Warranty> warranty) {
+	public void setWarranty(Warranty warranty) {
 		this.warranty = warranty;
 	}
 
