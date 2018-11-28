@@ -12,10 +12,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.FixupTaskRepository;
 import domain.Category;
 import domain.Customer;
+import domain.FixupApplication;
 import domain.FixupTask;
 import domain.WorkPlanPhase;
 
@@ -24,10 +26,13 @@ import domain.WorkPlanPhase;
 public class FixupTaskService {
 
 	@Autowired
-	FixupTaskRepository	ftr;
+	FixupTaskRepository		ftr;
 
 	@Autowired
-	CustomerService		cs;
+	CustomerService			cs;
+
+	@Autowired
+	FixupApplicationService	fixupApplicationService;
 
 
 	public FixupTask create() {
@@ -88,4 +93,21 @@ public class FixupTaskService {
 		List<FixupTask> res = new ArrayList<>();
 		return res;
 	}
+
+	public List<FixupTask> findByPrincipal() {
+		return this.ftr.findByCustomer(this.cs.findPrincipal().getId());
+	}
+
+	public void delete(FixupTask fixupTask) {
+		Customer customer = this.cs.findPrincipal();
+		Assert.isTrue(fixupTask.author.equals(customer));
+
+		//delete all associated applications
+		List<FixupApplication> applications = this.fixupApplicationService.findByTask(fixupTask);
+		for (FixupApplication application : applications) {
+			this.fixupApplicationService.delete(application);
+		}
+		this.ftr.delete(fixupTask);
+	}
+
 }

@@ -20,4 +20,7 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
 	@Query("select a from FixupTask a where a.locked = FALSE")
 	public List<FixupTask> findApplicable();
+
+	@Query("select f from FixupTask f where f.author.id = ?1")
+	public List<FixupTask> findByCustomer(int customerId);
 }
