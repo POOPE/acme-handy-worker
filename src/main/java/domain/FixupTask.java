@@ -24,7 +24,7 @@ public class FixupTask extends DomainEntity {
 
 	//relations
 	public Customer				author;
-	public Warranty				warranty;
+	public List<Warranty>		warranty;
 	public List<WorkPlanPhase>	phases;
 	public Category				category;
 	//attributes
@@ -134,11 +134,11 @@ public class FixupTask extends DomainEntity {
 	}
 
 	@ManyToOne(optional = true)
-	public Warranty getWarranty() {
+	public List<Warranty> getWarranty() {
 		return this.warranty;
 	}
 
-	public void setWarranty(final Warranty warranty) {
+	public void setWarranty(List<Warranty> warranty) {
 		this.warranty = warranty;
 	}
 

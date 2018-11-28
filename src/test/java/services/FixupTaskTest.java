@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.CreditCard;
 import domain.FixupTask;
 
 @ContextConfiguration(locations = {
@@ -50,9 +52,12 @@ public class FixupTaskTest extends AbstractTest {
 		f.setDescription("test");
 		f.setAddress("test address");
 		f.setMaximumPrice(40f);
+		f.setStartDate(new Date());
+		f.setEndDate(new Date());
+		f.setCreditCard(new CreditCard());
 		FixupTask saved = this.fts.initialize(f);
 
-		List<FixupTask> all = this.fts.findApplicable();
-		Assert.isTrue(all.contains(saved));
+		FixupTask find = this.fts.findById(saved.getId());
+		Assert.isTrue(find.equals(saved));
 	}
 }

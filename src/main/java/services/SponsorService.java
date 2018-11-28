@@ -1,0 +1,66 @@
+
+package services;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import repositories.SponsorRepository;
+import security.Authority;
+import domain.Sponsor;
+
+@Service
+@Transactional
+public class SponsorService {
+
+	// Managed repository -----------------------------------------------------
+
+	@Autowired
+	private SponsorRepository	sponsorRepository;
+
+	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ActorService		actorService;
+
+	@Autowired
+	private UserAccountService	userAccountService;
+
+
+	// Constructors -----------------------------------------------------------
+
+	public SponsorService() {
+		super();
+	}
+
+	// Simple CRUD methods ----------------------------------------------------
+
+	public Sponsor createSponsor() {
+		Sponsor sponsor = new Sponsor();
+		sponsor = (Sponsor) this.actorService.initialize(sponsor);
+		sponsor = this.initializeSponsor(sponsor);
+		return sponsor;
+	}
+
+	public Sponsor save(Sponsor sponsor) {
+		return this.sponsorRepository.save(sponsor);
+	}
+
+	public Sponsor findOne(int sponsorId) {
+		Assert.isTrue(sponsorId > 0);
+		return this.sponsorRepository.findOne(sponsorId);
+	}
+	// Other business methods -------------------------------------------------
+
+	public Sponsor findPrincipal() {
+		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.SPONSOR), "The user logged is not a sponsor.");
+		return (Sponsor) this.actorService.findPrincipal();
+	}
+
+	public Sponsor initializeSponsor(Sponsor sponsor) {
+		sponsor.setUser(this.userAccountService.addAuthority(sponsor.getUser(), "SPONSOR"));
+		return sponsor;
+	}
+}
