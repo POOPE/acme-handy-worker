@@ -1,4 +1,3 @@
-
 package domain;
 
 import javax.persistence.Access;
@@ -56,6 +55,7 @@ public class CreditCard extends DomainEntity {
 	public void setHolder(final String holder) {
 		this.holder = holder;
 	}
+
 	@Range(min = 1, max = 12)
 	public int getExpirationMonth() {
 		return this.expirationMonth;
@@ -82,6 +82,7 @@ public class CreditCard extends DomainEntity {
 	public void setNumber(final String number) {
 		this.number = number;
 	}
+
 	@Range(min = 100, max = 999)
 	public int getCCV() {
 		return this.CCV;

@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -12,19 +11,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.HandyWorker;
 import utilities.AbstractTest;
+import domain.HandyWorker;
 
-@ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml",
+		"classpath:spring/config/packages.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class HandyWorkerTest extends AbstractTest {
 
 	@Autowired
 	private HandyWorkerService handyWorkerService;
-
 
 	@Test
 	public void testFindOne() {
