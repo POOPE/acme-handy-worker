@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -18,6 +20,8 @@ import domain.Tutorial;
 public class TutorialTest {
 	@Autowired
 	private TutorialService tutorialService;
+	@Autowired
+	private HandyWorkerService handyWorkerService;
 
 	@Test
 	public void testFindByTitle() {
@@ -28,8 +32,28 @@ public class TutorialTest {
 
 	@Test
 	public void TestFindById() {
-		Tutorial tutorial = this.tutorialService.findById(1131);
-		Assert.isTrue(tutorial.getId() == 1131);
+		Tutorial tutorial = this.tutorialService.findById(1150);
+		Assert.isTrue(tutorial.getId() == 1150);
 	}
 
+	@Test
+	public void TestCreate() {
+		Tutorial tutorial, aux;
+		List<Tutorial> tutorials;
+
+		tutorial = this.tutorialService.create();
+		tutorial.setAuthor(this.handyWorkerService.findAll().get(0));
+		tutorial.setTitle("tutorial para reparar bicis");
+		tutorial.setDescription("tutorial para identificar y resolver problemas con bicis");
+		aux = this.tutorialService.save(tutorial);
+		tutorials = this.tutorialService.findAll();
+		Assert.isTrue(tutorials.contains(aux));
+	}
+
+	@Test
+	public void testFindAll() {
+		// testing domain service generic services
+		List<Tutorial> tutorials = this.tutorialService.findAll();
+		Assert.isTrue(tutorials.size() > 0);
+	}
 }

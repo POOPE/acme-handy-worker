@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.TutorialRepository;
+import domain.Section;
 import domain.Tutorial;
 
 @Service
@@ -27,6 +29,8 @@ public class TutorialService {
 	// CRUD
 	public Tutorial create() {
 		Tutorial tutorial = new Tutorial();
+		tutorial.setPhotos(new ArrayList<String>());
+		tutorial.setSections(new ArrayList<Section>());
 		return tutorial;
 	}
 
