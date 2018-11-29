@@ -36,7 +36,9 @@ public class EndorsementService {
 		super();
 	}
 
-	// Simple CRUD methods ----------------------------------------------------
+	public List<Endorsement> findAll() {
+		return this.endorsementRepository.findAll();
+	}
 
 	public Endorsement create() {
 		Endorsement endorsement = new Endorsement();

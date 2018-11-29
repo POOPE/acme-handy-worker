@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -72,6 +73,15 @@ public class ActorService {
 
 	public Collection<String> getPrincipalAuthority() {
 		Collection<Authority> auth = this.findPrincipal().getUser().getAuthorities();
+		Collection<String> res = new HashSet<>();
+		for (Authority a : auth) {
+			res.add(a.getAuthority());
+		}
+		return res;
+	}
+
+	public Collection<String> getAuthority(Actor actor) {
+		Collection<Authority> auth = actor.getUser().getAuthorities();
 		Collection<String> res = new HashSet<>();
 		for (Authority a : auth) {
 			res.add(a.getAuthority());

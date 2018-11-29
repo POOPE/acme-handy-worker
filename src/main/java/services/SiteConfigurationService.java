@@ -1,3 +1,4 @@
+
 package services;
 
 import javax.transaction.Transactional;
@@ -13,9 +14,10 @@ import domain.SiteConfiguration;
 public class SiteConfigurationService {
 
 	@Autowired
-	private SiteConfigurationRepository siteConfigurationService;
+	private SiteConfigurationRepository	siteConfigurationRepository;
+
 
 	public SiteConfiguration find() {
-		return this.siteConfigurationService.find();
+		return this.siteConfigurationRepository.find();
 	}
 }
