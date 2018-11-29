@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AdminRepository;
-import security.Authority;
 import domain.Actor;
 import domain.Admin;
 import domain.Customer;
@@ -65,7 +64,14 @@ public class AdminService {
 	}
 
 	public Admin save(Admin admin) {
-		return this.adminRepository.save(admin);
+		if (admin.getId() == 0) {
+			Admin res = this.adminRepository.save(admin);
+			res = (Admin) this.actorService.postInitialize(res);
+			return res;
+
+		} else {
+			return this.adminRepository.save(admin);
+		}
 	}
 
 	public Admin findOne(int adminId) {
@@ -117,7 +123,7 @@ public class AdminService {
 	}
 
 	public Admin findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.ADMIN), "The user logged is not an admin.");
+		this.actorService.assertPrincipalAuthority("ADMIN");
 		return (Admin) this.actorService.findPrincipal();
 	}
 

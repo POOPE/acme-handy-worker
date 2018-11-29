@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
-import security.Authority;
 import domain.HandyWorker;
 
 @Service
@@ -49,10 +48,14 @@ public class HandyWorkerService {
 
 	public HandyWorker save(HandyWorker handyWorker) {
 		// if it's saved for the first time (created), assign a proper make given his name
-		if (handyWorker.getId() <= 0) {
+		if (handyWorker.getId() == 0) {
 			handyWorker.setMake(handyWorker.getName() + " " + handyWorker.getMiddleName() + " " + handyWorker.getSurname());
+			HandyWorker res = this.handyWorkerRepository.save(handyWorker);
+			res = (HandyWorker) this.actorService.postInitialize(res);
+			return res;
+		} else {
+			return this.handyWorkerRepository.save(handyWorker);
 		}
-		return this.handyWorkerRepository.save(handyWorker);
 	}
 
 	public HandyWorker findOne(int handyWorkerId) {
@@ -67,10 +70,9 @@ public class HandyWorkerService {
 	// Other business methods -------------------------------------------------
 
 	public HandyWorker findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.HANDYWORKER), "The user logged is not a handy-worker.");
+		this.actorService.assertPrincipalAuthority("HANDYWORKER");
 		return (HandyWorker) this.actorService.findPrincipal();
 	}
-
 	public HandyWorker initializeHandyWorker(HandyWorker handyWorker) {
 		handyWorker.setUser(this.userAccountService.addAuthority(handyWorker.getUser(), "HANDYWORKER"));
 		return handyWorker;

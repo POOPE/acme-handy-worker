@@ -33,12 +33,19 @@ public class ActorService {
 
 	public Actor create() {
 		Actor actor = new Actor();
-
+		actor = this.initialize(actor);
 		return actor;
 	}
 
 	public Actor save(Actor actor) {
-		return this.actorRepository.save(actor);
+		if (actor.getId() == 0) {
+			Actor res = this.actorRepository.save(actor);
+			res = this.postInitialize(res);
+			return res;
+
+		} else {
+			return this.actorRepository.save(actor);
+		}
 	}
 
 	public List<Actor> findAll() {
@@ -89,6 +96,11 @@ public class ActorService {
 		return res;
 	}
 
+	public void assertPrincipalAuthority(String auth) {
+		Assert.isTrue(this.getPrincipalAuthority().contains(auth), "The user logged does not have authority to do this action.");
+
+	}
+
 	public Actor initialize(Actor actor) {
 		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		actor.setFlagged(false);
@@ -97,6 +109,12 @@ public class ActorService {
 		this.messageBoxService.createDefaultBoxes(saved);
 
 		return saved;
+	}
+
+	public Actor postInitialize(Actor actor) {
+		this.messageBoxService.createDefaultBoxes(actor);
+
+		return actor;
 	}
 
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CustomerRepository;
-import security.Authority;
 import domain.Customer;
 
 @Service
@@ -45,7 +44,13 @@ public class CustomerService {
 	}
 
 	public Customer save(Customer customer) {
-		return this.customerRepository.save(customer);
+		if (customer.getId() == 0) {
+			Customer res = this.customerRepository.save(customer);
+			res = (Customer) this.actorService.postInitialize(res);
+			return res;
+		} else {
+			return this.customerRepository.save(customer);
+		}
 	}
 
 	public Customer findOne(int customerId) {
@@ -55,7 +60,7 @@ public class CustomerService {
 	// Other business methods -------------------------------------------------
 
 	public Customer findPrincipal() {
-		Assert.isTrue(this.actorService.getPrincipalAuthority().contains(Authority.CUSTOMER), "The user logged is not a customer.");
+		this.actorService.assertPrincipalAuthority("CUSTOMER");
 		return (Customer) this.actorService.findPrincipal();
 	}
 
