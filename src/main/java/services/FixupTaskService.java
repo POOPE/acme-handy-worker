@@ -110,4 +110,8 @@ public class FixupTaskService {
 		this.ftr.delete(fixupTask);
 	}
 
+	public List<FixupTask> findByAuthor(Customer customer) {
+		return this.ftr.findByCustomer(customer.getId());
+	}
+
 }

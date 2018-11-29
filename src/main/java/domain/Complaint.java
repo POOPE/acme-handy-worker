@@ -1,8 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -19,12 +20,12 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Complaint extends DomainEntity {
 
 	//relations
-	public FixupTask			reference;
+	public FixupTask	reference;
 	//attributes
-	public String				ticker;
-	public Date					publishDate;
-	public String				description;
-	public Collection<String>	attachments;
+	public String		ticker;
+	public Date			publishDate;
+	public String		description;
+	public List<String>	attachments;
 
 
 	@ManyToOne(optional = false)
@@ -65,11 +66,11 @@ public class Complaint extends DomainEntity {
 	}
 
 	@ElementCollection
-	public Collection<String> getAttachments() {
+	public List<String> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(ArrayList<String> attachments) {
 		this.attachments = attachments;
 	}
 
