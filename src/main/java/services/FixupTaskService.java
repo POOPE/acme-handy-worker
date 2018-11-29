@@ -94,6 +94,10 @@ public class FixupTaskService {
 		return res;
 	}
 
+	public List<FixupTask> findByCustomer(int id) {
+		return this.ftr.findByCustomer(id);
+	}
+
 	public List<FixupTask> findByPrincipal() {
 		return this.ftr.findByCustomer(this.cs.findPrincipal().getId());
 	}

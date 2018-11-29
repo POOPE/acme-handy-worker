@@ -13,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import utilities.AbstractTest;
 import domain.Actor;
+import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -24,7 +24,7 @@ import domain.Actor;
 public class ActorTest extends AbstractTest {
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService actorService;
 
 
 	@Test
@@ -51,8 +51,23 @@ public class ActorTest extends AbstractTest {
 
 	@Test
 	public void testFindAllSuspicious() {
-		Collection<Actor> actors = this.actorService.findAllSuspicious();
-		Assert.isTrue(actors.size() > 0);
+
+		Actor actor, saved;
+		List<Actor> actors;
+
+		actor = this.actorService.create();
+		actor.setEmail("testmail2@acme.com");
+		actor.setName("test2");
+		actor.setSurname("bot2");
+		saved = this.actorService.initialize(actor);
+		actor.flagged = true;
+		saved = this.actorService.save(actor);
+
+		actors = this.actorService.findAll();
+		Assert.isTrue(actors.contains(saved));
+
+		Collection<Actor> actors2 = this.actorService.findAllSuspicious();
+		Assert.isTrue(actors2.size() > 0);
 	}
 
 	@Test
