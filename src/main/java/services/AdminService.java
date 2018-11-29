@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,6 +47,9 @@ public class AdminService {
 
 	@Autowired
 	private SiteConfigurationService	siteConfigService;
+
+	@Autowired
+	private FixupTaskService			fixupTaskService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -130,5 +134,104 @@ public class AdminService {
 	public Admin initializeAdmin(Admin admin) {
 		admin.setUser(this.userAccountService.addAuthority(admin.getUser(), "ADMIN"));
 		return admin;
+	}
+
+	// dashboard services
+
+	public List<Double> fixupTasksPerCustomerStats() {
+		List<Double> res = new ArrayList<Double>();
+		List<Long> perUser = this.adminRepository.fixupTasksPerCustomer();
+		Integer sum = 0;
+		Integer min = null;
+		Integer max = null;
+		for (Integer i = 0; i < perUser.size(); i++) {
+			sum += perUser.get(i).intValue();
+			if (min == null || perUser.get(i).intValue() < min) {
+				min = perUser.get(i).intValue();
+			}
+			if (max == null || perUser.get(i).intValue() > max) {
+				max = perUser.get(i).intValue();
+			}
+		}
+		Double average = (sum.doubleValue() / Integer.valueOf(perUser.size()).doubleValue());
+
+		Double deviation = 0.0;
+		for (Integer i = 0; i < perUser.size(); i++) {
+			deviation += deviation + Math.pow(perUser.get(i).doubleValue() - average, 2);
+		}
+
+		res.add(average);
+		res.add(min.doubleValue());
+		res.add(max.doubleValue());
+		res.add(deviation);
+		return res;
+	}
+
+	public List<Double> applicationsPerFixupTaskStats() {
+		List<Double> res = new ArrayList<Double>();
+		List<Long> perTask = this.adminRepository.applicationsPerFixupTask();
+		Integer sum = 0;
+		Integer min = null;
+		Integer max = null;
+		for (Integer i = 0; i < perTask.size(); i++) {
+			sum += perTask.get(i).intValue();
+			if (min == null || perTask.get(i) < min) {
+				min = perTask.get(i).intValue();
+			}
+			if (max == null || perTask.get(i) > max) {
+				max = perTask.get(i).intValue();
+			}
+		}
+		Double average = (sum.doubleValue() / Integer.valueOf(perTask.size()).doubleValue());
+
+		Double deviation = 0.0;
+		for (Integer i = 0; i < perTask.size(); i++) {
+			deviation += deviation + Math.pow(perTask.get(i).doubleValue() - average, 2);
+		}
+
+		res.add(average);
+		res.add(min.doubleValue());
+		res.add(max.doubleValue());
+		res.add(deviation);
+		return res;
+	}
+
+	public List<Double> maximumPricePerFixupTaskStats() {
+		List<Double> res = new ArrayList<Double>();
+		res.add(this.adminRepository.avgMaximumPricePerFixupTaskStats());
+		res.add(this.adminRepository.minMaximumPricePerFixupTaskStats());
+		res.add(this.adminRepository.maxMaximumPricePerFixupTaskStats());
+		res.add(this.adminRepository.devMaximumPricePerFixupTaskStats());
+		return res;
+	}
+	public Double pendingApplicationsRatioStats() {
+		return this.adminRepository.pendingApplicationsRatio();
+	}
+
+	public Double acceptedApplicationsRatioStats() {
+		return this.adminRepository.acceptedApplicationsRatio();
+	}
+
+	public Double rejectedApplicationsRatioStats() {
+		return this.adminRepository.rejectedApplicationsRatio();
+	}
+
+	public Double pendingLapsedApplicationRatioStats() {
+		return this.adminRepository.pendingLapsedApplicationsRatio();
+	}
+
+	public List<Customer> customersWithMostApplicationsStats() {
+		List<Integer> customersTuple = this.adminRepository.getCustomerMostFixupTasks();
+		Double customerAverageIncreased = (this.fixupTasksPerCustomerStats().get(0) * 1.1);
+		List<Customer> res = new ArrayList<Customer>();
+		for (Integer i = 0; i < customersTuple.size(); i++) {
+			Integer numTasks = this.fixupTaskService.findByCustomer(customersTuple.get(i)).size();
+			if (numTasks > customerAverageIncreased) {
+				res.add(this.customerService.findOne(customersTuple.get(i)));
+			} else {
+				i = customersTuple.size();
+			}
+		}
+		return res;
 	}
 }
