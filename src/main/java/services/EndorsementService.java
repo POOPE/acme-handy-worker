@@ -36,6 +36,10 @@ public class EndorsementService {
 		super();
 	}
 
+	public Endorsement save(Endorsement endorsement) {
+		return this.endorsementRepository.save(endorsement);
+	}
+
 	public List<Endorsement> findAll() {
 		return this.endorsementRepository.findAll();
 	}
@@ -48,6 +52,8 @@ public class EndorsementService {
 
 	public Endorsement publish(Endorsement endorsement) {
 		endorsement.setPublishDate(new Date());
+		endorsement.setAuthor(this.actorService.findPrincipal());
+
 		return this.endorsementRepository.save(endorsement);
 	}
 

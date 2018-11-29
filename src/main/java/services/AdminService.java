@@ -87,24 +87,24 @@ public class AdminService {
 		Collection<String> badWords = siteConfig.getBadWords();
 
 		for (Endorsement endorsement : endorsements) {
-			int good = this.commentsContainsWords(endorsement.getComments(), goodWords);
-			int bad = this.commentsContainsWords(endorsement.getComments(), badWords);
-			int totalCount = good + bad;
+			float good = this.commentsContainsWords(endorsement.getComments(), goodWords);
+			float bad = this.commentsContainsWords(endorsement.getComments(), badWords);
+			float totalCount = good + bad;
 
 			float grossScore = good - bad;
 			float posNeg = grossScore > 0 ? 1 : -1;
 
-			float normalizedUnsingedScore = totalCount / grossScore;
+			float normalizedUnsingedScore = grossScore / totalCount;
 			float finalScore = normalizedUnsingedScore * posNeg;
 
 			Actor actor = endorsement.getReference();
 			if (this.actorService.getAuthority(actor).equals("CUSTOMER")) {
 				Customer c = this.customerService.findOne(actor.getId());
-				c.setScore(finalScore);
+				c.setScore((c.getScore() + finalScore) / 2);
 				this.customerService.save(c);
 			} else if (this.actorService.getAuthority(actor).equals("HANDYWORKER")) {
 				HandyWorker h = this.handyWorkerService.findOne(actor.getId());
-				h.setScore(finalScore);
+				h.setScore((h.getScore() + finalScore) / 2);
 				this.handyWorkerService.save(h);
 			}
 		}

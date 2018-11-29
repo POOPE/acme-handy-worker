@@ -20,4 +20,8 @@ public class SiteConfigurationService {
 	public SiteConfiguration find() {
 		return this.siteConfigurationRepository.find();
 	}
+
+	public SiteConfiguration update(SiteConfiguration siteConfig) {
+		return this.siteConfigurationRepository.save(siteConfig);
+	}
 }

@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -21,11 +21,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Endorsement extends DomainEntity {
 
 	//relations
-	public Actor				author;
-	public Actor				reference;
+	public Actor		author;
+	public Actor		reference;
 	//attributes
-	public Date					publishDate;
-	public Collection<String>	comments;
+	public Date			publishDate;
+	public List<String>	comments;
 
 
 	@ManyToOne(optional = false)
@@ -59,11 +59,11 @@ public class Endorsement extends DomainEntity {
 	}
 
 	@ElementCollection
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final List<String> comments) {
 		this.comments = comments;
 	}
 
