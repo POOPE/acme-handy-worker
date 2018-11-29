@@ -1,8 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -21,14 +22,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Report extends DomainEntity {
 
 	//relations
-	public Referee				author;
-	public Complaint			complaint;
+	public Referee		author;
+	public Complaint	complaint;
 	//attribute
-	public Date					publishDate;
-	public String				description;
-	public boolean				locked;
-	public Collection<String>	attachments;
-	public Collection<String>	comments;
+	public Date			publishDate;
+	public String		description;
+	public boolean		locked;
+	public List<String>	attachments;
+	public List<String>	comments;
 
 
 	@ManyToOne(optional = false)
@@ -78,20 +79,20 @@ public class Report extends DomainEntity {
 	}
 
 	@ElementCollection
-	public Collection<String> getAttachments() {
+	public List<String> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(ArrayList<String> attachments) {
 		this.attachments = attachments;
 	}
 
 	@ElementCollection
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(ArrayList<String> comments) {
 		this.comments = comments;
 	}
 

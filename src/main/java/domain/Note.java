@@ -1,8 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -22,14 +23,14 @@ public class Note extends DomainEntity {
 
 	//relations
 
-	public Report				report;
+	public Report		report;
 
-	public Actor				author;
-	public Report				reference;
+	public Actor		author;
+
 	//attributes
-	public Date					publishDate;
-	public String				description;
-	public Collection<String>	comments;
+	public Date			publishDate;
+	public String		description;
+	public List<String>	comments;
 
 
 	@ManyToOne(optional = false)
@@ -48,15 +49,6 @@ public class Note extends DomainEntity {
 
 	public void setAuthor(final Actor author) {
 		this.author = author;
-	}
-
-	@ManyToOne(optional = false)
-	public Report getReference() {
-		return this.reference;
-	}
-
-	public void setReference(final Report reference) {
-		this.reference = reference;
 	}
 
 	@Past
@@ -80,11 +72,11 @@ public class Note extends DomainEntity {
 	}
 
 	@ElementCollection
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(ArrayList<String> comments) {
 		this.comments = comments;
 	}
 

@@ -45,7 +45,14 @@ public class SponsorService {
 	}
 
 	public Sponsor save(Sponsor sponsor) {
-		return this.sponsorRepository.save(sponsor);
+		if (sponsor.getId() == 0) {
+			Sponsor res = this.sponsorRepository.save(sponsor);
+			res = (Sponsor) this.actorService.postInitialize(res);
+			return res;
+
+		} else {
+			return this.sponsorRepository.save(sponsor);
+		}
 	}
 
 	public Sponsor findOne(int sponsorId) {
