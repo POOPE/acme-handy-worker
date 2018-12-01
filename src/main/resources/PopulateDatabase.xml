@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2018 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -56,7 +50,1172 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="customerUserAccount1" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customerUserAccount2" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="handyWorkerUserAccount1" class="security.UserAccount">
+		<property name="username" value="handyWorker1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="handyWorkerUserAccount2" class="security.UserAccount">
+		<property name="username" value="handyWorker2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="refereeUserAccount1" class="security.UserAccount">
+		<property name="username" value="referee1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REFEREE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="refereeUserAccount2" class="security.UserAccount">
+		<property name="username" value="referee2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REFEREE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsorUserAccount1" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsorUserAccount2" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="adminUserAccount1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="adminUserAccount2" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Other domain beans come here -->
+
+	<!-- SITE CONFIGURATION -->
+	<bean id="siteConfiguration" class="domain.SiteConfiguration">
+		<property name="siteName" value="Acme Handy Worker" />
+		<property name="bannerUrl" value="http://www.sample-banner.com/banner.png" />
+		<property name="welcomeMessage" value="" />
+		<property name="vatRate" value="0.20" />
+		<property name="defaultCountryCode" value="34" />
+		<property name="finderResLimit" value="10" />
+		<property name="finderTimeLimit" value="3600" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>nigeria</value>
+				<value>sexo</value>
+				<value>un millon</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+		<property name="goodWords">
+			<list>
+				<value>nuevo</value>
+			</list>
+		</property>
+		<property name="badWords">
+			<list>
+				<value>chapuza</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- CUSTOMERS -->
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="Juan" />
+		<property name="middleName" value="Pablo" />
+		<property name="surname" value="García" />
+		<property name="photo" value="http:\\www.photo.com/test" />
+		<property name="email" value="customer1@gmail.com" />
+		<property name="phoneNumber" value="+34 611111111" />
+		<property name="address" value="Calle de customers, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="customerUserAccount1" />
+
+		<property name="score" value="1.3" />
+	</bean>
+
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="Juana" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Dominguez" />
+		<property name="photo" value="http:\\www.photo.com/test2" />
+		<property name="email" value="customer2@gmail.com" />
+		<property name="phoneNumber" value="+34 622222222" />
+		<property name="address" value="Calle de customers, 2, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="customerUserAccount2" />
+
+		<property name="score" value="1.0" />
+	</bean>
+
+	<bean id="handyWorker1" class="domain.HandyWorker">
+		<property name="name" value="Luis" />
+		<property name="middleName" value="Ramón" />
+		<property name="surname" value="Gutierrez" />
+		<property name="photo" value="http:\\www.photo.com/test3" />
+		<property name="email" value="worker1@gmail.com" />
+		<property name="phoneNumber" value="+34 633333333" />
+		<property name="address" value="Calle de workers, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="handyWorkerUserAccount1" />
+
+		<property name="make" value="LuisRamón" />
+		<property name="score" value="1.0" />
+	</bean>
+
+	<bean id="handyWorker2" class="domain.HandyWorker">
+		<property name="name" value="Luisa" />
+		<property name="middleName" value="" />
+		<property name="surname" value="San José" />
+		<property name="photo" value="http:\\www.photo.com/test4" />
+		<property name="email" value="worker2@gmail.com" />
+		<property name="phoneNumber" value="+34 644444444" />
+		<property name="address" value="Calle de workers, 2, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="handyWorkerUserAccount2" />
+
+		<property name="make" value="Luisa" />
+		<property name="score" value="1.0" />
+	</bean>
+
+	<bean id="referee1" class="domain.Referee">
+		<property name="name" value="David" />
+		<property name="middleName" value="Ramón" />
+		<property name="surname" value="Pérez" />
+		<property name="photo" value="http:\\www.photo.com/test5" />
+		<property name="email" value="referee1@gmail.com" />
+		<property name="phoneNumber" value="+34 655555555" />
+		<property name="address" value="Calle de referees, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="refereeUserAccount1" />
+	</bean>
+
+	<bean id="referee2" class="domain.Referee">
+		<property name="name" value="Julia" />
+		<property name="middleName" value="Maria" />
+		<property name="surname" value="Reverte" />
+		<property name="photo" value="http:\\www.photo.com/test6" />
+		<property name="email" value="referee2@gmail.com" />
+		<property name="phoneNumber" value="+34 666666666" />
+		<property name="address" value="Calle de referees, 2, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="refereeUserAccount2" />
+	</bean>
+
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="Julián" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Sánchez" />
+		<property name="photo" value="http:\\www.photo.com/test7" />
+		<property name="email" value="sponsor1@gmail.com" />
+		<property name="phoneNumber" value="+34 677777777" />
+		<property name="address" value="Calle de sponsors, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="sponsorUserAccount1" />
+	</bean>
+
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="Roberta" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ramírez" />
+		<property name="photo" value="http:\\www.photo.com/test8" />
+		<property name="email" value="sponsor1@gmail.com" />
+		<property name="phoneNumber" value="+34 688888888" />
+		<property name="address" value="Calle de sponsors, 2, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="sponsorUserAccount2" />
+	</bean>
+
+	<bean id="admin1" class="domain.Admin">
+		<property name="name" value="Samuel" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Lorenzo" />
+		<property name="photo" value="http:\\www.photo.com/test9" />
+		<property name="email" value="admin1@gmail.com" />
+		<property name="phoneNumber" value="+34 688888888" />
+		<property name="address" value="Calle de admins, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="adminUserAccount1" />
+	</bean>
+
+	<bean id="admin2" class="domain.Admin">
+		<property name="name" value="Samuela" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Lorenzo" />
+		<property name="photo" value="http:\\www.photo.com/test10" />
+		<property name="email" value="admin2@gmail.com" />
+		<property name="phoneNumber" value="+34 610101010" />
+		<property name="address" value="Calle de admins, 1, 3ºD" />
+		<property name="flagged" value="false" />
+		<property name="user" ref="adminUserAccount2" />
+	</bean>
+
+	<!-- Message Boxes -->
+
+	<bean id="customer1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer2" />
+	</bean>
+
+	<bean id="customer2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer2" />
+	</bean>
+
+	<bean id="customer2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer2" />
+	</bean>
+
+	<bean id="customer2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer2" />
+	</bean>
+
+	<bean id="admin1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin2" />
+	</bean>
+
+	<bean id="admin2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin2" />
+	</bean>
+
+	<bean id="admin2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin2" />
+	</bean>
+
+	<bean id="admin2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin2" />
+	</bean>
+
+	<bean id="handyWorker1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker2" />
+	</bean>
+
+	<bean id="chandyWorker2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker2" />
+	</bean>
+
+	<bean id="handyWorker2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker2" />
+	</bean>
+
+	<bean id="handyWorker2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="handyWorker2" />
+	</bean>
+
+	<bean id="referee1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee1" />
+	</bean>
+
+	<bean id="referee1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee1" />
+	</bean>
+
+	<bean id="referee1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee1" />
+	</bean>
+
+	<bean id="referee1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee1" />
+	</bean>
+
+	<bean id="referee2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee2" />
+	</bean>
+
+	<bean id="referee2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee2" />
+	</bean>
+
+	<bean id="referee2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee2" />
+	</bean>
+
+	<bean id="referee2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="referee2" />
+	</bean>
+
+	<bean id="sponsor1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor1" />
+	</bean>
+
+	<bean id="sponsor1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor1" />
+	</bean>
+
+	<bean id="sponsor1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor1" />
+	</bean>
+
+	<bean id="sponsor1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor1" />
+	</bean>
+
+	<bean id="sponsor2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor2" />
+	</bean>
+
+	<bean id="sponsor2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor2" />
+	</bean>
+
+	<bean id="sponsor2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor2" />
+	</bean>
+
+	<bean id="sponsor2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="sponsor2" />
+	</bean>
+
+	<!-- SOCIAL PROFILE -->
+
+	<bean id="handyWorker1SocialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="manitas1" />
+		<property name="siteName" value="linkedIn" />
+		<property name="url" value="http://www.linkedin.com/manitas1" />
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker1SocialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="manitas1" />
+		<property name="siteName" value="facebook" />
+		<property name="url" value="http://www.facebook.com/manitas1" />
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<!-- CURRICULUM -->
+
+	<bean id="handyWorker1Curriculum" class="domain.Curriculum">
+		<property name="ticker" value="021097-ABCDEF" />
+		<property name="fullName" value="Luis Ramón Gutiérrez" />
+		<property name="email" value="worker1@gmail.com" />
+		<property name="phoneNumber" value="+34 633333333" />
+		<property name="photo" value="http:\\www.photo.com/test3" />
+		<property name="socialProfile" ref="handyWorker1SocialProfile1" />
+		<property name="owner" ref="handyWorker1" />
+		<property name="records">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- FINDER -->
+
+	<bean id="finder1" class="domain.Finder">
+		<property name="creationDate" value="2018/11/11" />
+		<property name="keyWord" value="bici" />
+		<property name="category">
+			<null />
+		</property>
+		<property name="warranty">
+			<null />
+		</property>
+		<property name="minPrice" value="20.0" />
+		<property name="maxPrice">
+			<null />
+		</property>
+		<property name="minDate">
+			<null />
+		</property>
+		<property name="maxDate" value="2018/12/12" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- TUTORIAL -->
+
+	<bean id="tutorial1" class="domain.Tutorial">
+		<property name="title" value="tutorial para reparar bicis" />
+		<property name="description"
+			value="tutorial para identificar y resolver problemas con bicis" />
+		<property name="photos">
+			<list>
+				<value>http:\\fotobicis.com/arreglar.png</value>
+			</list>
+		</property>
+		<property name="author" ref="handyWorker1" />
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+				<ref bean="section2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="section1" class="domain.Section">
+		<property name="title" value="Identificar el problema" />
+		<property name="description" value="Desmontar y evaluar la bicicleta" />
+		<property name="photos">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="section2" class="domain.Section">
+		<property name="title" value="Resolver el problema" />
+		<property name="description" value="Solucionar problemas básicos de bicicletas" />
+		<property name="photos">
+			<list>
+				<value>http:\\fotobicis.com/arreglar2.png</value>
+				<value>http:\\fotobicis.com/arreglar3.png</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- FIX UP TASK -->
+
+	<bean id="fixupTask0" class="domain.FixupTask">
+		<property name="ticker" value="20181010-ABZZEF" />
+		<property name="publishDate" value="2018/10/10" />
+		<property name="description" value="A mi bici no le funcionan los frenos." />
+		<property name="address" value="Calle de customers, 1, 3ºD" />
+		<property name="maximumPrice" value="40.50" />
+		<property name="startDate" value="2018/10/10" />
+		<property name="endDate" value="2018/10/20" />
+		<property name="locked" value="true" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="phases">
+			<list>
+			</list>
+		</property>
+		<property name="author" ref="customer1" />
+		<property name="category" ref="category2" />
+		<property name="warranty" ref="warranty1" />
+	</bean>
+
+	<bean id="fixupTask1" class="domain.FixupTask">
+		<property name="ticker" value="20181010-ABCDEF" />
+		<property name="publishDate" value="2018/10/10" />
+		<property name="description" value="A mi bici no le funcionan los frenos." />
+		<property name="address" value="Calle de customers, 1, 3ºD" />
+		<property name="maximumPrice" value="40.50" />
+		<property name="startDate" value="2018/10/10" />
+		<property name="endDate" value="2018/10/20" />
+		<property name="locked" value="false" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="phases">
+			<list>
+				<ref bean="task1Phase1" />
+				<ref bean="task1Phase2" />
+			</list>
+		</property>
+		<property name="author" ref="customer1" />
+		<property name="category" ref="category2" />
+		<property name="warranty" ref="warranty1" />
+	</bean>
+
+	<bean id="task1Phase1" class="domain.WorkPlanPhase">
+		<property name="title" value="Desmontar y evaluar" />
+		<property name="description" value="Desmontar la bici y evaluarla." />
+		<property name="startDate" value="2018/10/16" />
+		<property name="endDate" value="2018/10/17" />
+	</bean>
+
+	<bean id="task1Phase2" class="domain.WorkPlanPhase">
+		<property name="title" value="Solucionar o recambiar" />
+		<property name="description"
+			value="Reparar el problema o en su defecto sustituir las piezas defectuosas." />
+		<property name="startDate" value="2018/10/18" />
+		<property name="endDate" value="2018/10/19" />
+	</bean>
+
+	<bean id="fixupTask2" class="domain.FixupTask">
+		<property name="ticker" value="20181010-ABCDGF" />
+		<property name="publishDate" value="2018/10/10" />
+		<property name="description" value="El techo esta roto" />
+		<property name="address" value="Calle de customers, 7" />
+		<property name="maximumPrice" value="40.50" />
+		<property name="startDate" value="2018/10/10" />
+		<property name="endDate" value="2018/10/20" />
+		<property name="locked" value="true" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="phases">
+			<list>
+				<ref bean="task2Phase1" />
+			</list>
+		</property>
+		<property name="author" ref="customer2" />
+		<property name="category" ref="category2" />
+		<property name="warranty" ref="warranty1" />
+	</bean>
+
+	<bean id="task2Phase1" class="domain.WorkPlanPhase">
+		<property name="title" value="Arreglar el techo" />
+		<property name="description" value="Ponemo uno nuevo" />
+		<property name="startDate" value="2018/10/16" />
+		<property name="endDate" value="2018/10/17" />
+	</bean>
+
+
+
+	<!-- Credit Card Makes -->
+
+	<bean id="creditCardMake1" class="domain.CreditCardMake">
+		<property name="name" value="VISA" />
+	</bean>
+
+	<bean id="creditCardMake2" class="domain.CreditCardMake">
+		<property name="name" value="MASTER" />
+	</bean>
+
+	<bean id="creditCardMake3" class="domain.CreditCardMake">
+		<property name="name" value="DINNERS" />
+	</bean>
+
+	<bean id="creditCardMake4" class="domain.CreditCardMake">
+		<property name="name" value="AMEX" />
+	</bean>
+
+	<!-- Credit Cards -->
+
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="owner" ref="customer1" />
+		<property name="holder" value="Antonio González" />
+		<property name="expirationMonth" value="10" />
+		<property name="expirationYear" value="22" />
+		<property name="number" value="4165282637872893" />
+		<property name="CCV" value="456" />
+		<property name="creditCardMake" ref="creditCardMake1" />
+	</bean>
 	
-	<!-- Other domain beans come here -->	
-	
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="owner" ref="admin1" />
+		<property name="holder" value="Paco Pepe Lopez" />
+		<property name="expirationMonth" value="04" />
+		<property name="expirationYear" value="20" />
+		<property name="number" value="4163332637833393" />
+		<property name="CCV" value="333" />
+		<property name="creditCardMake" ref="creditCardMake2" />
+	</bean>
+
+
+
+	<!-- Category -->
+
+	<bean id="category0" class="domain.Category">
+		<property name="title" value="CATEGORY" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="category1" class="domain.Category">
+		<property name="title" value="VEHICULOS" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category2" class="domain.Category">
+		<property name="title" value="BICICLETAS" />
+		<property name="parent" ref="category1" />
+	</bean>
+
+	<bean id="category3" class="domain.Category">
+		<property name="title" value="Carpentry" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category4" class="domain.Category">
+		<property name="title" value="Cleaning" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category5" class="domain.Category">
+		<property name="title" value="Concrete work" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category6" class="domain.Category">
+		<property name="title" value="Doors" />
+		<property name="parent" ref="category3" />
+	</bean>
+
+	<bean id="category7" class="domain.Category">
+		<property name="title" value="Electrical wiring" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category8" class="domain.Category">
+		<property name="title" value="Fan installation" />
+		<property name="parent" ref="category7" />
+	</bean>
+
+	<bean id="category9" class="domain.Category">
+		<property name="title" value="Fence installation" />
+		<property name="parent" ref="category3" />
+	</bean>
+
+	<bean id="category10" class="domain.Category">
+		<property name="title" value="Fence fixing" />
+		<property name="parent" ref="category3" />
+	</bean>
+
+	<bean id="category11" class="domain.Category">
+		<property name="title" value="Home security system" />
+		<property name="parent" ref="category7" />
+	</bean>
+
+	<bean id="category12" class="domain.Category">
+		<property name="title" value="Insulation installation" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category13" class="domain.Category">
+		<property name="title" value="Solar panels" />
+		<property name="parent" ref="category3" />
+	</bean>
+
+	<bean id="category14" class="domain.Category">
+		<property name="title" value="Soundproofing" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category15" class="domain.Category">
+		<property name="title" value="Sprinkler repair" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<bean id="category16" class="domain.Category">
+		<property name="title" value="Windows repair" />
+		<property name="parent" ref="category0" />
+	</bean>
+
+	<!-- Warranty -->
+
+	<bean id="warranty1" class="domain.Warranty">
+		<property name="title" value="Default" />
+		<property name="terms">
+			<list>
+				<value>term 1</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<ref bean="law1" />
+				<ref bean="law2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="warranty2" class="domain.Warranty">
+		<property name="title" value="Thef" />
+		<property name="terms">
+			<list>
+				<value>prove that it was a theft</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<ref bean="law1" />
+				<ref bean="law2" />
+				<ref bean="law3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="warranty3" class="domain.Warranty">
+		<property name="title" value="Total destruction" />
+		<property name="terms">
+			<list>
+				<value>prove that it was the handyworkers fault</value>
+				<value>idk</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<ref bean="law4" />
+				<ref bean="law5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="law1" class="domain.Law">
+		<property name="title" value="Law 1" />
+		<property name="relevantText" value="relevant text 1" />
+	</bean>
+
+	<bean id="law2" class="domain.Law">
+		<property name="title" value="Law 2" />
+		<property name="relevantText" value="relevant text 1" />
+	</bean>
+
+	<bean id="law3" class="domain.Law">
+		<property name="title" value="Law 3" />
+		<property name="relevantText" value="relevant text 1" />
+	</bean>
+
+	<bean id="law4" class="domain.Law">
+		<property name="title" value="Law 4" />
+		<property name="relevantText" value="relevant text 1" />
+	</bean>
+
+	<bean id="law5" class="domain.Law">
+		<property name="title" value="Law 5" />
+		<property name="relevantText" value="relevant text 1" />
+	</bean>
+
+	<!-- fixupapplication -->
+
+	<bean id="fixupApplication1" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="15/10/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication2" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="10/11/2017 20:32" />
+		<property name="offeredRate" value="500" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it for less</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication3" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="08/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication4" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="15/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication5" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="15/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication6" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="handyWorker2" />
+		<property name="publishDate" value="01/11/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>do it faster</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="fixupApplication7" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>no like</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ENDORSEMENT ENDORSEMENT ENDORSEMENT ENDORSEMENT ENDORSMENT -->
+
+	<bean id="endorsement1" class="domain.Endorsement">
+		<property name="author" ref="customer1" />
+		<property name="reference" ref="handyWorker1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="comments">
+			<list>
+				<value>good</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="endorsement2" class="domain.Endorsement">
+		<property name="author" ref="customer2" />
+		<property name="reference" ref="handyWorker1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="comments">
+			<list>
+				<value>ok</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="endorsement3" class="domain.Endorsement">
+		<property name="author" ref="handyWorker1" />
+		<property name="reference" ref="customer1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="comments">
+			<list>
+				<value>bad</value>
+			</list>
+		</property>
+	</bean>
+
+
 </beans>
