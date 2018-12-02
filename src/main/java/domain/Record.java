@@ -1,7 +1,7 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -16,16 +16,16 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Record extends DomainEntity {
 
-	public Collection<String>	comments;
+	public List<String>	comments;
 
 
 	@NotNull
 	@ElementCollection
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(List<String> comments) {
 		this.comments = comments;
 	}
 

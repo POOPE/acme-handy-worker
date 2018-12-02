@@ -1,35 +1,38 @@
 
 package services;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import domain.MiscellaneousRecord;
 import repositories.MiscellaneousRecordRepository;
+import domain.MiscellaneousRecord;
 
 @Service
 @Transactional
 public class MiscellaneousRecordService {
 
 	@Autowired
-	private MiscellaneousRecordRepository miscellaneousRecordRepository;
+	private MiscellaneousRecordRepository	miscellaneousRecordRepository;
+
+	@Autowired
+	private HandyWorkerService				handyWorkerService;
 
 
 	//CRUD ---------------------------------------------------------------
 
 	public MiscellaneousRecord create() {
 		MiscellaneousRecord miscellaneousRecord = new MiscellaneousRecord();
-		Collection<String> comments = new HashSet<>();
-		miscellaneousRecord.setComments(comments);
-		this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		miscellaneousRecord.setComments(new ArrayList<String>());
+
 		return miscellaneousRecord;
 	}
 
 	public MiscellaneousRecord save(MiscellaneousRecord miscellaneousRecord) {
+		Assert.isTrue(this.handyWorkerService.findPrincipal() != null);
 		return this.miscellaneousRecordRepository.save(miscellaneousRecord);
 	}
 

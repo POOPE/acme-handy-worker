@@ -1,39 +1,44 @@
 
 package services;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import domain.EndorserRecord;
 import repositories.EndorserRecordRepository;
+import domain.EndorserRecord;
 
 @Service
 @Transactional
 public class EndorserRecordService {
 
 	@Autowired
-	private EndorserRecordRepository endorserRecordRepository;
+	private EndorserRecordRepository	endorserRecordRepository;
+
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
 
 
 	//CRUD ---------------------------------------------------------------
 
 	public EndorserRecord create() {
 		EndorserRecord endorserRecord = new EndorserRecord();
-		Collection<String> comments = new HashSet<>();
+		List<String> comments = new ArrayList<>();
 		endorserRecord.setComments(comments);
-		this.endorserRecordRepository.save(endorserRecord);
+
 		return endorserRecord;
 	}
 
-	public EndorserRecord save(EndorserRecord educationRecord) {
-		return this.endorserRecordRepository.save(educationRecord);
+	public EndorserRecord save(EndorserRecord endorserRecord) {
+		Assert.isTrue(this.handyWorkerService.findPrincipal() != null);
+		return this.endorserRecordRepository.save(endorserRecord);
 	}
 
-	public EndorserRecord find(int endorserRecordId) {
+	public EndorserRecord findById(int endorserRecordId) {
 		EndorserRecord res = this.endorserRecordRepository.findOne(endorserRecordId);
 		return res;
 	}

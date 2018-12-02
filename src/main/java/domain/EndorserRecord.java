@@ -17,7 +17,7 @@ public class EndorserRecord extends Record {
 	public String			email;
 	public String			phone;
 
-	public SocialProfile	socialProfile;
+	public SocialProfile	endorserSocialProfile;
 
 
 	@NotBlank
@@ -49,12 +49,12 @@ public class EndorserRecord extends Record {
 	}
 
 	@ManyToOne(optional = true)
-	public SocialProfile getSocialProfile() {
-		return this.socialProfile;
+	public SocialProfile getEndorserSocialProfile() {
+		return this.endorserSocialProfile;
 	}
 
-	public void setSocialProfile(final SocialProfile socialProfile) {
-		this.socialProfile = socialProfile;
+	public void setEndorserSocialProfile(final SocialProfile socialProfile) {
+		this.endorserSocialProfile = socialProfile;
 	}
 
 }
