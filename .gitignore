@@ -1,0 +1,10 @@
+
+target/classes/services/EducationRecordService\.class
+
+\.classpath
+
+target/classes/repositories/EducationRecordRepository\.class
+
+*.class
+
+target/m2e-wtp/web-resources/META-INF/maven/Acme\.com/Acme-Handy-Worker/pom\.properties

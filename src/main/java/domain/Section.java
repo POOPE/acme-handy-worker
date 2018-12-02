@@ -14,10 +14,19 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Section extends DomainEntity {
 
 	//attributes
+	public int					position;
 	public String				title;
 	public String				description;
 	public ArrayList<String>	photos;
 
+
+	public int getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
 
 	@NotBlank
 	public String getTitle() {
