@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,9 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import utilities.AbstractTest;
 import domain.Actor;
 import domain.Endorsement;
+import domain.HandyWorker;
+import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -59,6 +61,10 @@ public class EndorsementTest extends AbstractTest {
 
 		super.authenticate("admin1");
 		this.adminService.UpdateScores();
-		System.out.println(this.handyWorkerService.findOne(1098).getScore());
+		Collection<HandyWorker> k = this.handyWorkerService.findAll();
+
+		HandyWorker j = this.handyWorkerService.findOne(1079);
+		float h = this.handyWorkerService.findOne(1079).getScore();
+		System.out.println(h);
 	}
 }
