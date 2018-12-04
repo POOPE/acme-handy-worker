@@ -9,19 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import utilities.AbstractTest;
+
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class AdminTest {
+public class AdminTest extends AbstractTest {
 
 	@Autowired
-	private AdminService	adminService;
+	private AdminService adminService;
 
 
 	@Test
 	public void testFind() {
+		super.authenticate("admin1");
 		System.out.println('1');
 		System.out.println(this.adminService.fixupTasksPerCustomerStats());
 		System.out.println('2');
