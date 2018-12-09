@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.SocialProfileRepository;
-import domain.Actor;
 import domain.SocialProfile;
 
 @Service
@@ -15,6 +14,9 @@ public class SocialProfileService {
 
 	@Autowired
 	private SocialProfileRepository	socialProfileRepository;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	//CRUD ---------------------------------------------------------------
@@ -35,9 +37,9 @@ public class SocialProfileService {
 
 	//OTHER ----------------------------------------------------------------
 
-	public SocialProfile assignSocialProfile(Actor owner, SocialProfile saving) {
-		saving.setOwner(owner);
-		SocialProfile res = this.save(saving);
+	public SocialProfile initialize(SocialProfile profile) {
+		profile.setOwner(this.actorService.findPrincipal());
+		SocialProfile res = this.save(profile);
 		return res;
 	}
 }
