@@ -45,7 +45,7 @@ public class Sponsorship extends DomainEntity {
 		this.targetPage = targetPage;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public CreditCard getCreditcard() {
 		return this.creditcard;
 	}

@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.SponsorshipRepository;
 import domain.Actor;
 import domain.Sponsorship;
+import repositories.SponsorshipRepository;
 
 @Service
 @Transactional
@@ -23,11 +23,18 @@ public class SponsorshipService {
 
 
 	public Sponsorship create() {
-		return new Sponsorship();
+		Sponsorship res = new Sponsorship();
+		this.initialize(res);
+
+		return res;
 	}
 
 	public List<Sponsorship> findAll() {
 		return this.sponsorshipRepo.findAll();
+	}
+
+	public Sponsorship findOne(Integer actorId) {
+		return this.sponsorshipRepo.findOne(actorId);
 	}
 
 	public List<Sponsorship> findByPrinciapl() {
