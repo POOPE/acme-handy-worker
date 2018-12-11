@@ -16,11 +16,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class WorkPlanPhase extends DomainEntity {
 
+	public int		position;
 	public String	title;
 	public String	description;
 	public Date		startDate;
 	public Date		endDate;
 
+
+	public int getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
 
 	@NotBlank
 	public String getTitle() {
@@ -39,7 +48,7 @@ public class WorkPlanPhase extends DomainEntity {
 		this.description = description;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
@@ -49,7 +58,7 @@ public class WorkPlanPhase extends DomainEntity {
 		this.startDate = startDate;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;

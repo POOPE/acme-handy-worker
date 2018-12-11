@@ -20,25 +20,22 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<display:table name="fixupTasks" id="row" requestURI="fixuptask/list.do"
+<display:table name="fixupApplications" id="row" requestURI="fixupapplication/list.do"
 	pagesize="10" class="displaytag">
-	<display:column property="ticker" titleKey="fixuptask.ticker" />
-	<display:column property="publishDate" titleKey="fixuptask.publishdate" />
-	<display:column property="description" titleKey="fixuptask.description" />
-	<display:column property="maximumPrice" titleKey="fixuptask.price" />
-	<display:column property="startDate" titleKey="fixuptask.start" />
-	<display:column property="endDate" titleKey="fixuptask.end" />
+	<display:column property="fixupTask.ticker" titleKey="fixupapplication.fixup" />
+	<display:column property="author" titleKey="fixupapplication.author" />
+	<display:column property="publishDate" titleKey="fixupapplication.publishdate" />
+	<display:column property="offeredRate" titleKey="fixupapplication.rate" />
+	<display:column property="status" titleKey="fixupapplication.status" />
 	<!-- delete & edit -->
-	<security:authorize access="hasRole('CUSTOMER')">
+	<security:authorize access="hasRole('HANDYWORKER')">
 		<jstl:if test="${row.author.id=userId}">
 			<display:column>
-				<a href="fixuptask/edit.do?id=${row.id}}"><spring:message
+				<a href="fixupapplication/edit.do?id=${row.id}}"><spring:message
 						code="edit" /></a>
 			</display:column>
-		</jstl:if>
-		<jstl:if test="${row.owner.author.id=userId}">
 			<display:column>
-				<a href="fixuptask/delete.do?id=${row.id}}"><spring:message
+				<a href="fixupapplication/delete.do?id=${row.id}}"><spring:message
 						code="delete" /></a>
 			</display:column>
 		</jstl:if>

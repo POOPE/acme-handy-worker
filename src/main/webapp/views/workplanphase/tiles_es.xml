@@ -10,14 +10,9 @@
 
 <tiles-definitions>
 
-	<definition name="fixuptask/list" extends="master.page">
-		<put-attribute name="title" value="Fix-ups" />
-		<put-attribute name="body" value="/views/fixuptask/list.jsp" />
+	<definition name="workplanphase/create" extends="master.page">	
+		<put-attribute name="title" value="Nueva fase de trabajo" />
+		<put-attribute name="body" value="/views/workplanphase/create.jsp" />
 	</definition>
 	
-	<definition name="fixuptask/thyme-list" extends="master.page">
-		<put-attribute name="title" value="Fix-ups" />
-		<put-attribute name="body" value="/views/fixuptask/thyme-list.jsp" />
-	</definition>
-
 </tiles-definitions>
