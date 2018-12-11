@@ -1,15 +1,17 @@
 
 package services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Sponsor;
 import repositories.SponsorRepository;
 import security.Authority;
-import domain.Sponsor;
 
 @Service
 @Transactional
@@ -53,6 +55,11 @@ public class SponsorService {
 		} else {
 			return this.sponsorRepository.save(sponsor);
 		}
+	}
+
+	public List<Sponsor> findAll() {
+
+		return this.sponsorRepository.findAll();
 	}
 
 	public Sponsor findOne(int sponsorId) {
