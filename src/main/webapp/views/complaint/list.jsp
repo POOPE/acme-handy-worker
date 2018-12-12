@@ -18,17 +18,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-<form:form modelAttribute="fixupApplication"
-	action="/fixupapplication/edit.do">
-	<form:hidden path="fixupTask" />
-	<form:hidden path="author" />
-	<form:hidden path="publishDate"/>
-	<form:hidden path="status"/>
-	<form:label path="rate">
-		<spring:message code="workplanphase.rate" />
-	</form:label>
-	<form:input path="offeredRate" />
-	<form:errors cssClass="error" path="offeredRate" />
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
-</form:form>
+<display:table name="complaints" id="row"
+	requestURI="complaints/list.do" pagesize="10" class="displaytag">
+	<display:column property="row.reference.ticker"
+		titleKey="complaint.fixuptask" />
+	<display:column property="row.publishDate" titleKey="complaint.date" />
+	<display:column>
+		<a href="/complaint/delete.do?=${row.id}"><spring:message code="delete"/></a>
+	</display:column>
+</display:table>

@@ -15,14 +15,19 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-	<definition name="fixuptask/list" extends="master.page">	
-		<put-attribute name="title" value="Fix-up tasks" />
-		<put-attribute name="body" value="/views/fixuptask/list.jsp" />
+	<definition name="fixupapplication/list" extends="master.page">	
+		<put-attribute name="title" value="Applications" />
+		<put-attribute name="body" value="/views/fixupapplication/list.jsp" />
 	</definition>
 	
-	<definition name="fixuptask/view" extends="master.page">	
-		<put-attribute name="title" value="Fix-up task" />
-		<put-attribute name="body" value="/views/fixuptask/view.jsp" />
+	<definition name="fixupapplication/view" extends="master.page">	
+		<put-attribute name="title" value="Application" />
+		<put-attribute name="body" value="/views/fixupapplication/view.jsp" />
+	</definition>
+	
+	<definition name="fixupapplication/edit" extends="master.page">	
+		<put-attribute name="title" value="Application" />
+		<put-attribute name="body" value="/views/fixupapplication/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

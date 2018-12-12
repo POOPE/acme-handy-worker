@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- receives: messagebox list, messagebox, messages list -->
 <jstl:if test="${not empty messagebox}">

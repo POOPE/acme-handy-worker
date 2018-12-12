@@ -45,6 +45,6 @@
 	<form:input path="endDate" placeholder="dd/MM/yyyy"/>
 	<form:errors cssClass="error" path="endDate"/>
 	<!-- submit -->
-	<input type="submit" name="save" vale="<spring:message code="save"/>"/>
+	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>
 <a href="/fixuptask/view.do?id=${fixuptask.id}}"><spring:message code="cancel"/></a>

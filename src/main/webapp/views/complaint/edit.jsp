@@ -19,16 +19,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form modelAttribute="fixupApplication"
-	action="/fixupapplication/edit.do">
-	<form:hidden path="fixupTask" />
-	<form:hidden path="author" />
+<form:form modelAttribute="complaint"
+	action="/complaint/edit.do">
+	<form:hidden path="ticker" />
+	<form:hidden path="reference" />
 	<form:hidden path="publishDate"/>
-	<form:hidden path="status"/>
-	<form:label path="rate">
-		<spring:message code="workplanphase.rate" />
+	<form:hidden path="attachments"/>
+
+	<form:label path="description">
+		<spring:message code="complaint.description" />
 	</form:label>
-	<form:input path="offeredRate" />
-	<form:errors cssClass="error" path="offeredRate" />
+	<form:textarea path="description" />
+	<form:errors cssClass="error" path="description" />
+	
+	
 	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>

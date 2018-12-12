@@ -1,0 +1,17 @@
+<table>
+    <thead>
+        <tr>
+            <th> Ticker </th>
+            <th> Date </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${fixuptasks.empty}">
+            <td colspan="2"> No Fix-up Tasks Available </td>
+        </tr>
+        <tr th:each="fixuptask : ${fixuptasks}">
+            <td><span th:text="${fixuptask.ticker}"> Ticker </span></td>
+            <td><span th:text="${fixuptask.publishDate}"> Date </span></td>
+        </tr>
+    </tbody>
+</table>

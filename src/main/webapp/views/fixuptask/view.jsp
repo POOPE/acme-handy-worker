@@ -17,9 +17,14 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jstl:set var="userId" value="${user.id}" />
 
+<!-- complain -->
+<security:authorize access="hasRole('CUSTOMER')">
+	<a href="/complaint/create.do?id=${fixupTask.id}"></a>
+</security:authorize>
 <!-- info -->
 <div>
 	<jstl:out value="${fixupTask.ticker}" />
