@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,15 +68,15 @@ public class FixupTaskController {
 		return result;
 	}
 
-	@RequestMapping(value = "/thyme-list")
-	public ModelAndView tListAll() {
-		ModelAndView result;
+	// THYME LIST TESTS
 
+	// Thymeleaf test
+
+	@RequestMapping(value = "/thyme-list", method = RequestMethod.GET)
+	public String hello(Model model) {
 		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
-
-		result = new ModelAndView("fixuptask/thyme-list");
-		result.addObject("fixupTasks", fixupTasks);
-
-		return result;
+		model.addAttribute("fixupTasks", fixupTasks);
+		return "thyme";
 	}
+
 }
