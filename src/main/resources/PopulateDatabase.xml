@@ -1216,6 +1216,29 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<!-- Sponsorship -->
+
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="author" ref="sponsor1" />
+		<property name="targetPage" value="https://www.youtube.com/" />
+		<property name="bannerUrl" value="https://www.youtube.com/" />
+		<property name="creditcard" ref="creditCard1" />
+		
+	</bean>
+	
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="author" ref="sponsor2" />
+		<property name="targetPage" value="https://www.youtube.com/" />
+		<property name="bannerUrl" value="https://www.youtube.com/" />
+		<property name="creditcard" ref="creditCard2" />
+		
+	</bean>
+
+	
+
+	
 
 
 </beans>
