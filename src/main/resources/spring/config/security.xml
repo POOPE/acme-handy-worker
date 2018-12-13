@@ -52,7 +52,7 @@
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/fixuptask/list.do" access="isAuthenticated()" />
-		<security:intercept-url pattern="/fixuptask/thyme-list.do" access="isAuthenticated()" />  
+		<security:intercept-url pattern="/fixuptask/**" access="isAuthenticated()" />  
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

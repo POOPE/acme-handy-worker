@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CategoryService;
 import services.FixupTaskService;
+import domain.Category;
 import domain.FixupTask;
 
 @Controller
@@ -24,6 +26,9 @@ public class FixupTaskController {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private CategoryService		categoryService;
 
 
 	// LIST ALL
@@ -73,10 +78,29 @@ public class FixupTaskController {
 	// Thymeleaf test
 
 	@RequestMapping(value = "/thyme-list", method = RequestMethod.GET)
-	public String hello(Model model) {
+	public String list(Model model) {
 		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
 		model.addAttribute("fixupTasks", fixupTasks);
-		return "thyme";
+		return "fixuptask/table";
+	}
+
+	@RequestMapping(value = "/thyme-create", method = RequestMethod.GET)
+	public String create(Model model) {
+
+		FixupTask fixupTask = this.fixupTaskService.create();
+		List<Category> categories = this.categoryService.findAll();
+		model.addAttribute("fixupTask", fixupTask);
+		model.addAttribute("categories", categories);
+		return "fixuptask/edit";
+	}
+
+	@RequestMapping(value = "/thyme-save", method = RequestMethod.POST)
+	public String create(Model model, @RequestParam FixupTask fixupTask) {
+
+		FixupTask saved = this.fixupTaskService.initialize(fixupTask);
+		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
+		model.addAttribute("fixupTasks", fixupTasks);
+		return "fixuptask/table";
 	}
 
 }

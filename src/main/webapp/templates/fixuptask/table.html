@@ -3,10 +3,7 @@
 <title>Spring Boot Thymeleaf Hello World Example</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="../../styles/common.css" />
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<table>
@@ -22,10 +19,11 @@
 			</tr>
 			<tr th:each="fixuptask : ${fixupTasks}">
 				<td><span th:text="${fixuptask.ticker}"> Ticker </span></td>
-				<td><span th:text="${fixuptask.publishDate}"> Date </span></td>
-				<td><a href="fixuptask/edit.do?=${fixupTask.id}"><i class="fas fa-pencil-alt"></i></a></td>
+				<td><span th:text="${#dates.format(fixuptask.publishDate,'dd/MMM/yyyy')}"> Date </span></td>
+			
 			</tr>
 		</tbody>
 	</table>
+	<a href="thyme-create.do">Create</a>
 </body>
 </html>
