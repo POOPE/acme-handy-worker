@@ -26,12 +26,20 @@
 	action="/tutorial/handyworker/edit.do">
 	<form:hidden path="author" />
 	<form:hidden path="lastUpdate"/>
+	<div>
+		<form:label path="title">
+			<spring:message code="tutorial.title" />
+		</form:label>
+		<form:input path="tutorial.title" />
+		<form:errors cssClass="error" path="tutorial.title" />
+	</div>
+	<div>
+		<form:label path="description">
+			<spring:message code="tutorial.description" />
+		</form:label>
+		<form:input path="tutorial.description" />
+		<form:errors cssClass="error" path="tutorial.description" />
+	</div>
 	
-	<form:label path="title">
-		<spring:message code="tutorial.title" />
-	</form:label>
-	<form:label path="description">
-		<spring:message code="tutorial.description" />
-	</form:label>
 	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>
