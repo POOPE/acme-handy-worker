@@ -25,4 +25,9 @@
 		<put-attribute name="body" value="/views/actor/view.jsp" />
 	</definition>
 	
+	<definition name="actor/edit" extends="master.page">
+		<put-attribute name="title" value="Edit Profile" />
+		<put-attribute name="body" value="/views/actor/edit.jsp" />
+	</definition>
+	
 </tiles-definitions>
