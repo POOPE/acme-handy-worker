@@ -28,6 +28,14 @@
 		<value>/views/profile/messages</value>
 		
 		<value>/views/fixuptask/messages</value>
+		<value>/views/finder/messages</value>
+		<value>/views/complaint/messages</value>
+		<value>/views/fixupapplication/messages</value>
+		<value>/views/messaging/messages</value>
+		<value>/views/workplanphase/messages</value>
+		<value>/views/tutorial/messages</value>
+		
+		
 	</util:list>
 
 </beans>
