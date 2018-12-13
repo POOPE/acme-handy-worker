@@ -35,8 +35,8 @@
 	<form:input path="subject" />
 	<form:errors cssClass="error" path="subject" />
 
-	<form:label path="recipients">
-		<spring:message code="message.recipients" />
+	<form:label path="body">
+		<spring:message code="message.body" />
 	</form:label>
 	<form:textarea path="body" />
 	<form:errors cssClass="error" path="body" />
