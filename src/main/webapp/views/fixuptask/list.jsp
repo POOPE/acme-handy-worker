@@ -20,7 +20,7 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<display:table name="fixupTasks" id="row" requestURI="fixuptask/list.do"
+<display:table name="fixupTasks" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
 	<display:column property="ticker" titleKey="fixuptask.ticker" />
 	<display:column property="publishDate" titleKey="fixuptask.publishdate" />
@@ -30,17 +30,17 @@
 	<display:column property="endDate" titleKey="fixuptask.end" />
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('CUSTOMER')">
-		<jstl:if test="${row.author.id=userId}">
-			<display:column>
-				<a href="fixuptask/edit.do?id=${row.id}}"><spring:message
-						code="edit" /></a>
-			</display:column>
-		</jstl:if>
-		<jstl:if test="${row.owner.author.id=userId}">
-			<display:column>
-				<a href="fixuptask/delete.do?id=${row.id}}"><spring:message
-						code="delete" /></a>
-			</display:column>
-		</jstl:if>
+		<display:column>
+				<jstl:if test="${row.author.id==userId}">
+						<a href="fixuptask/edit.do?id=${row.id}}"><spring:message
+								code="edit" /></a>
+				</jstl:if>
+		</display:column>
+		<display:column>
+				<jstl:if test="${row.owner.author.id==userId}">
+						<a href="fixuptask/customer/delete.do?id=${row.id}}"><spring:message
+								code="delete" /></a>
+				</jstl:if>
+		</display:column>
 	</security:authorize>
 </display:table>

@@ -8,7 +8,8 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page language="
+ " contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,22 +19,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jstl:set var="userId" value="${user.id}" />
 
-<form:form modelAttribute="complaint"
-	action="/complaint/customer/edit.do">
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="ticker" />
-	<form:hidden path="reference" />
-	<form:hidden path="publishDate"/>
-	<form:hidden path="attachments"/>
-
-	<form:label path="description">
-		<spring:message code="complaint.description" />
+<!-- info -->
+<form:form modelAttribute="tutorial"
+	action="/tutorial/handyworker/edit.do">
+	<form:hidden path="author" />
+	<form:hidden path="lastUpdate"/>
+	
+	<form:label path="title">
+		<spring:message code="tutorial.title" />
 	</form:label>
-	<form:textarea path="description" />
-	<form:errors cssClass="error" path="description" />
-	
-	
+	<form:label path="description">
+		<spring:message code="tutorial.description" />
+	</form:label>
 	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>

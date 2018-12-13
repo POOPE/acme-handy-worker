@@ -50,12 +50,16 @@
 			<div>
 				<h3>
 					<jstl:out value="${phase.position} }" />
-					<a href="/workplanphase/delete.do?id=${phase.id}}"><spring:message
-							code="workplanphase.delete" /></a> <a
-						href="/workplanphase/moveup.do?id=${phase.id}}"><spring:message
-							code="workplanphase.moveup" /></a> <a
-						href="/workplanphase/movedown.do?id=${phase.id}}"><spring:message
-							code="workplanphase.movedown" /></a>
+					<security:authorize access="hasRole('HANDYWORKER')">
+						<jstl:if test="${fixupTask.author.id==userId}">
+							<a href="/workplanphase/delete.do?id=${phase.id}}"><spring:message
+								code="workplanphase.delete" /></a> <a
+							href="/workplanphase/moveup.do?id=${phase.id}}"><spring:message
+								code="workplanphase.moveup" /></a> <a
+							href="/workplanphase/movedown.do?id=${phase.id}}"><spring:message
+								code="workplanphase.movedown" /></a>
+						</jstl:if>
+					</security:authorize>
 				</h3>
 				<h2>
 					<jstl:out value="${phase.position} }" />

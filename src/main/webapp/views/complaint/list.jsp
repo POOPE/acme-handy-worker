@@ -19,11 +19,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="complaints" id="row"
-	requestURI="complaints/list.do" pagesize="10" class="displaytag">
+	requestURI="${requestURI}" pagesize="10" class="displaytag">
 	<display:column property="row.reference.ticker"
 		titleKey="complaint.fixuptask" />
 	<display:column property="row.publishDate" titleKey="complaint.date" />
-	<display:column>
-		<a href="/complaint/delete.do?=${row.id}"><spring:message code="delete"/></a>
-	</display:column>
+	<security:authorize access="hasRole('CUSTOMER')">
+		<display:column>
+			<jstl:if test="${row.author.id=userId}">
+				<a href="complaint/customer/edit.do?id=${row.id}}"><spring:message
+						code="edit" /></a>
+			</jstl:if>
+		</display:column>
+		<display:column>
+			<jstl:if test="${row.owner.author.id=userId}">
+				<a href="complaint/customer/delete.do?id=${row.id}}"><spring:message
+						code="delete" /></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 </display:table>

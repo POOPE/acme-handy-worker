@@ -19,27 +19,30 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:set var="userId" value="${user.id}" />
+<spring:message code="tutorial.create" var="mCreate" />
 
-<display:table name="fixupApplications" id="row" requestURI="${requestURI}"
+<display:table name="tutorials" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
-	<display:column property="fixupTask.ticker" titleKey="fixupapplication.fixup" />
-	<display:column property="author" titleKey="fixupapplication.author" />
-	<display:column property="publishDate" titleKey="fixupapplication.publishdate" />
-	<display:column property="offeredRate" titleKey="fixupapplication.rate" />
-	<display:column property="status" titleKey="fixupapplication.status" />
+	<display:column property="title" titleKey="tutorial.title" />
+	<display:column property="author" titleKey="tutorial.author" />
+	<display:column property="lastUpdate" titleKey="tutorial.lastUpdate" />
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<jstl:if test="${row.author.id==userId}">
-				<a href="fixupapplication/edit.do?id=${row.id}}"><spring:message
-						code="edit" /></a>
-			</jstl:if>
-		</display:column>
-		<display:column>
-			<jstl:if test="${row.author.id==userId}">
-				<a href="fixupapplication/handyworker/delete.do?id=${row.id}}"><spring:message
-						code="delete" /></a>
-			</jstl:if>
-		</display:column>
+		<jstl:if test="${row.author.id=userId}">
+			<display:column>
+				<a href="tutorial/handyworker/edit.do?id=${row.id}}"><spring:message
+						code="tutorial.edit" /></a>
+			</display:column>
+			<display:column>
+				<a href="tutorial/handyworker/delete.do?id=${row.id}}"><spring:message
+						code="tutorial.delete" /></a>
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 </display:table>
+
+<security:authorize access="hasRole('HANDYWORKER')">
+	<jstl:if test="${createURI!=null}">
+		<a href="${createURI}">${mCreate}</a>
+	</jstl:if>
+</security:authorize>
