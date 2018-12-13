@@ -20,7 +20,7 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<display:table name="fixupApplications" id="row" requestURI="fixupapplication/list.do"
+<display:table name="fixupApplications" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
 	<display:column property="fixupTask.ticker" titleKey="fixupapplication.fixup" />
 	<display:column property="author" titleKey="fixupapplication.author" />
@@ -29,15 +29,17 @@
 	<display:column property="status" titleKey="fixupapplication.status" />
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<jstl:if test="${row.author.id=userId}">
-			<display:column>
+		<display:column>
+			<jstl:if test="${row.author.id==userId}">
 				<a href="fixupapplication/edit.do?id=${row.id}}"><spring:message
 						code="edit" /></a>
-			</display:column>
-			<display:column>
-				<a href="fixupapplication/delete.do?id=${row.id}}"><spring:message
+			</jstl:if>
+		</display:column>
+		<display:column>
+			<jstl:if test="${row.author.id==userId}">
+				<a href="fixupapplication/handyworker/delete.do?id=${row.id}}"><spring:message
 						code="delete" /></a>
-			</display:column>
-		</jstl:if>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 </display:table>

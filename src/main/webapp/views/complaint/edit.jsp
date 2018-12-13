@@ -20,7 +20,9 @@
 
 
 <form:form modelAttribute="complaint"
-	action="/complaint/edit.do">
+	action="/complaint/customer/edit.do">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
 	<form:hidden path="ticker" />
 	<form:hidden path="reference" />
 	<form:hidden path="publishDate"/>

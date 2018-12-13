@@ -23,7 +23,7 @@
 
 <!-- info -->
 <form:form modelAttribute="tutorial"
-	action="/tutorial/edit.do">
+	action="/tutorial/handyworker/edit.do">
 	<form:hidden path="author" />
 	<form:hidden path="lastUpdate"/>
 	

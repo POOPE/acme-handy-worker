@@ -21,7 +21,7 @@
 <jstl:set var="userId" value="${user.id}" />
 <spring:message code="tutorial.create" var="mCreate" />
 
-<display:table name="tutorials" id="row" requestURI="tutorial/list.do"
+<display:table name="tutorials" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
 	<display:column property="title" titleKey="tutorial.title" />
 	<display:column property="author" titleKey="tutorial.author" />
@@ -30,11 +30,11 @@
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<jstl:if test="${row.author.id=userId}">
 			<display:column>
-				<a href="tutorial/edit.do?id=${row.id}}"><spring:message
+				<a href="tutorial/handyworker/edit.do?id=${row.id}}"><spring:message
 						code="tutorial.edit" /></a>
 			</display:column>
 			<display:column>
-				<a href="tutorial/delete.do?id=${row.id}}"><spring:message
+				<a href="tutorial/handyworker/delete.do?id=${row.id}}"><spring:message
 						code="tutorial.delete" /></a>
 			</display:column>
 		</jstl:if>
