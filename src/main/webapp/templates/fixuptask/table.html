@@ -2,15 +2,17 @@
 <head>
 <title>Spring Boot Thymeleaf Hello World Example</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="../../styles/common.css" />
+<link rel="stylesheet" type="text/css" href="/styles/common.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/styles/bootstrap.css" />
 </head>
 <body>
-	<table>
+	<table id="fixupTaskTable" class="table">
 		<thead>
 			<tr>
-				<th>Ticker</th>
-				<th>Date</th>
+				<th scope="col">Ticker</th>
+				<th scope="col">Date</th>
 			</tr>
 		</thead>
 		<tbody>
