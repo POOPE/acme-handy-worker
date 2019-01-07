@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -22,14 +22,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Message extends DomainEntity {
 
 	//relations
-	public Actor					sender;
-	public Collection<Actor>		recipients;
-	public Collection<MessageBox>	container;
+	public Actor			sender;
+	public List<Actor>		recipients;
+	public List<MessageBox>	container;
 	//attributes
-	public String					subject;
-	public Date						deliveryDate;
-	public String					body;
-	public String					priority;
+	public String			subject;
+	public Date				deliveryDate;
+	public String			body;
+	public String			priority;
 
 
 	@ManyToOne(optional = false)
@@ -43,21 +43,21 @@ public class Message extends DomainEntity {
 
 	// admin can send message to multiple recipients
 	@ManyToMany
-	public Collection<Actor> getRecipients() {
+	public List<Actor> getRecipients() {
 		return this.recipients;
 	}
 
-	public void setRecipients(final Collection<Actor> recipients) {
+	public void setRecipients(final List<Actor> recipients) {
 		this.recipients = recipients;
 	}
 
 	@NotNull
 	@ManyToMany
-	public Collection<MessageBox> getContainer() {
+	public List<MessageBox> getContainer() {
 		return this.container;
 	}
 
-	public void setContainer(final Collection<MessageBox> container) {
+	public void setContainer(final List<MessageBox> container) {
 		this.container = container;
 	}
 

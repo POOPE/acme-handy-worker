@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- 
- * tiles.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * tiles.xml * * Copyright (C) 2018 Universidad de Sevilla * * The use 
+	of this project is hereby constrained to the conditions of the * TDG Licence, 
+	a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-	<definition name="fixuptask/list" extends="master.page">	
-		<put-attribute name="title" value="Fix-up tasks" />
-		<put-attribute name="body" value="/views/fixuptask/list.jsp" />
+	<definition name="messaging/messagebox" extends="master.page">
+		<put-attribute name="title" value="Messaging" />
+		<put-attribute name="body" value="/views/messaging/messagebox.jsp" />
 	</definition>
 	
-	<definition name="fixuptask/thyme-list" extends="master.page">	
-		<put-attribute name="title" value="Fix-up tasks" />
-		<put-attribute name="body" value="/views/fixuptask/thyme-list.jsp" />
+	<definition name="messaging/edit" extends="master.page">
+		<put-attribute name="title" value="Message box" />
+		<put-attribute name="body" value="/views/messaging/edit.jsp" />
 	</definition>
 	
+	<definition name="messaging/write" extends="master.page">
+		<put-attribute name="title" value="Message" />
+		<put-attribute name="body" value="/views/messaging/write.jsp" />
+	</definition>
+
 </tiles-definitions>

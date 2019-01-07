@@ -339,40 +339,41 @@
 	</bean>
 
 	<!-- Message Boxes -->
+	
+	<bean id="customer1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
 
 	<bean id="customer1Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox"/>
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox"/>
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox"/>
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox"/>
 		<property name="owner" ref="customer1" />
 	</bean>
 

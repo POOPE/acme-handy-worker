@@ -50,4 +50,8 @@ public class UserAccountService {
 		user.getAuthorities().add(auth);
 		return user;
 	}
+
+	public UserAccount findByUsername(String username) {
+		return this.adminRepository.findByUsername(username);
+	}
 }

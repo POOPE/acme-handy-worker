@@ -1,9 +1,8 @@
 
 package services;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +36,16 @@ public class MessageService {
 	public Message create() {
 		Actor actor = this.actorService.findPrincipal();
 		MessageBox mb = this.messageBoxService.findByCategory("OUTBOX");
-		Collection<MessageBox> container = new HashSet<>();
+		List<MessageBox> container = new ArrayList<>();
+		List<Actor> recipients = new ArrayList<>();
 		container.add(mb);
 
 		Message m = new Message();
+		m.setRecipients(recipients);
 		m.setContainer(container);
 		m.setSender(actor);
 
-		return this.messageRepository.save(m);
+		return m;
 	}
 
 	public Message send(Message message) {
@@ -57,13 +58,14 @@ public class MessageService {
 		//for each recipient, update the message containers to include their INBOX
 		for (Actor recipient : message.getRecipients()) {
 			MessageBox inbox = this.messageBoxService.findByCategory(recipient, "INBOX");
-			Collection<MessageBox> newRelation = message.getContainer();
+			List<MessageBox> newRelation = message.getContainer();
+			if (newRelation == null) {
+				newRelation = new ArrayList<MessageBox>();
+			}
 			newRelation.add(inbox);
 			message.setContainer(newRelation);
-
-			this.save(message);
 		}
-		return message;
+		return this.save(message);
 	}
 
 	public Message remove(Message message, MessageBox messageBox) {
@@ -72,7 +74,7 @@ public class MessageService {
 		Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on remove: Owner inconsistency");
 
-		Collection<MessageBox> newRelation = message.getContainer();
+		List<MessageBox> newRelation = message.getContainer();
 		newRelation.remove(messageBox);
 		message.setContainer(newRelation);
 
@@ -90,7 +92,7 @@ public class MessageService {
 		Assert.isTrue(from.getOwner().equals(actor), "Error on move: Owner inconsistency");
 		Assert.isTrue(to.getOwner().equals(actor), "Error on move: Owner inconsistency");
 
-		Collection<MessageBox> newRelation = message.getContainer();
+		List<MessageBox> newRelation = message.getContainer();
 		newRelation.remove(from);
 		newRelation.add(to);
 		message.setContainer(newRelation);

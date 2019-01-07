@@ -36,9 +36,13 @@ public class MessageBoxService {
 		return messageBox;
 	}
 
+	public MessageBox findById(int id) {
+		return this.messageBoxRepository.findOne(id);
+	}
+
 	public MessageBox save(MessageBox messageBox) {
 		Actor actor = this.actorService.findPrincipal();
-
+		messageBox.setOwner(actor);
 		Assert.isTrue(messageBox.getOwner().equals(actor), "Error on save: Owner inconsistency");
 		Assert.isTrue(messageBox.getCategory().equals("USERBOX"), "Error on save: Cannot modify system box");
 
@@ -61,6 +65,23 @@ public class MessageBoxService {
 		res.setName(name);
 		res.setOwner(owner);
 		return res;
+	}
+
+	//finds messagebox by parent
+	public List<MessageBox> findByParent(MessageBox parent) {
+		List<MessageBox> boxList = new ArrayList<>();
+
+		boxList = this.messageBoxRepository.findByParent(parent.getId());
+
+		return boxList;
+	}
+
+	//loads boxes in root folder
+	public List<MessageBox> loadRoot() {
+		MessageBox parent = this.findByCategory("ROOT");
+		List<MessageBox> boxList = new ArrayList<>();
+		boxList = this.findByParent(parent);
+		return boxList;
 	}
 
 	//gives a list of children given a messageBox

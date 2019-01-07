@@ -18,33 +18,25 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form modelAttribute="fixupApplication"
-	action="/fixupapplication/edit.do">
-	<form:hidden path="sender" />
-	<form:hidden path="container" />
-	<form:hidden path="deliveryDate" />
-	<form:label path="recipients">
-		<spring:message code="message.recipients" />
-	</form:label>
-	<form:input path="recipients" />
-	<form:errors cssClass="error" path="recipients" />
-
-	<form:label path="subject">
-		<spring:message code="message.subject" />
-	</form:label>
-	<form:input path="subject" />
-	<form:errors cssClass="error" path="subject" />
-
-	<form:label path="body">
-		<spring:message code="message.body" />
-	</form:label>
-	<form:textarea path="body" />
-	<form:errors cssClass="error" path="body" />
-
-	<form:select id="priority" path="priority">
-		<form:options items="${priorities}" itemLabel="priority" itemValue="id" />
-		<form:option value="0" label="----" />
-	</form:select>
+<form:form modelAttribute="messageBox"
+	action="messaging/edit.do">
+	<form:hidden path="category" />
 	
+	<form:label path="parent">
+		<spring:message code="messagebox.parent" />
+	</form:label>
+	<form:select id="parent" path="parent">
+		<form:options items="${messageBoxes}" itemLabel="name" itemValue="id" />
+		<form:option value="0" label="---" />
+	</form:select>
+	<form:errors cssClass="error" path="parent" />
+	<br/>
+	<form:hidden path="owner" value="${messageBox.owner.id}"/>
+	<form:label path="name">
+		<spring:message code="messagebox.name" />
+	</form:label>
+	<form:input path="name" />
+	<form:errors cssClass="error" path="name" />
+	<br/>
 	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>

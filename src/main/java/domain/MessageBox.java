@@ -57,4 +57,8 @@ public class MessageBox extends DomainEntity {
 		this.category = category;
 	}
 
+	@Override
+	public String toString() {
+		return String.valueOf(this.getId());
+	}
 }

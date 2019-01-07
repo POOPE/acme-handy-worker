@@ -22,6 +22,6 @@ public interface MessageBoxRepository extends JpaRepository<MessageBox, Integer>
 	List<MessageBox> findByCategory(int actorId, String category);
 
 	@Query("select a from MessageBox a where a.parent.id = ?1")
-	List<MessageBox> findByParent(int parentId);
+	List<MessageBox> findByParent(Integer parentId);
 
 }

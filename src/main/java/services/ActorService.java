@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 
 @Service
@@ -52,8 +53,8 @@ public class ActorService {
 		return this.actorRepository.findAll();
 	}
 
-	public Actor find(Actor actor) {
-		return this.actorRepository.findOne(actor.getId());
+	public Actor findById(int id) {
+		return this.actorRepository.findOne(id);
 	}
 
 	// when doing an update on an existing actor, use this method.
@@ -65,6 +66,21 @@ public class ActorService {
 	}
 
 	//OTHER ----------------------------------------------------------------
+
+	public Actor findByUsername(String username) {
+		Actor res = null;
+		try {
+			UserAccount user = this.userAccountService.findByUsername(username);
+			res = this.findByUser(user);
+		} catch (Exception e) {
+
+		}
+		return res;
+	}
+
+	public Actor findByUser(UserAccount user) {
+		return this.actorRepository.findByUser(user.getId());
+	}
 
 	public Collection<Actor> findAllSuspicious() {
 		return this.actorRepository.findAllSuspicious();

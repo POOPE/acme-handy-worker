@@ -13,44 +13,53 @@
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- receives: messagebox list, messagebox, messages list -->
-<jstl:if test="${not empty messagebox}">
-	<a href="messaging/messagebox/<c:out value="${messagebox.parent.id}"/>">Go
+<jstl:if test="${not empty messageBox}}">
+	<a href="messaging/messagebox/<c:out value="${messageBox.parent.id}"/>">Go
 		back</a>
-	<jstl:out value="${messagebox.name}" />
+	<jstl:out value="${messageBox.name}" />
 </jstl:if>
+<!-- create messagebox -->
+<div>
+	<a href="messaging/create.do?=${messageBox.id}">
+		<spring:message code="create"/>
+	</a>
+</div>
+
 <!-- message boxes -->
-<jstl:if test="${not empty messageboxes}">
-	<display:table name="messageboxes" id="row" requestURI="${requestURI}"
-		pagesize="10" class="displaytag">
-		<!-- Name of messagebox links to open the messagebox -->
-		<display:column>
-			<a href="messaging/box.do?id=${row.id}}"> <jstl:out
-					value="${row.name}" />
-			</a>
-		</display:column>
-	</display:table>
-</jstl:if>
+
+<display:table name="messageBoxes" id="row"
+	requestURI="${boxRequestURI}" pagesize="10" class="displaytag">
+	<!-- Name of messagebox links to open the messagebox -->
+	<display:column>
+		<a href="messaging/view.do?id=${row.id}"> <jstl:out
+				value="${row.name}" />
+		</a>
+	</display:column>
+</display:table>
+
 <!-- messages -->
-<jstl:if test="${not empty messages}">
-	<display:table name="messages" id="row" requestURI="${requestURI}"
-		pagesize="10" class="displaytag">
-		<display:column property="priority" titleKey="row.priority"/>	
-		<!-- name of message is link to open message -->
-		<display:column>
-			<a href="messaging/message.do?id=${row.id}}"> <jstl:out
-					value="${row.subject}" />
-			</a>
-		</display:column>
-		<display:column property="sender" titleKey="row.sender"/>
-		<display:column property="received">
-			<fmt:formatDate value="${row.deliveryDate}" pattern="dd/MM/yyyy" /> 
-		</display:column>
-	</display:table>
-</jstl:if>
+
+<display:table name="messages" id="row" requestURI="${messageRequestURI}"
+	pagesize="10" class="displaytag">
+	<display:column property="priority">
+		<jstl:out value="${row.priority}"/>
+	</display:column>
+	<!-- name of message is link to open message -->
+	<display:column property="subject">
+		<a href="messaging/message.do?id=${row.id}}"> <jstl:out
+				value="${row.subject}" />
+		</a>
+	</display:column>
+	<display:column property="sender">
+		<jstl:out value="${row.sender.name}"/>
+	</display:column>
+	<display:column property="deliveryDate">
+		<fmt:formatDate value="${row.deliveryDate}" pattern="dd/MM/yyyy" />
+	</display:column>
+</display:table>
