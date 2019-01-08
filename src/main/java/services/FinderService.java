@@ -1,10 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class FinderService {
 
 	public Finder create() {
 		Finder finder = new Finder();
-		finder.setFixUpTasks(new HashSet<FixupTask>());
+		finder.setFixUpTasks(new ArrayList<FixupTask>());
 		return finder;
 	}
 
@@ -54,7 +54,7 @@ public class FinderService {
 	//OTHER ----------------------------------------------------------------
 
 	public Finder doSearch(Finder finder) {
-		Collection<FixupTask> fixupTasks = this.finderRepository.doSearch(finder.getKeyWord(), finder.getCategory(), finder.getWarranty(), finder.getMinPrice(), finder.getMaxPrice(), finder.getMinDate(), finder.getMaxDate());
+		List<FixupTask> fixupTasks = this.finderRepository.doSearch(finder.getKeyWord(), finder.getCategory(), finder.getWarranty(), finder.getMinPrice(), finder.getMaxPrice(), finder.getMinDate(), finder.getMaxDate());
 		finder.setFixUpTasks(fixupTasks);
 		finder.setCreationDate(new Date());
 		finder = this.save(finder);
@@ -87,7 +87,7 @@ public class FinderService {
 	}
 	public Finder resetFinder(Finder finder) {
 		finder.setCategory(null);
-		finder.setFixUpTasks(new HashSet<FixupTask>());
+		finder.setFixUpTasks(new ArrayList<FixupTask>());
 		finder.setKeyWord(null);
 		finder.setMaxDate(null);
 		finder.setMaxPrice(null);

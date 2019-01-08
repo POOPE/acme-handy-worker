@@ -8,8 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="
- " contentType="text/html; charset=ISO-8859-1"
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,11 +18,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
 <jstl:set var="userId" value="${user.id}" />
 
 <!-- info -->
-<form:form modelAttribute="finder"
-	action="/finder/handyworker/edit.do">
+<form:form id="finderform" modelAttribute="finder">
 	<form:hidden path="handyWorker" />
 	<form:hidden path="creationDate"/>
 	<form:hidden path="fixUpTasks"/>
@@ -31,51 +30,64 @@
 		<form:label path="keyWord">
 			<spring:message code="finder.keyWord" />
 		</form:label>
-		<form:input path="finder.keyWord" />
-		<form:errors cssClass="error" path="finder.keyWord" />
+		<form:input path="keyWord" />
+		<form:errors cssClass="error" path="keyWord" />
 	</div>
 	<div>
 		<form:label path="category">
 			<spring:message code="finder.category" />
 		</form:label>
-		<form:input path="finder.category" />
-		<form:errors cssClass="error" path="finder.category" />
+		<form:input path="category" />
+		<form:errors cssClass="error" path="category" />
 	</div>
 	<div>
 		<form:label path="warranty">
 			<spring:message code="finder.warranty" />
 		</form:label>
-		<form:input path="finder.warranty" />
-		<form:errors cssClass="error" path="finder.warranty" />
+		<form:input path="warranty" />
+		<form:errors cssClass="error" path="warranty" />
 	</div>
 	<div>
 		<form:label path="minDate">
 			<spring:message code="finder.minDate" />
 		</form:label>
-		<form:input path="finder.minDate" />
-		<form:errors cssClass="error" path="finder.minDate" />
+		<form:input path="minDate" />
+		<form:errors cssClass="error" path="minDate" />
 	</div>
 	<div>
 		<form:label path="maxDate">
 			<spring:message code="finder.maxDate" />
 		</form:label>
-		<form:input path="finder.maxDate" />
-		<form:errors cssClass="error" path="finder.maxDate" />
+		<form:input path="maxDate" />
+		<form:errors cssClass="error" path="maxDate" />
 	</div>
 	<div>
 		<form:label path="minPrice">
 			<spring:message code="finder.minPrice" />
 		</form:label>
-		<form:input path="finder.minPrice" />
-		<form:errors cssClass="error" path="finder.minPrice" />
+		<form:input path="minPrice" />
+		<form:errors cssClass="error" path="minPrice" />
 	</div>
 	<div>
 		<form:label path="maxPrice">
 			<spring:message code="finder.maxPrice" />
 		</form:label>
-		<form:input path="finder.maxPrice" />
-		<form:errors cssClass="error" path="finder.maxPrice" />
+		<form:input path="maxPrice" />
+		<form:errors cssClass="error" path="maxPrice" />
 	</div>
 
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
+	<button id="savebutton" type="button"><spring:message code="save"/></button>
 </form:form>
+
+<display:table name="fixupTasks" id="row" requestURI="${requestURI}"
+	pagesize="10" class="displaytag">
+	<display:column property="ticker" titleKey="fixuptask.ticker" />
+	<display:column property="publishDate" titleKey="fixuptask.publishdate" />
+	<display:column property="description" titleKey="fixuptask.description" />
+	<display:column property="maximumPrice" titleKey="fixuptask.price" />
+	<display:column property="startDate" titleKey="fixuptask.start" />
+	<display:column property="endDate" titleKey="fixuptask.end" />
+
+</display:table>
+
+<script type="text/javascript" src="scripts/finder.js"></script>

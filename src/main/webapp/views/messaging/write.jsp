@@ -22,18 +22,19 @@
 
 
 <form:form modelAttribute="mail" action="messaging/send.do">
-
-	<div>
-		<form:hidden id="recipientsfield" path="recipients" />
-
-		<spring:message code="message.recipients" />
+	<form:hidden id="recipientsfield" path="recipients" />
+	<form:hidden path="lock" />
+	<jstl:if test="${!mail.lock}">
 		<div>
-			<spring:message code="message.recipients.info" />
+			<spring:message code="message.recipients" />
+			<div>
+				<spring:message code="message.recipients.info" />
+			</div>
+			<div id="confirmed"></div>
+			<input id="recipientsearch" type="text" name="fname"><br>
+			<form:errors cssClass="error" path="recipients" />
 		</div>
-		<div id="confirmed"></div>
-		<input id="recipientsearch" type="text" name="fname"><br>
-		<form:errors cssClass="error" path="recipients" />
-	</div>
+	</jstl:if>
 	<div>
 		<form:label path="subject">
 			<spring:message code="message.subject" />

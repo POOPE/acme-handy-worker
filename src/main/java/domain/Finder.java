@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -19,25 +19,25 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	public Date						creationDate;
+	public Date				creationDate;
 
-	public String					keyWord;
+	public String			keyWord;
 
-	public String					category;
+	public String			category;
 
-	public String					warranty;
+	public String			warranty;
 
-	public Double					minPrice;
+	public Double			minPrice;
 
-	public Double					maxPrice;
+	public Double			maxPrice;
 
-	public Date						minDate;
+	public Date				minDate;
 
-	public Date						maxDate;
+	public Date				maxDate;
 
-	public HandyWorker				handyWorker;
+	public HandyWorker		handyWorker;
 
-	public Collection<FixupTask>	fixUpTasks;
+	public List<FixupTask>	fixUpTasks;
 
 
 	@Past
@@ -119,11 +119,11 @@ public class Finder extends DomainEntity {
 	}
 
 	@OneToMany
-	public Collection<FixupTask> getFixUpTasks() {
+	public List<FixupTask> getFixUpTasks() {
 		return this.fixUpTasks;
 	}
 
-	public void setFixUpTasks(final Collection<FixupTask> fixUpTasks) {
+	public void setFixUpTasks(List<FixupTask> fixUpTasks) {
 		this.fixUpTasks = fixUpTasks;
 	}
 

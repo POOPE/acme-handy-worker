@@ -37,7 +37,7 @@
 				</jstl:if>
 		</display:column>
 		<display:column>
-				<jstl:if test="${row.owner.author.id==userId}">
+				<jstl:if test="${row.author.id==userId}">
 						<a href="fixuptask/customer/delete.do?id=${row.id}}"><spring:message
 								code="delete" /></a>
 				</jstl:if>

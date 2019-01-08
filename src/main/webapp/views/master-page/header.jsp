@@ -54,8 +54,10 @@
 					<li class="arrow"></li>
 					<li><a href="fixuptask/list.do"><spring:message
 								code="master.page.fixuptasks.browse" /></a></li>
-					<li><a href="fixuptask/thyme-list.do"><spring:message
-								code="master.page.fixuptasks.browse" /></a></li>
+					<security:authorize access="hasRole('HANDYWORKER')">
+						<li><a href="finder/init.do"><spring:message
+									code="master.page.finder" /></a></li>
+					</security:authorize>
 					<security:authorize access="hasRole('CUSTOMER')">
 						<li><a href="customer/action-2.do"><spring:message
 									code="master.page.fixuptasks.create" /></a></li>

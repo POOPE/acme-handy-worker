@@ -40,6 +40,7 @@ public class MessagingController {
 	public ModelAndView message() {
 		ModelAndView res;
 		MessageForm mail = new MessageForm();
+		mail.setLock(false);
 		res = this.createMessageEditModelAndView(mail);
 		return res;
 	}
@@ -85,6 +86,32 @@ public class MessagingController {
 		}
 		return res;
 	}
+
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public ModelAndView removeMessage(@RequestParam int messageId, @RequestParam int boxId) {
+		ModelAndView res;
+		res = new ModelAndView("redirect:view.do?" + boxId);
+		try {
+			Message message = this.messageService.findById(messageId);
+			MessageBox messageBox = this.messageBoxService.findById(boxId);
+
+			this.messageService.remove(message, messageBox);
+		} catch (Exception e) {
+			res.addObject("message", "messageBox.delete.error");
+		}
+		return res;
+	}
+
+	@RequestMapping(value = "/reply", method = RequestMethod.GET)
+	public ModelAndView reply(@RequestParam int id) {
+		ModelAndView res;
+		MessageForm mail = new MessageForm();
+		Message message = this.messageService.findById(id);
+		mail.setRecipients(String.valueOf(message.getSender().getId()));
+		mail.setLock(true);
+		res = this.createMessageEditModelAndView(mail);
+		return res;
+	}
 	//MESSAGEBOX
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -99,13 +126,25 @@ public class MessagingController {
 		return res;
 	}
 
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int id) {
+		ModelAndView res;
+		res = new ModelAndView("redirect:view.do");
+		try {
+			MessageBox messageBox = this.messageBoxService.findById(id);
+			this.messageBoxService.deleteAll(messageBox);
+		} catch (Exception e) {
+			res.addObject("message", "messageBox.delete.error");
+		}
+		return res;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int id) {
 		ModelAndView res;
 		MessageBox messageBox = this.messageBoxService.findById(id);
 		Assert.notNull(messageBox);
-		res = new ModelAndView("messaging/edit");
-		res.addObject("messageBox", messageBox);
+		res = this.createEditModelAndView(messageBox);
 		return res;
 	}
 

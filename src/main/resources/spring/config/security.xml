@@ -56,6 +56,8 @@
 		
 		<security:intercept-url pattern="/messaging/**" access="isAuthenticated()" />  
 		
+		<security:intercept-url pattern="/finder/**" access="hasRole('HANDYWORKER')" /> 
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

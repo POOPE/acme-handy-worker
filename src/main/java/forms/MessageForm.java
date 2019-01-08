@@ -7,7 +7,16 @@ public class MessageForm {
 	public String	subject;
 	public String	body;
 	public String	priority;
+	public Boolean	lock;
 
+
+	public Boolean getLock() {
+		return this.lock;
+	}
+
+	public void setLock(Boolean lock) {
+		this.lock = lock;
+	}
 
 	public String getRecipients() {
 		return this.recipients;

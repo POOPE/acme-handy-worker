@@ -11,12 +11,12 @@
 <tiles-definitions>
 
 	<definition name="messaging/messagebox" extends="master.page">
-		<put-attribute name="title" value="Messaging" />
+		<put-attribute name="title" value="Mensajeria" />
 		<put-attribute name="body" value="/views/messaging/messagebox.jsp" />
 	</definition>
 	
 	<definition name="messaging/edit" extends="master.page">
-		<put-attribute name="title" value="Message box" />
+		<put-attribute name="title" value="Caja" />
 		<put-attribute name="body" value="/views/messaging/edit.jsp" />
 	</definition>
 

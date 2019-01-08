@@ -38,6 +38,11 @@ public class ActorService {
 		return actor;
 	}
 
+	public Actor suspicious(Actor actor) {
+		actor.setFlagged(true);
+		return this.save(actor);
+	}
+
 	public Actor save(Actor actor) {
 		if (actor.getId() == 0) {
 			Actor res = this.actorRepository.save(actor);

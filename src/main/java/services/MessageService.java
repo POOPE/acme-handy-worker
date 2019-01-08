@@ -28,9 +28,16 @@ public class MessageService {
 	@Autowired
 	ActorService				actorService;
 
+	@Autowired
+	SiteConfigurationService	siteService;
+
 
 	public List<Message> findByMessageBox(MessageBox messageBox) {
 		return this.messageRepository.findByMessageBox(messageBox.getId());
+	}
+
+	public Message findById(int id) {
+		return this.messageRepository.findOne(id);
 	}
 
 	public Message create() {
@@ -48,16 +55,52 @@ public class MessageService {
 		return m;
 	}
 
+	public Message send(Message message, String alias) {
+		//check for author is the one sending the message
+		//access constraint
+		Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(message.getSender().equals(actor), "Error on send: Owner inconsistency");
+		message.setSenderAlias(alias);
+		message.setDeliveryDate(new Date());
+		String destinedCategory = "INBOX";
+		for (String spamword : this.siteService.find().getSpamWords()) {
+			if (message.getBody().contains(spamword)) {
+				destinedCategory = "SPAMBOX";
+				this.actorService.suspicious(actor);
+				break;
+			}
+		}
+		//for each recipient, update the message containers to include their INBOX
+		for (Actor recipient : message.getRecipients()) {
+			MessageBox inbox = this.messageBoxService.findByCategory(recipient, destinedCategory);
+			List<MessageBox> newRelation = message.getContainer();
+			if (newRelation == null) {
+				newRelation = new ArrayList<MessageBox>();
+			}
+			newRelation.add(inbox);
+			message.setContainer(newRelation);
+		}
+		return this.save(message);
+	}
+
 	public Message send(Message message) {
 		//check for author is the one sending the message
 		//access constraint
 		Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue(message.getSender().equals(actor), "Error on send: Owner inconsistency");
-
+		message.setSenderAlias(actor.getName() + " " + actor.getSurname());
 		message.setDeliveryDate(new Date());
+		String destinedCategory = "INBOX";
+		for (String spamword : this.siteService.find().getSpamWords()) {
+			if (message.getBody().contains(spamword)) {
+				this.actorService.suspicious(actor);
+				destinedCategory = "SPAMBOX";
+				break;
+			}
+		}
 		//for each recipient, update the message containers to include their INBOX
 		for (Actor recipient : message.getRecipients()) {
-			MessageBox inbox = this.messageBoxService.findByCategory(recipient, "INBOX");
+			MessageBox inbox = this.messageBoxService.findByCategory(recipient, destinedCategory);
 			List<MessageBox> newRelation = message.getContainer();
 			if (newRelation == null) {
 				newRelation = new ArrayList<MessageBox>();
@@ -76,7 +119,13 @@ public class MessageService {
 
 		List<MessageBox> newRelation = message.getContainer();
 		newRelation.remove(messageBox);
-		message.setContainer(newRelation);
+		if (messageBox.getCategory() == "TRASHBOX") {
+			message.setContainer(newRelation);
+		} else {
+			MessageBox trashBox = this.messageBoxService.findByCategory(actor, "TRASHBOX");
+			newRelation.add(trashBox);
+			message.setContainer(newRelation);
+		}
 
 		return this.save(message);
 	}

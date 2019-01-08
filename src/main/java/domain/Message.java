@@ -23,6 +23,7 @@ public class Message extends DomainEntity {
 
 	//relations
 	public Actor			sender;
+	public String			senderAlias;
 	public List<Actor>		recipients;
 	public List<MessageBox>	container;
 	//attributes
@@ -31,6 +32,14 @@ public class Message extends DomainEntity {
 	public String			body;
 	public String			priority;
 
+
+	public String getSenderAlias() {
+		return this.senderAlias;
+	}
+
+	public void setSenderAlias(String senderAlias) {
+		this.senderAlias = senderAlias;
+	}
 
 	@ManyToOne(optional = false)
 	public Actor getSender() {
