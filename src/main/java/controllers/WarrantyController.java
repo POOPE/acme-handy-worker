@@ -27,7 +27,7 @@ public class WarrantyController {
 
 
 	// LIST ALL
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "admin/list")
 	public ModelAndView listAll() {
 		ModelAndView result;
 

@@ -1023,6 +1023,7 @@
 
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="Default" />
+		<property name="locked" value="false" />
 		<property name="terms">
 			<list>
 				<value>term 1</value>
@@ -1038,6 +1039,7 @@
 
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="Thef" />
+		<property name="locked" value="false" />
 		<property name="terms">
 			<list>
 				<value>prove that it was a theft</value>
@@ -1053,6 +1055,7 @@
 	</bean>
 
 	<bean id="warranty3" class="domain.Warranty">
+	<property name="locked" value="false" />
 		<property name="title" value="Total destruction" />
 		<property name="terms">
 			<list>

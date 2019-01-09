@@ -29,6 +29,7 @@
 		<value>/views/fixuptask/tiles.xml</value>
 		<value>/views/messaging/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
 	</util:list>
 
 </beans>

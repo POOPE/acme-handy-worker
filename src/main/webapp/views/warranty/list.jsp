@@ -19,9 +19,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:set var="userId" value="${user.id}" />
-<spring:message code="warranty.create" var="mCreate" />
 
-<display:table name="warranties" id="row" requestURI="${requestURI}"
+
+<display:table name="warranties" id="row" requestURI="/warranty/admin/list.do"
 	pagesize="10" class="displaytag">
 	<display:column property="title" titleKey="warranty.title" />
 	<!-- delete & edit -->
