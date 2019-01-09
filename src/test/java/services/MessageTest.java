@@ -1,8 +1,7 @@
 
 package services;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,10 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import utilities.AbstractTest;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
+import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -45,7 +44,7 @@ public class MessageTest extends AbstractTest {
 		Actor actor = this.as.findPrincipal();
 		m = this.ms.create();
 		Actor recipient = this.as.findByEmail("admin2@gmail.com");
-		Collection<Actor> recipients = new HashSet<>();
+		List<Actor> recipients = new ArrayList<>();
 		recipients.add(recipient);
 		m.setRecipients(recipients);
 
@@ -65,7 +64,7 @@ public class MessageTest extends AbstractTest {
 		Actor actor = this.as.findPrincipal();
 		m = this.ms.create();
 		Actor recipient = this.as.findByEmail("admin2@gmail.com");
-		Collection<Actor> recipients = new HashSet<>();
+		List<Actor> recipients = new ArrayList<>();
 		recipients.add(recipient);
 		m.setRecipients(recipients);
 
@@ -88,7 +87,7 @@ public class MessageTest extends AbstractTest {
 
 		m = this.ms.create();
 		Actor recipient = this.as.findByEmail("admin2@gmail.com");
-		Collection<Actor> recipients = new HashSet<>();
+		List<Actor> recipients = new ArrayList<>();
 		recipients.add(recipient);
 		m.setRecipients(recipients);
 

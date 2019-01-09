@@ -21,7 +21,16 @@ public class Warranty extends DomainEntity {
 	//attributes
 	public String		title;
 	public List<String>	terms;
+	public Boolean		locked;
 
+
+	public Boolean getLocked() {
+		return this.locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
 
 	@NotBlank
 	public String getTitle() {

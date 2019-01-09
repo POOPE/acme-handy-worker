@@ -1,12 +1,11 @@
 
 package jsonTests;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-
-import security.Authority;
-import security.UserAccount;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
+import security.Authority;
+import security.UserAccount;
 
 public class JsonSerializeTest {
 
@@ -46,7 +47,7 @@ public class JsonSerializeTest {
 		message1.setBody("Buenas. Tengo una bici rota.");
 		message1.setSender(customer1);
 
-		final Collection<MessageBox> messageContainers = new HashSet<MessageBox>();
+		final List<MessageBox> messageContainers = new ArrayList<MessageBox>();
 		messageContainers.add(messageBox1);
 
 		message1.setContainer(messageContainers);
