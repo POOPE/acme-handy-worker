@@ -40,6 +40,8 @@ public class FixupTaskService {
 		FixupTask res = new FixupTask();
 		res.setLocked(false);
 		res.setPhases(new ArrayList<WorkPlanPhase>());
+		res.setTicker("TEMP");
+		res.setPublishDate(new Date());
 
 		res.setAuthor(customer);
 		return res;

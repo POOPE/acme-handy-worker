@@ -29,23 +29,30 @@
 <div>
 	<jstl:out value="${fixupTask.ticker}" />
 	<br />
+	<br />
+	<b><spring:message code="fixuptask.description"/></b>
+	<br/>
 	<jstl:out value="${fixupTask.description}" />
 	<br />
+	<b><spring:message code="fixuptask.address"/></b>
+	<br/>
 	<spring:message code="fixuptask.address" />
 	<jstl:out value="${fixupTask.address}" />
 	<br />
-	<spring:message code="fixuptask.price" />
+	<b><spring:message code="fixuptask.price"/></b>
+	<br/>
 	<jstl:out value="${fixupTask.maximumPrice}" />
 	<br />
+	<b><spring:message code="fixuptask.date"/></b>
+	<br/>
 	<jstl:out value="${fixupTask.startDate}" />
 	&nbsp;-&nbsp;
 	<jstl:out value="${fixupTask.endDate}" />
 	<br />
 </div>
 <!-- phases -->
-<spring:message></spring:message>
-<jstl:if test="${fixupTask.locked}">
-	<jstl:forEach var="phase" begin="1" end=${fixupTask.phases.size()}}>
+<jstl:if test="${not empty fixupTask.phases}">
+	<jstl:forEach var="phase" items="${fixupTask.phases}">
 		<div>
 			<div>
 				<h3>

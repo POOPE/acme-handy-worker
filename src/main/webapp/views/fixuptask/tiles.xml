@@ -25,4 +25,9 @@
 		<put-attribute name="body" value="/views/fixuptask/view.jsp" />
 	</definition>
 	
+	<definition name="fixuptask/edit" extends="master.page">	
+		<put-attribute name="title" value="Fix-up task" />
+		<put-attribute name="body" value="/views/fixuptask/edit.jsp" />
+	</definition>
+	
 </tiles-definitions>

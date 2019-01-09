@@ -213,14 +213,12 @@ public class MessagingController {
 
 	protected ModelAndView createMessageEditModelAndView(MessageForm mail, String messageCode) {
 		ModelAndView res;
-		List<Actor> actors = this.actorService.findAll();
 		List<String> priorities = new ArrayList<>();
 		priorities.add("HIGH");
 		priorities.add("NEUTRAL");
 		priorities.add("LOW");
 
 		res = new ModelAndView("messaging/write");
-		res.addObject("actors", actors);
 		res.addObject("mail", mail);
 		res.addObject("priorities", priorities);
 		res.addObject("message", messageCode);
