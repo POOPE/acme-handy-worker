@@ -18,11 +18,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:set var="userId" value="${user.id}" />
 
 <display:table name="fixupTasks" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
 	<display:column property="ticker" titleKey="fixuptask.ticker" />
+	<display:column>
+		<a href="fixuptask/view.do?id=${row.id}"> <spring:message
+				code="fixuptask.view" />
+		</a>
+	</display:column>
 	<display:column property="publishDate" titleKey="fixuptask.publishdate" />
 	<display:column property="description" titleKey="fixuptask.description" />
 	<display:column property="maximumPrice" titleKey="fixuptask.price" />
@@ -31,16 +35,23 @@
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-				<jstl:if test="${row.author.id==userId}">
-						<a href="fixuptask/edit.do?id=${row.id}}"><spring:message
-								code="edit" /></a>
-				</jstl:if>
+			<jstl:if test="${row.author.id==user.id}">
+				<a href="fixuptask/edit.do?id=${row.id}}"><i
+					class="fa fa-pencil" aria-hidden="true"></i></a>
+			</jstl:if>
 		</display:column>
 		<display:column>
-				<jstl:if test="${row.author.id==userId}">
-						<a href="fixuptask/customer/delete.do?id=${row.id}}"><spring:message
-								code="delete" /></a>
-				</jstl:if>
+			<jstl:if test="${row.author.id==user.id}">
+				<a href="fixuptask/customer/delete.do?id=${row.id}}"><i
+					class="fa fa-times" aria-hidden="true"></i></a>
+			</jstl:if>
 		</display:column>
+		<security:authorize access="hasRole('HANDYWORKER')">
+			<display:column>
+				<a href="fixupapplication/handyworker/create.do?id=${row.id}">
+					<spring:message code="apply"/>
+				</a>
+			</display:column>
+		</security:authorize>
 	</security:authorize>
 </display:table>

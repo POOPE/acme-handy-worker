@@ -376,112 +376,115 @@
 		<property name="parent" ref="customer1RootBox"/>
 		<property name="owner" ref="customer1" />
 	</bean>
+	
+	<bean id="customer2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
 
 	<bean id="customer2Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox"/>
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox"/>
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox"/>
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="customer2RootBox"/>
+		<property name="owner" ref="customer2" />
+	</bean>
+	
+	<bean id="admin1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="customer2" />
+		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="admin1Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox"/>
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox"/>
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox"/>
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="admin1RootBox"/>
+		<property name="owner" ref="admin1" />
+	</bean>
+	
+	<bean id="admin2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="admin1" />
+		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="admin2Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox"/>
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox"/>
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox"/>
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox"/>
 		<property name="owner" ref="admin2" />
 	</bean>
 

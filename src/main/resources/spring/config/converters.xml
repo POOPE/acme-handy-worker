@@ -20,6 +20,12 @@
 	<util:list id="converters">
 		<bean class="converters.StringToMessageBoxConverter"/>
 		<bean class="converters.StringToActorConverter"/>
+		<bean class="converters.StringToCreditCardConverter"/>
+		<bean class="converters.StringToCustomerConverter"/>
+		<bean class="converters.StringToCategoryConverter"/>
+		<bean class="converters.StringToWarrantyConverter"/>
+		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
+		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
 	</util:list>
 	
 </beans>

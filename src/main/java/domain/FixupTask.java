@@ -98,7 +98,7 @@ public class FixupTask extends DomainEntity {
 		this.maximumPrice = maximumPrice;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
@@ -108,7 +108,7 @@ public class FixupTask extends DomainEntity {
 		this.startDate = startDate;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;

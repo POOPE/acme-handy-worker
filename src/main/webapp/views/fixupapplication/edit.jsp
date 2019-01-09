@@ -21,8 +21,8 @@
 
 <form:form modelAttribute="fixupApplication"
 	action="/fixupapplication/edit.do">
-	<form:hidden path="fixupTask" />
-	<form:hidden path="author" />
+	<form:hidden path="fixupTask" value="${fixupApplication.fixupTask.id}"/>
+	<form:hidden path="author" value="${fixupApplication.author.id}"/>
 	<form:hidden path="publishDate"/>
 	<form:hidden path="status"/>
 	<form:label path="rate">
