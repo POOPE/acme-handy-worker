@@ -20,8 +20,8 @@
 
 
 <!-- info -->
-<form:form modelAttribute="warranty"
-	action="warranty/admin/save.do">
+<form:form modelAttribute="category"
+	action="category/admin/save.do">
 	
 	<form:hidden path="laws" />
 	
@@ -33,7 +33,7 @@
 	
 	<div>
 		<form:label path="title">
-			<spring:message code="warranty.title" />
+			<spring:message code="category.title" />
 		</form:label>
 		<form:input path="title" />
 		<form:errors cssClass="error" path="title" />

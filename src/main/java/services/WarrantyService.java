@@ -45,4 +45,10 @@ public class WarrantyService {
 
 		this.warrantyRepository.delete(w.getId());
 	}
+
+	public Warranty initialize(Warranty warranty) {
+
+		return this.save(warranty);
+	}
+
 }

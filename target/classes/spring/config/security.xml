@@ -51,6 +51,19 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
+		<security:intercept-url pattern="/fixuptask/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/fixuptask/**" access="isAuthenticated()" />  
+		
+		<security:intercept-url pattern="/messaging/**" access="isAuthenticated()" />  
+		
+		<security:intercept-url pattern="/finder/**" access="hasRole('HANDYWORKER')" /> 
+		
+		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		
+		<security:intercept-url pattern="/fixupapplication/handyworker/**" access="hasRole('HANDYWORKER')" />
+		
+		<security:intercept-url pattern="/warranty/admin/**" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
