@@ -2,14 +2,12 @@
 package domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
@@ -24,20 +22,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class FixupTask extends DomainEntity {
 
 	//relations
-	public Customer				author;
-	public Warranty				warranty;
-	public List<WorkPlanPhase>	phases;
-	public Category				category;
+	public Customer		author;
+	public Warranty		warranty;
+	public Category		category;
 	//attributes
-	public String				ticker;
-	public Date					publishDate;
-	public String				description;
-	public String				address;
-	public Float				maximumPrice;
-	public Date					startDate;
-	public Date					endDate;
-	public boolean				locked;
-	public CreditCard			creditCard;
+	public String		ticker;
+	public Date			publishDate;
+	public String		description;
+	public String		address;
+	public Float		maximumPrice;
+	public Date			startDate;
+	public Date			endDate;
+	public boolean		locked;
+	public CreditCard	creditCard;
 
 
 	@ManyToOne(optional = false)
@@ -142,15 +139,6 @@ public class FixupTask extends DomainEntity {
 
 	public void setWarranty(Warranty warranty) {
 		this.warranty = warranty;
-	}
-
-	@OneToMany
-	public List<WorkPlanPhase> getPhases() {
-		return this.phases;
-	}
-
-	public void setPhases(List<WorkPlanPhase> phases) {
-		this.phases = phases;
 	}
 
 	@ManyToOne(optional = false)
