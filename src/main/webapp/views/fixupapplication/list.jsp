@@ -20,13 +20,34 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<display:table name="fixupApplications" id="row" requestURI="${requestURI}"
-	pagesize="10" class="displaytag">
-	<display:column property="fixupTask.ticker" titleKey="fixupapplication.fixup" />
+<display:table name="fixupApplications" id="row"
+	requestURI="${requestURI}" pagesize="10" class="displaytag">
+	<display:column property="fixupTask.ticker"
+		titleKey="fixupapplication.fixup" />
 	<display:column property="author" titleKey="fixupapplication.author" />
-	<display:column property="publishDate" titleKey="fixupapplication.publishdate" />
+	<display:column property="publishDate"
+		titleKey="fixupapplication.publishdate" />
 	<display:column property="offeredRate" titleKey="fixupapplication.rate" />
 	<display:column property="status" titleKey="fixupapplication.status" />
+	<!-- accept/reject -->
+	<security:authorize access="hasRole('CUSTOMER')">
+
+		<display:column>
+			<jstl:if test="${row.status == 'PENDING'}">
+				<a href="fixupapplication/customer/eval.do?appId=${row.id}&status=1">
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</display:column>
+		<display:column>
+			<jstl:if test="${row.status=='PENDING'}">
+				<a href="fixupapplication/customer/eval.do?appId=${row.id}&status=0">
+					<i class="fa fa-times" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</display:column>
+
+	</security:authorize>
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>

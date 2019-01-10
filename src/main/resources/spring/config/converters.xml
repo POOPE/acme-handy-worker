@@ -24,6 +24,8 @@
 		<bean class="converters.StringToCustomerConverter"/>
 		<bean class="converters.StringToCategoryConverter"/>
 		<bean class="converters.StringToWarrantyConverter"/>
+		<bean class="converters.StringToHandyWorkerConverter"/>
+		<bean class="converters.StringToFixupTaskConverter"/>
 		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
 		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
 	</util:list>

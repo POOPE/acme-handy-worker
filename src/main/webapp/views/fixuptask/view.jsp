@@ -17,34 +17,29 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jstl:set var="userId" value="${user.id}" />
-
-<!-- complain -->
+<!-- browse applications // only available to author -->
 <security:authorize access="hasRole('CUSTOMER')">
-	<a href="/complaint/create.do?id=${fixupTask.id}"></a>
+	<jstl:if test="${fixupTask.author.id == user.id && !fixupTask.locked}">
+		<a href="fixupapplication/customer/bytask.do?id=${fixupTask.id}">
+			<spring:message code="fixupapplications" />
+		</a>
+	</jstl:if>
 </security:authorize>
+
 <!-- info -->
 <div>
 	<jstl:out value="${fixupTask.ticker}" />
+	<br /> <br /> <b><spring:message code="fixuptask.description" /></b>
 	<br />
-	<br />
-	<b><spring:message code="fixuptask.description"/></b>
-	<br/>
 	<jstl:out value="${fixupTask.description}" />
-	<br />
-	<b><spring:message code="fixuptask.address"/></b>
-	<br/>
+	<br /> <b><spring:message code="fixuptask.address" /></b> <br />
 	<spring:message code="fixuptask.address" />
 	<jstl:out value="${fixupTask.address}" />
-	<br />
-	<b><spring:message code="fixuptask.price"/></b>
-	<br/>
+	<br /> <b><spring:message code="fixuptask.price" /></b> <br />
 	<jstl:out value="${fixupTask.maximumPrice}" />
-	<br />
-	<b><spring:message code="fixuptask.date"/></b>
-	<br/>
+	<br /> <b><spring:message code="fixuptask.date" /></b> <br />
 	<jstl:out value="${fixupTask.startDate}" />
 	&nbsp;-&nbsp;
 	<jstl:out value="${fixupTask.endDate}" />
@@ -52,33 +47,33 @@
 </div>
 <!-- phases -->
 <jstl:if test="${not empty fixupTask.phases}">
+	<h3>
+		<spring:message code="workplan" />
+	</h3>
 	<jstl:forEach var="phase" items="${fixupTask.phases}">
 		<div>
 			<div>
-				<h3>
-					<jstl:out value="${phase.position} }" />
-					<security:authorize access="hasRole('HANDYWORKER')">
-						<jstl:if test="${fixupTask.author.id==userId}">
-							<a href="/workplanphase/delete.do?id=${phase.id}}"><spring:message
-								code="workplanphase.delete" /></a> <a
-							href="/workplanphase/moveup.do?id=${phase.id}}"><spring:message
-								code="workplanphase.moveup" /></a> <a
-							href="/workplanphase/movedown.do?id=${phase.id}}"><spring:message
+				<b><jstl:out value="${phase.position}" />&nbsp;-&nbsp;<jstl:out
+						value="${phase.title}" /></b>
+				<security:authorize access="hasRole('HANDYWORKER')">
+					<jstl:if test="${handyWorker.id==user.id}">
+						<a href="/workplanphase/delete.do?id=${phase.id}}"><spring:message
+								code="workplanphase.delete" /></a>
+						<a href="/workplanphase/moveup.do?id=${phase.id}}"><spring:message
+								code="workplanphase.moveup" /></a>
+						<a href="/workplanphase/movedown.do?id=${phase.id}}"><spring:message
 								code="workplanphase.movedown" /></a>
-						</jstl:if>
-					</security:authorize>
-				</h3>
-				<h2>
-					<jstl:out value="${phase.position} }" />
-				</h2>
+					</jstl:if>
+				</security:authorize>
+
 			</div>
 			<div>
-				<jstl:out value="${phase.startDate} }" />
+				<jstl:out value="${phase.startDate}" />
 				&nbsp;-&nbsp;
-				<jstl:out value="${phase.endDate} }" />
+				<jstl:out value="${phase.endDate}" />
 			</div>
 			<div>
-				<jstl:out value="${phase.description} }" />
+				<jstl:out value="${phase.description}" />
 			</div>
 
 
@@ -87,12 +82,15 @@
 </jstl:if>
 
 <security:authorize access="hasRole('HANDYWORKER')">
+	<!-- apply -->
+
+	<br />
 	<jstl:if test="${!fixupTask.locked}">
-		<div>
-			<a href="handyworker/fixupapplication/create.do"><spring:message
-					code="apply" /></a>
-		</div>
+		<a href="fixupapplication/handyworker/create.do?id=${fixupTask.id}">
+			<spring:message code="apply" />
+		</a>
 	</jstl:if>
+	<br/>
 	<jstl:if test="${fixupTask.locked}">
 		<div>
 			<a href="handyworker/workplanphase/create.do"><spring:message

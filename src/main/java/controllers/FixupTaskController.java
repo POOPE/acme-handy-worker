@@ -17,11 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CategoryService;
+import services.FixupApplicationService;
 import services.FixupTaskService;
 import services.WarrantyService;
 import domain.Actor;
 import domain.Category;
+import domain.FixupApplication;
 import domain.FixupTask;
+import domain.HandyWorker;
 import domain.Warranty;
 
 @Controller
@@ -29,16 +32,15 @@ import domain.Warranty;
 public class FixupTaskController {
 
 	@Autowired
-	private FixupTaskService	fixupTaskService;
-
+	private FixupTaskService		fixupTaskService;
 	@Autowired
-	private ActorService		actorService;
-
+	private ActorService			actorService;
 	@Autowired
-	private CategoryService		categoryService;
-
+	private CategoryService			categoryService;
 	@Autowired
-	private WarrantyService		warrantyService;
+	private WarrantyService			warrantyService;
+	@Autowired
+	private FixupApplicationService	fixupApplicationService;
 
 
 	// LIST ALL
@@ -110,7 +112,11 @@ public class FixupTaskController {
 		result = new ModelAndView("fixuptask/view");
 		result.addObject("fixupTask", fixupTask);
 		result.addObject("user", actor);
-
+		if (fixupTask.isLocked()) {
+			FixupApplication application = this.fixupApplicationService.findByStatusForTask("ACCEPTED", fixupTask).get(0);
+			HandyWorker worker = application.getAuthor();
+			result.addObject("handyWorker", worker);
+		}
 		return result;
 	}
 

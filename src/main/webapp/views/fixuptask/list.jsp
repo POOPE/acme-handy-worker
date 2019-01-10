@@ -19,6 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+
 <display:table name="fixupTasks" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
 	<display:column property="ticker" titleKey="fixuptask.ticker" />
@@ -35,23 +36,33 @@
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${row.author.id==user.id}">
-				<a href="fixuptask/edit.do?id=${row.id}}"><i
-					class="fa fa-pencil" aria-hidden="true"></i></a>
+			<jstl:if test="${row.author.id==user.id && !row.locked}">
+				<a href="fixuptask/edit.do?id=${row.id}"><i class="fa fa-pencil"
+					aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
 		<display:column>
-			<jstl:if test="${row.author.id==user.id}">
-				<a href="fixuptask/customer/delete.do?id=${row.id}}"><i
+			<jstl:if test="${row.author.user.id==user.user.id && !row.locked}">
+				<a href="fixuptask/customer/delete.do?id=${row.id}"><i
 					class="fa fa-times" aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
-		<security:authorize access="hasRole('HANDYWORKER')">
-			<display:column>
-				<a href="fixupapplication/handyworker/create.do?id=${row.id}">
-					<spring:message code="apply"/>
-				</a>
-			</display:column>
-		</security:authorize>
+
 	</security:authorize>
+
+	<display:column>
+		<jstl:choose>
+			<jstl:when test="${!row.locked}">
+				<security:authorize access="hasRole('HANDYWORKER')">
+					<a href="fixupapplication/handyworker/create.do?id=${row.id}">
+						<spring:message code="apply" />
+					</a>
+				</security:authorize>
+			</jstl:when>
+			<jstl:when test="${row.locked}">
+				<i class="fa fa-lock" aria-hidden="true"></i>
+			</jstl:when>
+		</jstl:choose>
+	</display:column>
+
 </display:table>

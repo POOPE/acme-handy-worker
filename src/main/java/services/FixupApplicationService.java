@@ -22,16 +22,17 @@ public class FixupApplicationService {
 
 	@Autowired
 	private FixupApplicationRepository	fixupApplicationRepository;
-
 	@Autowired
 	private HandyWorkerService			handyWorkerService;
-
 	@Autowired
 	private CustomerService				customerService;
-
 	@Autowired
 	private FixupTaskService			fixupTaskService;
 
+
+	public List<FixupApplication> findByAuthor(HandyWorker handyWorker) {
+		return this.fixupApplicationRepository.findByAuthor(handyWorker.getId());
+	}
 
 	public FixupApplication findById(int fixupTaskId) {
 		return this.fixupApplicationRepository.findOne(fixupTaskId);
@@ -57,6 +58,8 @@ public class FixupApplicationService {
 		FixupApplication res = new FixupApplication();
 		res.setAuthor(handyWorker);
 		res.setFixupTask(fixupTask);
+		res.setPublishDate(new Date());
+		res.setStatus("TEMP");
 		return res;
 	}
 

@@ -46,6 +46,16 @@
 								code="master.page.customer.action.2" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('HANDYWORKER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.application" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="fixupapplication/handyworker/applications.do"><spring:message
+								code="master.page.application.list" /></a></li>
+				</ul></li>
+		</security:authorize>
 
 		<security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
 			<li><a class="fNiv"><spring:message
