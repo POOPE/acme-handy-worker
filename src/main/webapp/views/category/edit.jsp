@@ -21,15 +21,12 @@
 
 <!-- info -->
 <form:form modelAttribute="category"
-	action="category/admin/save.do">
-	
-	<form:hidden path="laws" />
+	action="category/admin/edit.do">
 	
 	
-	<form:hidden path="terms" />
 	
-	<form:hidden path="locked" />
-	
+	<form:hidden path="parent" value="${category.parent.id}"/>
+	<form:errors cssClass="error" path="parent" />
 	
 	<div>
 		<form:label path="title">

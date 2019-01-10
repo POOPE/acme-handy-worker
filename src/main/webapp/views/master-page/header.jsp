@@ -34,6 +34,8 @@
 								code="master.page.warranty.list" /></a></li>
 					<li><a href="config/admin/edit.do"><spring:message
 								code="master.page.administrator.config" /></a></li>
+					<li><a href="category/admin/list.do"><spring:message
+								code="master.page.category.list" /></a></li>
 				</ul></li>
 		</security:authorize>
 
