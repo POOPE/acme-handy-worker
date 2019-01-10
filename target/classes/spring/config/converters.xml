@@ -18,10 +18,15 @@
 	">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
+		<bean class="converters.StringToMessageBoxConverter"/>
+		<bean class="converters.StringToActorConverter"/>
+		<bean class="converters.StringToCreditCardConverter"/>
+		<bean class="converters.StringToCustomerConverter"/>
+		<bean class="converters.StringToCategoryConverter"/>
+		<bean class="converters.StringToWarrantyConverter"/>
+		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
+		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
+		<bean class="converters.WarrantyListToStringConverter"/>
 	</util:list>
 	
 </beans>

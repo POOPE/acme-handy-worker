@@ -18,27 +18,38 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jstl:set var="userId" value="${user.id}" />
 
 <!-- info -->
-<form:form modelAttribute="warranty"
-	action="warranty/admin/save.do">
+<div>
+	<h2>
+		<jstl:out value="${warranty.title}" />
+	</h2>
 	
-	<form:hidden path="laws" />
-	
-	
-	<form:hidden path="terms" />
-	
-	<form:hidden path="locked" />
-	
-	
-	<div>
-		<form:label path="title">
-			<spring:message code="warranty.title" />
-		</form:label>
-		<form:input path="title" />
-		<form:errors cssClass="error" path="title" />
-	</div>
-	
-	
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
-</form:form>
+	<jstl:out value="${warranty.terms}" />
+	<br />
+</div>
+<div>
+	<jstl:forEach var="laws" begin="1" end="${warranty.laws.size()}">
+		<div>
+			<jstl:out value="${warranty.laws.title}" />
+			<jstl:out value="${warranty.laws.relevantText}" />
+			
+			<br />
+		</div>
+	</jstl:forEach>
+</div>
+
+
+
+
+<!-- edit -->
+
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:if test="${warranty.author.id=userId}">
+		<a href="warranty/edit.do?id=${warranty.id}}"><spring:message
+						code="warranty.edit" /></a>
+	</jstl:if>
+</security:authorize>
+
+

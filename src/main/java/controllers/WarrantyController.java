@@ -3,16 +3,23 @@ package controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Category;
+import domain.Law;
 import domain.Warranty;
 import services.ActorService;
+import services.CategoryService;
+import services.LawService;
 import services.WarrantyService;
 
 @Controller
@@ -24,6 +31,10 @@ public class WarrantyController {
 
 	@Autowired
 	private ActorService	actorService;
+	@Autowired
+	private CategoryService	categoryService;
+	@Autowired
+	private LawService		lawService;
 
 
 	// LIST ALL
@@ -41,12 +52,29 @@ public class WarrantyController {
 	}
 
 	//EDIT
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int id) {
 		ModelAndView res;
 		Warranty warranty = this.warrantyService.findById(id);
 		Assert.notNull(warranty);
 		res = this.createEditModelAndView(warranty);
+		return res;
+	}
+
+	@RequestMapping(value = "admin/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Warranty warranty, BindingResult binding) {
+		ModelAndView res;
+		if (binding.hasErrors()) {
+			res = this.createEditModelAndView(warranty);
+
+		} else {
+			try {
+				Warranty saved = this.warrantyService.initialize(warranty);
+				res = new ModelAndView("redirect:list.do");
+			} catch (Exception e) {
+				res = this.createEditModelAndView(warranty, "messagebox.commit.error");
+			}
+		}
 		return res;
 	}
 
@@ -81,13 +109,24 @@ public class WarrantyController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Warranty w) {
+	protected ModelAndView createEditModelAndView(Warranty warranty) {
 		ModelAndView res;
-		Warranty warranty = this.warrantyService.findById(w.getId());
+		res = this.createEditModelAndView(warranty, null);
+		return res;
+	}
 
+	protected ModelAndView createEditModelAndView(Warranty warranty, String messageCode) {
+		ModelAndView res;
+
+		List<Law> laws = this.lawService.findAll();
+		List<Category> categories = this.categoryService.findAll();
 		res = new ModelAndView("warranty/edit");
-		res.addObject("warranty", warranty);
 
+		res.addObject("categories", categories);
+		res.addObject("laws", laws);
+
+		res.addObject("warranty", warranty);
+		res.addObject("message", messageCode);
 		return res;
 	}
 }
