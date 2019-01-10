@@ -38,3 +38,8 @@
 		
 	
 </display:table>
+
+		<div>
+			<a href="warranty/admin/create.do"><spring:message
+					code="warranty.create" /></a>
+		</div>

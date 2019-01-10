@@ -50,6 +50,16 @@ public class WarrantyController {
 		return res;
 	}
 
+	//CREATE
+	@RequestMapping(value = "admin/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView res;
+		Warranty warranty = this.warrantyService.create();
+
+		res = this.createEditModelAndView(warranty);
+		return res;
+	}
+
 	//DELETE
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int id) {
