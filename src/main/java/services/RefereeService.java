@@ -4,6 +4,7 @@ package services;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -45,7 +46,21 @@ public class RefereeService {
 	}
 
 	public Referee save(Referee referee) {
-		return this.refereeRepository.save(referee);
+		if (referee.getId() == 0) {
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			referee.getUser().setPassword(encoder.encodePassword(referee.getUser().getPassword(), null));
+			Referee res = this.refereeRepository.save(referee);
+			res = (Referee) this.actorService.postInitialize(res);
+			return res;
+
+		} else {
+			Referee current = this.findOne(referee.getId());
+			if (current.getUser().getPassword() != referee.getUser().getPassword()) {
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				referee.getUser().setPassword(encoder.encodePassword(referee.getUser().getPassword(), null));
+			}
+			return this.refereeRepository.save(referee);
+		}
 	}
 
 	public Referee findOne(int refereeId) {

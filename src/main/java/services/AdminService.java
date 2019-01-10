@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -69,11 +70,18 @@ public class AdminService {
 
 	public Admin save(Admin admin) {
 		if (admin.getId() == 0) {
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			admin.getUser().setPassword(encoder.encodePassword(admin.getUser().getPassword(), null));
 			Admin res = this.adminRepository.save(admin);
 			res = (Admin) this.actorService.postInitialize(res);
 			return res;
 
 		} else {
+			Admin current = this.findOne(admin.getId());
+			if (current.getUser().getPassword() != admin.getUser().getPassword()) {
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				admin.getUser().setPassword(encoder.encodePassword(admin.getUser().getPassword(), null));
+			}
 			return this.adminRepository.save(admin);
 		}
 	}

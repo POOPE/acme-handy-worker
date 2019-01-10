@@ -16,8 +16,7 @@
 	<jstl:if test="${role=='customer'}">
 		<form:hidden path="score" />
 	</jstl:if>
-	<jstl:if test="${role=='handyWorker'}">		
-		<form:hidden path="make" />
+	<jstl:if test="${role=='handyWorker'}">
 		<form:hidden path="score" />
 	</jstl:if>
 	<h3><spring:message code="actor.signupTitle" /></h3>
@@ -47,28 +46,35 @@
 		<form:errors cssClass="error" path="email" />
 	</div>
 	<div>
-		<form:label path="phone"><spring:message code="actor.phoneNumber" /></form:label>
-		<form:input id="checkedPhone" path="phone" />
-		<form:errors cssClass="error" path="phone" />
+		<form:label path="phoneNumber"><spring:message code="actor.phoneNumber" /></form:label>
+		<form:input id="checkedPhone" path="phoneNumber" />
+		<form:errors cssClass="error" path="phoneNumber" />
 	</div>
 	<div>
 		<form:label path="address"><spring:message code="actor.address" /></form:label>
 		<form:input path="address" />
 		<form:errors cssClass="error" path="address" />
 	</div>
-	<h3><spring:message code="actor.signupTitle2" /></h3>
-	<form:hidden path="userAccount.id" />
-	<form:hidden path="userAccount.version" />
-	<form:hidden path="userAccount.authorities" />
+	<jstl:if test="${role=='handyWorker'}">
 	<div>
-		<form:label path="userAccount.username"><spring:message code="actor.username" /></form:label>
-		<form:input path="userAccount.username" />
-		<form:errors cssClass="error" path="userAccount.username" />
+		<form:label path="make"><spring:message code="actor.make" /></form:label>
+		<form:input path="make" />
+		<form:errors cssClass="error" path="make" />
+	</div>
+	</jstl:if>
+	<h3><spring:message code="actor.signupTitle2" /></h3>
+	<form:hidden path="user.id" />
+	<form:hidden path="user.version" />
+	<form:hidden path="user.authorities" />
+	<div>
+		<form:label path="user.username"><spring:message code="actor.username" /></form:label>
+		<form:input path="user.username" />
+		<form:errors cssClass="error" path="user.username" />
 	</div>
 	<div>
-		<form:label path="userAccount.password"><spring:message code="actor.password" /></form:label>
-		<form:password path="userAccount.password" />
-		<form:errors cssClass="error" path="userAccount.password" />
+		<form:label path="user.password"><spring:message code="actor.password" /></form:label>
+		<form:password path="user.password" />
+		<form:errors cssClass="error" path="user.password" />
 	</div>
 	
 	<div>
