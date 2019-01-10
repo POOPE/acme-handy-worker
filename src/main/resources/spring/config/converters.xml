@@ -28,7 +28,6 @@
 		<bean class="converters.StringToFixupTaskConverter"/>
 		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
 		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
-		<bean class="converters.WarrantyListToStringConverter"/>
 	</util:list>
 	
 </beans>

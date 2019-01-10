@@ -19,7 +19,6 @@ import domain.Category;
 import domain.Customer;
 import domain.FixupApplication;
 import domain.FixupTask;
-import domain.WorkPlanPhase;
 
 @Service
 @Transactional
@@ -39,7 +38,6 @@ public class FixupTaskService {
 		Customer customer = this.cs.findPrincipal();
 		FixupTask res = new FixupTask();
 		res.setLocked(false);
-		res.setPhases(new ArrayList<WorkPlanPhase>());
 		res.setTicker("TEMP");
 		res.setPublishDate(new Date());
 
