@@ -32,6 +32,8 @@
 								code="master.page.administrator.broadcast" /></a></li>
 					<li><a href="warranty/admin/list.do"><spring:message
 								code="master.page.warranty.list" /></a></li>
+					<li><a href="config/admin/edit.do"><spring:message
+								code="master.page.administrator.config" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -46,7 +48,7 @@
 								code="master.page.customer.action.2" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.application" /></a>

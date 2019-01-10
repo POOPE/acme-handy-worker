@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +19,14 @@ import services.CategoryService;
 import services.FixupApplicationService;
 import services.FixupTaskService;
 import services.WarrantyService;
+import services.WorkPlanPhaseService;
 import domain.Actor;
 import domain.Category;
 import domain.FixupApplication;
 import domain.FixupTask;
 import domain.HandyWorker;
 import domain.Warranty;
+import domain.WorkPlanPhase;
 
 @Controller
 @RequestMapping(value = "/fixuptask")
@@ -41,6 +42,8 @@ public class FixupTaskController {
 	private WarrantyService			warrantyService;
 	@Autowired
 	private FixupApplicationService	fixupApplicationService;
+	@Autowired
+	private WorkPlanPhaseService	workPlanService;
 
 
 	// LIST ALL
@@ -140,34 +143,33 @@ public class FixupTaskController {
 		return res;
 	}
 
-	// THYME LIST TESTS
-
-	// Thymeleaf test
-
-	@RequestMapping(value = "/thyme-list", method = RequestMethod.GET)
-	public String list(Model model) {
-		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
-		model.addAttribute("fixupTasks", fixupTasks);
-		return "fixuptask/table";
+	//WORKPLAN
+	@RequestMapping(value = "/handyworker/newphase", method = RequestMethod.GET)
+	public ModelAndView newPhase(@RequestParam int id) {
+		ModelAndView res;
+		FixupTask fixupTask = this.fixupTaskService.findById(id);
+		WorkPlanPhase phase = this.workPlanService.create();
+		phase.setPosition(fixupTask.getPhases().size() + 1);
+		res = new ModelAndView("workplanphase/create");
+		res.addObject("workPlanPhase", phase);
+		return res;
 	}
 
-	@RequestMapping(value = "/thyme-create", method = RequestMethod.GET)
-	public String create(Model model) {
+	@RequestMapping(value = "/handyworker/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePhase(@Valid WorkPlanPhase phase, BindingResult binding) {
+		ModelAndView res;
+		if (binding.hasErrors()) {
+			res = new ModelAndView("redirect:list.do");
 
-		FixupTask fixupTask = this.fixupTaskService.create();
-		List<Category> categories = this.categoryService.findAll();
-		model.addAttribute("fixupTask", fixupTask);
-		model.addAttribute("categories", categories);
-		return "fixuptask/edit";
-	}
-
-	@RequestMapping(value = "/thyme-save", method = RequestMethod.POST)
-	public String create(Model model, @RequestParam FixupTask fixupTask) {
-
-		FixupTask saved = this.fixupTaskService.initialize(fixupTask);
-		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
-		model.addAttribute("fixupTasks", fixupTasks);
-		return "fixuptask/table";
+		} else {
+			try {
+				this.workPlanService.save(phase);
+				res = new ModelAndView("redirect:list.do");
+			} catch (Exception e) {
+				res = new ModelAndView("redirect:list.do");
+			}
+		}
+		return res;
 	}
 
 }

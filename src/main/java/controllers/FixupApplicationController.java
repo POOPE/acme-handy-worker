@@ -40,6 +40,7 @@ public class FixupApplicationController {
 		FixupApplication application = this.fixupApplicationService.findById(id);
 		res = new ModelAndView("fixupapplication/view");
 		res.addObject("fixupApplication", application);
+		res.addObject("user", this.handyWorkerService.findPrincipal());
 		return res;
 	}
 
@@ -77,7 +78,13 @@ public class FixupApplicationController {
 
 		result = new ModelAndView("fixupapplication/list");
 		result.addObject("fixupApplications", applications);
+		result.addObject("user", handyWorker);
 		return result;
+	}
+
+	@RequestMapping(value = "/handyworker/addcomment", method = RequestMethod.GET)
+	public ModelAndView comment(@RequestParam int id, @RequestParam String c) {
+
 	}
 
 	//CHANGE STATUS

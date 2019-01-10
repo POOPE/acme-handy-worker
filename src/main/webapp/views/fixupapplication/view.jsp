@@ -23,20 +23,25 @@
 
 <!-- info -->
 <div>
-	<h2><jstl:out value="${fixupApplication.title}" /></h2>
+	<span>By &nbsp; <jstl:out value="${fixupApplication.author.name}" />&nbsp;<jstl:out value="${fixupApplication.author.surname}" /></span>
 	<br />
-	<span>By &nbsp; <jstl:out value="${fixupApplication.author.name}" /></span>
-	<br />
+	
 	<jstl:out value="${fixupApplication.publishDate}" />
 	<br />
-	<spring:message code="fixupapplication.rate" />
+	<br/>
+	<b><spring:message code="fixupapplication.rate" /></b>
+	<br />
 	<jstl:out value="${fixupApplication.offeredRate}" />
 	<br />
-	<spring:message code="fixupapplication.status" />
+	<b><spring:message code="fixupapplication.status" /></b>
+	<br />
 	<jstl:out value="${fixupApplication.status}" />
+	<br/>
+	<br/>
+	<b><spring:message code="fixupapplication.comment" /></b>
 </div>
 <div>
-	<jstl:forEach var="comment" begin="1" end="${fixupApplication.comments.size()}">
+	<jstl:forEach var="comment" items="${fixupApplication.comments}">
 	<div>
 		<jstl:out value="${comment}" />
 		<br/>
@@ -47,7 +52,7 @@
 <security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
 	<form action="fixupapplication/addcomment.do" method="get">
 		<input type="text" id="comment" name="comment_text">
-		<button type="submit"><spring:message code="fixupapplication.comment"/></button>
+		<button type="submit"><spring:message code="fixupapplication.addcomment"/></button>
 	</form>
 </security:authorize>
 <!-- edit -->
