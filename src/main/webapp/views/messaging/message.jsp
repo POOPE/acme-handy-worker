@@ -19,28 +19,28 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jstl:if test="${not empty message}">
+<jstl:if test="${not empty mail}">
 	<!-- subject -->
 	<div>
-		<jstl:out value="${message.subject}" />
+		<jstl:out value="${mail.subject}" />
 	</div>
 	<!-- sender + send message to sender -->
 	<div class="tooltip">
 		<span class="tooltiptext">Send message to this user</span> <span>
 			From&nbsp; <a
-			href="messaging/send.do?recipients=${message.sender.id}"> <jstl:out
-					value="${message.sender.user.username}" />
+			href="messaging/send.do?recipients=${mail.sender.id}"> <jstl:out
+					value="${mail.sender.user.username}" />
 		</a>
 		</span>
 	</div>
 	<!-- delivery date -->
 	<div>
-		<fmt:formatDate value="${row.deliveryDate}" pattern="dd/MM/yyyy" />
+		<fmt:formatDate value="${mail.deliveryDate}" pattern="dd/MM/yyyy" />
 	</div>
 	<!-- body -->
 	<div>
 		<textarea name="body">
-			<jstl:out value="${row.body}" /> </textarea>
+			<jstl:out value="${mail.body}" /> </textarea>
 	</div>
 	
 </jstl:if>

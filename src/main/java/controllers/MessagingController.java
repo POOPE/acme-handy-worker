@@ -170,7 +170,7 @@ public class MessagingController {
 		ModelAndView res;
 		Message message = this.messageService.findById(id);
 		res = new ModelAndView("messaging/message");
-		res.addObject("message", message);
+		res.addObject("mail", message);
 		return res;
 	}
 
