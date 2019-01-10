@@ -340,36 +340,46 @@
 
 	<!-- Message Boxes -->
 
-	<bean id="customer1Inbox" class="domain.MessageBox">
-		<property name="name" value="Inbox" />
-		<property name="category" value="INBOX" />
+	<bean id="customer1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="customer1RootBox" />
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox" />
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer1RootBox" />
 		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="customer1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="customer1RootBox" />
+		<property name="owner" ref="customer1" />
+	</bean>
+
+	<bean id="customer2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
@@ -379,108 +389,102 @@
 	<bean id="customer2Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox" />
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox" />
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="customer2RootBox" />
 		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="customer2RootBox" />
+		<property name="owner" ref="customer2" />
+	</bean>
+
+	<bean id="admin1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="customer2" />
+		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="admin1Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox" />
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox" />
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin1RootBox" />
 		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="admin1" />
+		<property name="owner" ref="customer1" />
 	</bean>
 
 	<bean id="admin2Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox" />
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox" />
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox" />
 		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="admin2RootBox" />
 		<property name="owner" ref="admin2" />
 	</bean>
 
@@ -810,10 +814,7 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="phases">
-			<list>
-			</list>
-		</property>
+		
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
@@ -829,18 +830,15 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="false" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="phases">
-			<list>
-				<ref bean="task1Phase1" />
-				<ref bean="task1Phase2" />
-			</list>
-		</property>
+		
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
 	</bean>
 
 	<bean id="task1Phase1" class="domain.WorkPlanPhase">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="position" value="1" />
 		<property name="title" value="Desmontar y evaluar" />
 		<property name="description" value="Desmontar la bici y evaluarla." />
 		<property name="startDate" value="2018/10/16" />
@@ -848,6 +846,8 @@
 	</bean>
 
 	<bean id="task1Phase2" class="domain.WorkPlanPhase">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="position" value="2" />
 		<property name="title" value="Solucionar o recambiar" />
 		<property name="description"
 			value="Reparar el problema o en su defecto sustituir las piezas defectuosas." />
@@ -865,17 +865,15 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="phases">
-			<list>
-				<ref bean="task2Phase1" />
-			</list>
-		</property>
+		
 		<property name="author" ref="customer2" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
 	</bean>
 
 	<bean id="task2Phase1" class="domain.WorkPlanPhase">
+	<property name="fixupTask" ref="fixupTask2" />
+		<property name="position" value="1"/>
 		<property name="title" value="Arreglar el techo" />
 		<property name="description" value="Ponemo uno nuevo" />
 		<property name="startDate" value="2018/10/16" />
@@ -913,7 +911,7 @@
 		<property name="CCV" value="456" />
 		<property name="creditCardMake" ref="creditCardMake1" />
 	</bean>
-	
+
 	<bean id="creditCard2" class="domain.CreditCard">
 		<property name="owner" ref="admin1" />
 		<property name="holder" value="Paco Pepe Lopez" />
@@ -1019,6 +1017,7 @@
 
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="Default" />
+		<property name="locked" value="false" />
 		<property name="terms">
 			<list>
 				<value>term 1</value>
@@ -1034,6 +1033,7 @@
 
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="Thef" />
+		<property name="locked" value="false" />
 		<property name="terms">
 			<list>
 				<value>prove that it was a theft</value>
@@ -1049,6 +1049,7 @@
 	</bean>
 
 	<bean id="warranty3" class="domain.Warranty">
+		<property name="locked" value="false" />
 		<property name="title" value="Total destruction" />
 		<property name="terms">
 			<list>
@@ -1182,6 +1183,19 @@
 		</property>
 	</bean>
 
+	<bean id="fixupApplication8" class="domain.FixupApplication">
+		<property name="fixupTask" ref="fixupTask0" />
+		<property name="author" ref="handyWorker1" />
+		<property name="publishDate" value="15/08/2017 20:32" />
+		<property name="offeredRate" value="100" />
+		<property name="status" value="ACCEPTED" />
+		<property name="comments">
+			<list>
+				<value>no like</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- ENDORSEMENT ENDORSEMENT ENDORSEMENT ENDORSEMENT ENDORSMENT -->
 
 	<bean id="endorsement1" class="domain.Endorsement">
@@ -1216,6 +1230,29 @@
 			</list>
 		</property>
 	</bean>
+
+
+	<!-- Sponsorship -->
+
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="author" ref="sponsor1" />
+		<property name="targetPage" value="https://www.youtube.com/" />
+		<property name="bannerUrl" value="https://www.youtube.com/" />
+		<property name="creditcard" ref="creditCard1" />
+
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="author" ref="sponsor2" />
+		<property name="targetPage" value="https://www.youtube.com/" />
+		<property name="bannerUrl" value="https://www.youtube.com/" />
+		<property name="creditcard" ref="creditCard2" />
+
+	</bean>
+
+
+
+
 
 
 </beans>

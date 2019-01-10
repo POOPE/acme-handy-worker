@@ -61,6 +61,11 @@
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/fixupapplication/handyworker/**" access="hasRole('HANDYWORKER')" />
+<<<<<<< Updated upstream
+=======
+		<security:intercept-url pattern="/fixupapplication/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/fixupapplication/view.do" access="hasAnyRole('CUSTOMER','HANDYWORKER')" />
+>>>>>>> Stashed changes
 		
 		<security:intercept-url pattern="/warranty/admin/**" access="hasRole('ADMIN')" />
 		

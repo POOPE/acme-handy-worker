@@ -27,9 +27,17 @@
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/fixuptask/tiles.xml</value>
+<<<<<<< Updated upstream
 		<value>/views/messaging/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
 		<value>/views/warranty/tiles.xml</value>
+=======
+		<value>/views/fixupapplication/tiles.xml</value>
+		<value>/views/messaging/tiles.xml</value>
+		<value>/views/finder/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
+		<value>/views/workplanphase/tiles.xml</value>
+>>>>>>> Stashed changes
 	</util:list>
 
 </beans>

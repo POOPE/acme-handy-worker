@@ -24,9 +24,16 @@
 		<bean class="converters.StringToCustomerConverter"/>
 		<bean class="converters.StringToCategoryConverter"/>
 		<bean class="converters.StringToWarrantyConverter"/>
+<<<<<<< Updated upstream
 		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
 		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
 		<bean class="converters.WarrantyListToStringConverter"/>
+=======
+		<bean class="converters.StringToHandyWorkerConverter"/>
+		<bean class="converters.StringToFixupTaskConverter"/>
+		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
+		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
+>>>>>>> Stashed changes
 	</util:list>
 	
 </beans>
