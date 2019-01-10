@@ -20,15 +20,20 @@
 
 
 <form:form modelAttribute="fixupApplication"
-	action="/fixupapplication/edit.do">
+	action="fixupapplication/handyworker/edit.do">
 	<form:hidden path="fixupTask" value="${fixupApplication.fixupTask.id}"/>
+	<form:errors cssClass="error" path="fixupTask" />
 	<form:hidden path="author" value="${fixupApplication.author.id}"/>
+	<form:errors cssClass="error" path="author" />
 	<form:hidden path="publishDate"/>
+	<form:errors cssClass="error" path="publishDate" />
 	<form:hidden path="status"/>
-	<form:label path="rate">
-		<spring:message code="workplanphase.rate" />
+	<form:errors cssClass="error" path="status" />
+	<form:label path="offeredRate">
+		<spring:message code="fixupapplication.rate" />
 	</form:label>
 	<form:input path="offeredRate" />
 	<form:errors cssClass="error" path="offeredRate" />
+	<br/>
 	<input type="submit" name="save" value="<spring:message code="save"/>"/>
 </form:form>

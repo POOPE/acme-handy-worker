@@ -17,4 +17,8 @@ public interface FixupApplicationRepository extends JpaRepository<FixupApplicati
 
 	@Query("select f from FixupApplication f where f.status = ?1 and f.fixupTask.id=?2")
 	public List<FixupApplication> findByStatusForTask(String status, int fixupTaskId);
+
+	@Query("select f from FixupApplication f where f.author.id = ?1")
+	public List<FixupApplication> findByAuthor(int handyWorkerId);
+
 }

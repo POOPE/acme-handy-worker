@@ -20,26 +20,55 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<display:table name="fixupApplications" id="row" requestURI="${requestURI}"
-	pagesize="10" class="displaytag">
-	<display:column property="fixupTask.ticker" titleKey="fixupapplication.fixup" />
-	<display:column property="author" titleKey="fixupapplication.author" />
-	<display:column property="publishDate" titleKey="fixupapplication.publishdate" />
+<display:table name="fixupApplications" id="row"
+	requestURI="${requestURI}" pagesize="10" class="displaytag">
+	<display:column>
+		<a href="fixupapplication/view.do?id=${row.id}"> <spring:message code="view"/>
+		</a>
+	</display:column>
+	<display:column
+		titleKey="fixupapplication.fixup">
+		<a href="fixuptask/view.do?id=${row.fixupTask.id}"> <jstl:out
+				value="${row.fixupTask.ticker}" />
+		</a>
+	</display:column>
+	<display:column property="publishDate"
+		titleKey="fixupapplication.publishdate" />
 	<display:column property="offeredRate" titleKey="fixupapplication.rate" />
 	<display:column property="status" titleKey="fixupapplication.status" />
+	<!-- accept/reject -->
+	<security:authorize access="hasRole('CUSTOMER')">
+
+		<display:column>
+			<jstl:if test="${row.status == 'PENDING'}">
+				<a href="fixupapplication/customer/eval.do?appId=${row.id}&status=1">
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</display:column>
+		<display:column>
+			<jstl:if test="${row.status=='PENDING'}">
+				<a href="fixupapplication/customer/eval.do?appId=${row.id}&status=0">
+					<i class="fa fa-times" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</display:column>
+
+	</security:authorize>
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<jstl:if test="${row.author.id==userId}">
-				<a href="fixupapplication/edit.do?id=${row.id}}"><spring:message
-						code="edit" /></a>
+			<jstl:if test="${row.author.id==user.id && row.status!='PENDING'}">
+				<a href="fixupapplication/handyworker/edit.do?id=${row.id}"><i class="fa fa-pencil"
+					aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
 		<display:column>
-			<jstl:if test="${row.author.id==userId}">
-				<a href="fixupapplication/handyworker/delete.do?id=${row.id}}"><spring:message
-						code="delete" /></a>
+			<jstl:if test="${row.author.user.id==user.user.id && row.status!='PENDING'}">
+				<a href="fixupapplication/handyworker/delete.do?id=${row.id}"><i
+					class="fa fa-times" aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
+
 	</security:authorize>
 </display:table>
