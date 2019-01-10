@@ -20,25 +20,26 @@
 
 <jstl:set var="userId" value="${user.id}" />
 
-<!-- info -->
-<form:form modelAttribute="tutorial"
-	action="/tutorial/handyworker/edit.do">
-	<form:hidden path="author" />
-	<form:hidden path="lastUpdate"/>
-	<div>
-		<form:label path="title">
-			<spring:message code="tutorial.title" />
-		</form:label>
-		<form:input path="tutorial.title" />
-		<form:errors cssClass="error" path="tutorial.title" />
-	</div>
-	<div>
-		<form:label path="description">
-			<spring:message code="tutorial.description" />
-		</form:label>
-		<form:input path="tutorial.description" />
-		<form:errors cssClass="error" path="tutorial.description" />
-	</div>
+
+<display:table name="warranties" id="row" requestURI="/warranty/admin/list.do"
+	pagesize="10" class="displaytag">
+	<display:column property="title" titleKey="warranty.title" />
+	<!-- delete & edit -->
 	
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
-</form:form>
+		
+			<display:column>
+				<a href="warranty/admin/edit.do?id=${row.id}}"><spring:message
+						code="warranty.edit" /></a>
+			</display:column>
+			<display:column>
+				<a href="warranty/admin/delete.do?id=${row.id}}"><spring:message
+						code="warranty.delete" /></a>
+			</display:column>
+		
+	
+</display:table>
+
+		<div>
+			<a href="warranty/admin/create.do"><spring:message
+					code="warranty.create" /></a>
+		</div>

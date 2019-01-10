@@ -21,24 +21,35 @@
 <jstl:set var="userId" value="${user.id}" />
 
 <!-- info -->
-<form:form modelAttribute="tutorial"
-	action="/tutorial/handyworker/edit.do">
-	<form:hidden path="author" />
-	<form:hidden path="lastUpdate"/>
-	<div>
-		<form:label path="title">
-			<spring:message code="tutorial.title" />
-		</form:label>
-		<form:input path="tutorial.title" />
-		<form:errors cssClass="error" path="tutorial.title" />
-	</div>
-	<div>
-		<form:label path="description">
-			<spring:message code="tutorial.description" />
-		</form:label>
-		<form:input path="tutorial.description" />
-		<form:errors cssClass="error" path="tutorial.description" />
-	</div>
+<div>
+	<h2>
+		<jstl:out value="${warranty.title}" />
+	</h2>
 	
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
-</form:form>
+	<jstl:out value="${warranty.terms}" />
+	<br />
+</div>
+<div>
+	<jstl:forEach var="laws" begin="1" end="${warranty.laws.size()}">
+		<div>
+			<jstl:out value="${warranty.laws.title}" />
+			<jstl:out value="${warranty.laws.relevantText}" />
+			
+			<br />
+		</div>
+	</jstl:forEach>
+</div>
+
+
+
+
+<!-- edit -->
+
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:if test="${warranty.author.id=userId}">
+		<a href="warranty/edit.do?id=${warranty.id}}"><spring:message
+						code="warranty.edit" /></a>
+	</jstl:if>
+</security:authorize>
+
+

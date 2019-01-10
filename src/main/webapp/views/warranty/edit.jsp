@@ -21,24 +21,23 @@
 <jstl:set var="userId" value="${user.id}" />
 
 <!-- info -->
-<form:form modelAttribute="tutorial"
-	action="/tutorial/handyworker/edit.do">
-	<form:hidden path="author" />
-	<form:hidden path="lastUpdate"/>
+<form:form modelAttribute="waranty"
+	action="/waranty/admin/edit.do">
+	
 	<div>
 		<form:label path="title">
-			<spring:message code="tutorial.title" />
+			<spring:message code="waranty.title" />
 		</form:label>
-		<form:input path="tutorial.title" />
-		<form:errors cssClass="error" path="tutorial.title" />
+		<form:input path="waranty.title" />
+		<form:errors cssClass="error" path="waranty.title" />
 	</div>
 	<div>
-		<form:label path="description">
-			<spring:message code="tutorial.description" />
+		<form:label path="terms">
+			<spring:message code="waranty.terms" />
 		</form:label>
-		<form:input path="tutorial.description" />
-		<form:errors cssClass="error" path="tutorial.description" />
+		<form:input path="waranty.terms" />
+		<form:errors cssClass="error" path="waranty.terms" />
 	</div>
 	
-	<input type="submit" name="save" value="<spring:message code="save"/>"/>
+	<input type="submit" name="save" value="<spring:message code="warranty.save"/>"/>
 </form:form>
