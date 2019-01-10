@@ -5,8 +5,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class HandyWorker extends Actor {
@@ -15,7 +13,6 @@ public class HandyWorker extends Actor {
 	public Float	score;
 
 
-	@NotBlank
 	public String getMake() {
 		return this.make;
 	}

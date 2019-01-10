@@ -34,6 +34,7 @@
 		<value>/views/messaging/messages</value>
 		<value>/views/workplanphase/messages</value>
 		<value>/views/tutorial/messages</value>
+		<value>/views/actor/messages</value>
 		<value>/views/warranty/messages</value>
 		<value>/views/category/messages</value>
 		
