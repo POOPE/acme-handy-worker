@@ -165,6 +165,15 @@ public class MessagingController {
 		return res;
 	}
 
+	@RequestMapping(value = "/viewmessage", method = RequestMethod.GET)
+	public ModelAndView viewMessage(@RequestParam final Integer id) {
+		ModelAndView res;
+		Message message = this.messageService.findById(id);
+		res = new ModelAndView("messaging/message");
+		res.addObject("message", message);
+		return res;
+	}
+
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView boxView(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;

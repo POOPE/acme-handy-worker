@@ -36,6 +36,7 @@
 		<value>/views/tutorial/messages</value>
 		<value>/views/actor/messages</value>
 		<value>/views/warranty/messages</value>
+		<value>/views/category/messages</value>
 		
 		
 	</util:list>

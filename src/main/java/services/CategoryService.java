@@ -8,15 +8,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repositories.CategoryRepository;
 import domain.Category;
+import repositories.CategoryRepository;
 
 @Service
 @Transactional
 public class CategoryService {
 
 	@Autowired
-	CategoryRepository	categoryRepository;
+	CategoryRepository categoryRepository;
 
 
 	public List<Category> findAll() {
@@ -44,4 +44,9 @@ public class CategoryService {
 	public Category findRoot() {
 		return this.categoryRepository.findRoot();
 	}
+
+	public void delete(Category category) {
+		this.categoryRepository.delete(category);
+	}
+
 }

@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jstl:if test="${not empty message}">
 	<!-- subject -->
@@ -41,12 +42,5 @@
 		<textarea name="body">
 			<jstl:out value="${row.body}" /> </textarea>
 	</div>
-	<!-- reply -->
-	<div>
-		<a href="messaging/send.do?message=${message.id}}">Reply</a>
-	</div>
-	<!-- delete -->
-	<div>
-		<a href="messaging/message/delete.do?message=${message.id}}">Reply</a>
-	</div>
+	
 </jstl:if>

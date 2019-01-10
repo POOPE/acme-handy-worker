@@ -91,8 +91,8 @@
 			</div>
 		</display:column>
 		<!-- name of message is link to open message -->
-		<display:column property="subject" titleKey="message.subject">
-			<a href="messaging/message.do?id=${row.id}}"> <jstl:out
+		<display:column titleKey="message.subject">
+			<a href="messaging/viewmessage.do?id=${row.id}}"> <jstl:out
 					value="${row.subject}" />
 			</a>
 		</display:column>

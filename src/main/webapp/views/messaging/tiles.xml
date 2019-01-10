@@ -14,6 +14,11 @@
 		<put-attribute name="body" value="/views/messaging/messagebox.jsp" />
 	</definition>
 	
+	<definition name="messaging/message" extends="master.page">
+		<put-attribute name="title" value="Message" />
+		<put-attribute name="body" value="/views/messaging/message.jsp" />
+	</definition>
+	
 	<definition name="messaging/edit" extends="master.page">
 		<put-attribute name="title" value="Message box" />
 		<put-attribute name="body" value="/views/messaging/edit.jsp" />
