@@ -21,25 +21,25 @@
 <jstl:set var="userId" value="${user.id}" />
 
 
-<display:table name="warranties" id="row" requestURI="/warranty/admin/list.do"
+<display:table name="categories" id="row" requestURI="/category/admin/list.do"
 	pagesize="10" class="displaytag">
-	<display:column property="title" titleKey="warranty.title" />
+	<display:column property="title" titleKey="category.title" />
 	<!-- delete & edit -->
 	
 		
 			<display:column>
-				<a href="warranty/admin/edit.do?id=${row.id}"><spring:message
-						code="warranty.edit" /></a>
+				<a href="category/admin/edit.do?id=${row.id}"><spring:message
+						code="category.edit" /></a>
 			</display:column>
 			<display:column>
-				<a href="warranty/admin/delete.do?id=${row.id}}"><spring:message
-						code="warranty.delete" /></a>
+				<a href="category/admin/delete.do?id=${row.id}"><spring:message
+						code="category.delete" /></a>
 			</display:column>
 		
 	
 </display:table>
 
 		<div>
-			<a href="warranty/admin/create.do">
-			<spring:message code="warranty.create" /></a>
+			<a href="category/admin/create.do">
+			<spring:message code="category.create" /></a>
 		</div>

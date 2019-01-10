@@ -15,19 +15,19 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-	<definition name="warranty/list" extends="master.page">	
-		<put-attribute name="title" value="Warranties" />
-		<put-attribute name="body" value="/views/warranty/list.jsp" />
+	<definition name="category/list" extends="master.page">	
+		<put-attribute name="title" value="Categories" />
+		<put-attribute name="body" value="/views/category/list.jsp" />
 	</definition>
 	
-	<definition name="warranty/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit warranty" />
-		<put-attribute name="body" value="/views/warranty/edit.jsp" />
+	<definition name="category/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit category" />
+		<put-attribute name="body" value="/views/category/edit.jsp" />
 	</definition>
 	
-	<definition name="warranty/view" extends="master.page">	
-		<put-attribute name="title" value="View warranty" />
-		<put-attribute name="body" value="/views/warranty/view.jsp" />
+	<definition name="category/view" extends="master.page">	
+		<put-attribute name="title" value="View category" />
+		<put-attribute name="body" value="/views/category/view.jsp" />
 	</definition>
 	
 </tiles-definitions>
