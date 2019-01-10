@@ -80,6 +80,17 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/create.do?role=customer"><spring:message
+								code="master.page.registerCustomer" /></a></li>
+					<li><a href="actor/create.do?role=handyWorker"><spring:message
+								code="master.page.registerHandyWorker" /></a></li>
+					<li><a href="actor/create.do?role=sponsor"><spring:message
+								code="master.page.registerSponsor" /></a></li>
+				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -93,7 +104,7 @@
 								code="master.page.profile.sendmessage" /></a></li>
 					<li><a href="messaging/view.do"><spring:message
 								code="master.page.profile.messaging" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message
+					<li><a href="actor/edit.do"><spring:message
 								code="master.page.profile.view" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>

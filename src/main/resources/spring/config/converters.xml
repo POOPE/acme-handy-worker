@@ -29,6 +29,8 @@
 		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
 		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
 		<bean class="converters.WarrantyListToStringConverter"/>
+		<bean class="converters.StringToAuthorityConverter"/>
+		<bean class="converters.AuthorityToStringConverter"/>
 	</util:list>
 	
 </beans>

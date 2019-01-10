@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -49,15 +50,24 @@ public class HandyWorkerService {
 	public HandyWorker save(HandyWorker handyWorker) {
 		// if it's saved for the first time (created), assign a proper make given his name
 		if (handyWorker.getId() == 0) {
-			handyWorker.setMake(handyWorker.getName() + " " + handyWorker.getMiddleName() + " " + handyWorker.getSurname());
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			handyWorker.getUser().setPassword(encoder.encodePassword(handyWorker.getUser().getPassword(), null));
+			if (handyWorker.getMake() == null || handyWorker.getMake().equals("")) {
+				handyWorker.setMake(handyWorker.getName() + " " + handyWorker.getMiddleName() + " " + handyWorker.getSurname());
+			}
+
 			HandyWorker res = this.handyWorkerRepository.save(handyWorker);
 			res = (HandyWorker) this.actorService.postInitialize(res);
 			return res;
 		} else {
+			HandyWorker current = this.findOne(handyWorker.getId());
+			if (current.getUser().getPassword() != handyWorker.getUser().getPassword()) {
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				handyWorker.getUser().setPassword(encoder.encodePassword(handyWorker.getUser().getPassword(), null));
+			}
 			return this.handyWorkerRepository.save(handyWorker);
 		}
 	}
-
 	public HandyWorker findOne(int handyWorkerId) {
 		Assert.isTrue(handyWorkerId > 0);
 		return this.handyWorkerRepository.findOne(handyWorkerId);

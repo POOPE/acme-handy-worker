@@ -126,10 +126,8 @@ public class ActorService {
 		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		actor.setFlagged(false);
 		actor.setUser(this.userAccountService.createUserAccount());
-		Actor saved = this.actorRepository.save(actor);
-		this.messageBoxService.createDefaultBoxes(saved);
 
-		return saved;
+		return actor;
 	}
 
 	public Actor postInitialize(Actor actor) {
