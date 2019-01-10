@@ -111,10 +111,11 @@ public class FixupTaskController {
 		ModelAndView result;
 		FixupTask fixupTask = this.fixupTaskService.findById(id);
 		Actor actor = this.actorService.findPrincipal();
-
+		List<WorkPlanPhase> phases = this.workPlanService.findByFixupTask(fixupTask);
 		result = new ModelAndView("fixuptask/view");
 		result.addObject("fixupTask", fixupTask);
 		result.addObject("user", actor);
+		result.addObject("workPlanPhases", phases);
 		if (fixupTask.isLocked()) {
 			FixupApplication application = this.fixupApplicationService.findByStatusForTask("ACCEPTED", fixupTask).get(0);
 			HandyWorker worker = application.getAuthor();
@@ -148,25 +149,27 @@ public class FixupTaskController {
 	public ModelAndView newPhase(@RequestParam int id) {
 		ModelAndView res;
 		FixupTask fixupTask = this.fixupTaskService.findById(id);
-		WorkPlanPhase phase = this.workPlanService.create();
-		phase.setPosition(fixupTask.getPhases().size() + 1);
+		WorkPlanPhase phase = this.workPlanService.create(fixupTask);
+
 		res = new ModelAndView("workplanphase/create");
 		res.addObject("workPlanPhase", phase);
 		return res;
 	}
 
-	@RequestMapping(value = "/handyworker/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/handyworker/savephase", method = RequestMethod.POST, params = "save")
 	public ModelAndView savePhase(@Valid WorkPlanPhase phase, BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
-			res = new ModelAndView("redirect:list.do");
+			res = new ModelAndView("workplanphase/create");
+			res.addObject("workPlanPhase", phase);
 
 		} else {
 			try {
 				this.workPlanService.save(phase);
-				res = new ModelAndView("redirect:list.do");
+				res = new ModelAndView("redirect:/list.do");
 			} catch (Exception e) {
-				res = new ModelAndView("redirect:list.do");
+				res = new ModelAndView("workplanphase/create");
+				res.addObject("workPlanPhase", phase);
 			}
 		}
 		return res;

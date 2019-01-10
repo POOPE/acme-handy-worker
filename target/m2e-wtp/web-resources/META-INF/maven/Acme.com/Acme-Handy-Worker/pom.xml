@@ -123,7 +123,12 @@
 	<!-- Dependencies -->
 
 	<dependencies>
-
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>3.0.9.RELEASE</version>
+		</dependency>
 		<!-- Spring Framework -->
 
 		<dependency>
@@ -312,9 +317,9 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.7.4</version>
 		</dependency>
-		
+
 		<!-- A+ Item for Deliverable 02 -->
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

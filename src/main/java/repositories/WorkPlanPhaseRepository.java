@@ -12,6 +12,6 @@ import domain.WorkPlanPhase;
 @Repository
 public interface WorkPlanPhaseRepository extends JpaRepository<WorkPlanPhase, Integer> {
 
-	@Query("select a.phases from FixupTask a where a.id = ?1")
+	@Query("select a from WorkPlanPhase a where a.fixupTask.id = ?1")
 	public List<WorkPlanPhase> findByFixupTask(int fixupTaskId);
 }

@@ -58,13 +58,13 @@
 	<!-- delete & edit -->
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<jstl:if test="${row.author.id==user.id && row.status!='PENDING'}">
+			<jstl:if test="${row.author.id==user.id && row.status=='PENDING'}">
 				<a href="fixupapplication/handyworker/edit.do?id=${row.id}"><i class="fa fa-pencil"
 					aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
 		<display:column>
-			<jstl:if test="${row.author.user.id==user.user.id && row.status!='PENDING'}">
+			<jstl:if test="${row.author.user.id==user.user.id && row.status=='PENDING'}">
 				<a href="fixupapplication/handyworker/delete.do?id=${row.id}"><i
 					class="fa fa-times" aria-hidden="true"></i></a>
 			</jstl:if>

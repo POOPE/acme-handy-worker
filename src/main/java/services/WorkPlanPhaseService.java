@@ -19,13 +19,15 @@ public class WorkPlanPhaseService {
 	private WorkPlanPhaseRepository	phaseRepo;
 
 
-	public WorkPlanPhase create() {
+	public WorkPlanPhase create(FixupTask fixupTask) {
 		WorkPlanPhase res = new WorkPlanPhase();
+		res.setFixupTask(fixupTask);
+		res.setPosition(this.findByFixupTask(fixupTask).size() + 1);
 		return res;
 	}
 
 	public WorkPlanPhase save(WorkPlanPhase phase) {
-		return this.save(phase);
+		return this.phaseRepo.save(phase);
 	}
 
 	public WorkPlanPhase findById(int phaseId) {

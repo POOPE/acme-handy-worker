@@ -46,25 +46,15 @@
 	<br />
 </div>
 <!-- phases -->
-<jstl:if test="${not empty fixupTask.phases}">
+<jstl:if test="${not empty workPlanPhases}">
 	<h3>
 		<spring:message code="workplan" />
 	</h3>
-	<jstl:forEach var="phase" items="${fixupTask.phases}">
+	<jstl:forEach var="phase" items="${workPlanPhases}">
 		<div>
 			<div>
 				<b><jstl:out value="${phase.position}" />&nbsp;-&nbsp;<jstl:out
 						value="${phase.title}" /></b>
-				<security:authorize access="hasRole('HANDYWORKER')">
-					<jstl:if test="${handyWorker.id==user.id}">
-						<a href="/workplanphase/delete.do?id=${phase.id}}"><spring:message
-								code="workplanphase.delete" /></a>
-						<a href="/workplanphase/moveup.do?id=${phase.id}}"><spring:message
-								code="workplanphase.moveup" /></a>
-						<a href="/workplanphase/movedown.do?id=${phase.id}}"><spring:message
-								code="workplanphase.movedown" /></a>
-					</jstl:if>
-				</security:authorize>
 
 			</div>
 			<div>
@@ -93,7 +83,7 @@
 	<br/>
 	<jstl:if test="${fixupTask.locked}">
 		<div>
-			<a href="handyworker/workplanphase/create.do"><spring:message
+			<a href="fixuptask/handyworker/newphase.do?id=${fixupTask.id}"><spring:message
 					code="workplanphase.create" /></a>
 		</div>
 	</jstl:if>

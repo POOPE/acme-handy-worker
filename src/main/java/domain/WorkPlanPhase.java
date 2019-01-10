@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,12 +17,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class WorkPlanPhase extends DomainEntity {
 
-	public int		position;
-	public String	title;
-	public String	description;
-	public Date		startDate;
-	public Date		endDate;
+	public FixupTask	fixupTask;
+	public int			position;
+	public String		title;
+	public String		description;
+	public Date			startDate;
+	public Date			endDate;
 
+
+	@ManyToOne(optional = true)
+	public FixupTask getFixupTask() {
+		return this.fixupTask;
+	}
+
+	public void setFixupTask(FixupTask fixupTask) {
+		this.fixupTask = fixupTask;
+	}
 
 	public int getPosition() {
 		return this.position;
