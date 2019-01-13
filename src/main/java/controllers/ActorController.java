@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccount;
 import services.ActorService;
 import services.AdminService;
 import services.CustomerService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
+import services.UserAccountService;
 import domain.Actor;
 import domain.Admin;
 import domain.Customer;
@@ -48,6 +52,9 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private RefereeService		refereeService;
+
+	@Autowired
+	private UserAccountService	userService;
 
 
 	public ActorController() {
@@ -108,6 +115,41 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/password", method = RequestMethod.GET)
+	public ModelAndView passwordChange() {
+		ModelAndView result;
+		Actor actor;
+		try {
+			actor = this.actorService.findPrincipal();
+			result = this.createPassEditModelAndView(actor.getUser());
+		} catch (Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/password", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePassword(@Valid UserAccount user, final BindingResult bindingResult) {
+		ModelAndView result;
+		Actor actor = this.actorService.findPrincipal();
+		if (bindingResult.hasErrors()) {
+			result = this.createPassEditModelAndView(user, "actor.commit.error");
+		} else {
+
+			try {
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				String hash = encoder.encodePassword(user.getPassword(), null);
+				user.setPassword(hash);
+				actor.setUser(user);
+				this.actorService.save(actor);
+				SecurityContextHolder.getContext().setAuthentication(null);
+				result = new ModelAndView("redirect:../security/login.do");
+			} catch (Throwable oops) {
+				result = this.createPassEditModelAndView(user, "actor.commit.error");
+			}
+		}
+		return result;
+	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "toCustomer")
 	public ModelAndView save(@Valid Customer customer, final BindingResult bindingResult) {
 		ModelAndView result;
@@ -212,6 +254,18 @@ public class ActorController extends AbstractController {
 		result = new ModelAndView("actor/edit");
 		result.addObject("actor", actor);
 		result.addObject("role", role);
+		result.addObject("message", messageCode);
+		return result;
+	}
+
+	protected ModelAndView createPassEditModelAndView(UserAccount user) {
+		return this.createPassEditModelAndView(user, null);
+	}
+
+	protected ModelAndView createPassEditModelAndView(UserAccount user, String messageCode) {
+		ModelAndView result;
+		result = new ModelAndView("actor/password");
+		result.addObject("user", user);
 		result.addObject("message", messageCode);
 		return result;
 	}

@@ -108,6 +108,8 @@
 								code="master.page.profile.messaging" /></a></li>
 					<li><a href="actor/edit.do"><spring:message
 								code="master.page.profile.view" /></a></li>
+					<li><a href="actor/password.do"><spring:message
+								code="master.page.password" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>

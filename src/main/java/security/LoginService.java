@@ -11,6 +11,7 @@
 package security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,6 +73,18 @@ public class LoginService implements UserDetailsService {
 		Assert.isTrue(result.getId() != 0);
 
 		return result;
+	}
+
+	//check password
+	public boolean checkPassword(String pass) {
+		boolean res = false;
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		String hash = encoder.encodePassword(pass, null);
+		UserAccount user = LoginService.getPrincipal();
+		if (user.getPassword().contains(hash)) {
+			res = true;
+		}
+		return res;
 	}
 
 }

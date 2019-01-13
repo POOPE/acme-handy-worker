@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
@@ -63,6 +65,18 @@ public class LoginController extends AbstractController {
 		result = new ModelAndView("redirect:login.do?showError=true");
 
 		return result;
+	}
+
+	// Check pass
+	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	int checkPass(@RequestParam String pass) {
+		int res = 0;
+
+		if (this.service.checkPassword(pass)) {
+			res = 1;
+		}
+		return res;
 	}
 
 }

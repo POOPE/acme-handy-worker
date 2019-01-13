@@ -1,4 +1,4 @@
-function checkuser(userstring) {
+function checkpass(pass) {
 	$.ajax({
 		url : 'messaging/fetch.do',
 		type : 'GET',
