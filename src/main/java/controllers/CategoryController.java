@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Category;
 import services.CategoryService;
+import domain.Category;
 
 @Controller
 @RequestMapping(value = "/category")
 public class CategoryController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService	categoryService;
 
 
 	// LIST ALL
@@ -95,9 +95,9 @@ public class CategoryController {
 
 	protected ModelAndView createEditModelAndView(Category category, String messageCode) {
 		ModelAndView res;
-
+		List<Category> categories = this.categoryService.findAll();
 		res = new ModelAndView("category/edit");
-
+		res.addObject("categories", categories);
 		res.addObject("category", category);
 		res.addObject("message", messageCode);
 		return res;

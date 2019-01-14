@@ -20,6 +20,8 @@
 
 <form:form modelAttribute="messageBox"
 	action="messaging/edit.do">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
 	<form:hidden path="category" />
 	
 	<form:label path="parent">

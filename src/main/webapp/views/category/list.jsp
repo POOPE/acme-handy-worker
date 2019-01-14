@@ -28,12 +28,12 @@
 	
 		
 			<display:column>
-				<a href="category/admin/edit.do?id=${row.id}"><spring:message
-						code="category.edit" /></a>
+				<a href="category/admin/edit.do?id=${row.id}"><i
+					class="fa fa-pencil" aria-hidden="true"></i></a>
 			</display:column>
 			<display:column>
-				<a href="category/admin/delete.do?id=${row.id}"><spring:message
-						code="category.delete" /></a>
+				<a href="category/admin/delete.do?id=${row.id}"><i
+					class="fa fa-times" aria-hidden="true"></i></a>
 			</display:column>
 		
 	

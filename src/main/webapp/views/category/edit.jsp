@@ -22,11 +22,16 @@
 <!-- info -->
 <form:form modelAttribute="category"
 	action="category/admin/edit.do">
-	
-	
-	
-	<form:hidden path="parent" value="${category.parent.id}"/>
-	<form:errors cssClass="error" path="parent" />
+
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:label path="parent">
+		<spring:message code="category.parent" />
+	</form:label>
+	<form:select id="parent" path="parent">
+		<form:options items="${categories}" itemLabel="title" itemValue="id" />
+		<form:option value="0" label="---" />
+	</form:select>
 	
 	<div>
 		<form:label path="title">

@@ -21,6 +21,8 @@
 
 <form:form modelAttribute="fixupApplication"
 	action="fixupapplication/handyworker/edit.do">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
 	<form:hidden path="fixupTask" value="${fixupApplication.fixupTask.id}"/>
 	<form:errors cssClass="error" path="fixupTask" />
 	<form:hidden path="author" value="${fixupApplication.author.id}"/>

@@ -20,7 +20,9 @@
 
 
 <form:form modelAttribute="fixupTask" action="fixuptask/edit.do">
-	<form:hidden path="author" value="${fixupTask.author.id}"/>
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="author" value="${fixupTask.author.id}" />
 	<form:errors cssClass="error" path="author" />
 	<form:hidden path="publishDate" />
 	<form:errors cssClass="error" path="publishDate" />
@@ -30,7 +32,7 @@
 	<form:errors cssClass="error" path="ticker" />
 	<form:hidden path="locked" />
 	<form:errors cssClass="error" path="locked" />
-	<form:hidden path="creditCard" value="${fixupTask.creditCard.id}"/>
+	<form:hidden path="creditCard" value="${fixupTask.creditCard.id}" />
 	<form:errors cssClass="error" path="creditCard" />
 
 	<form:label path="description">
