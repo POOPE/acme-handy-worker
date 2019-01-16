@@ -60,5 +60,3 @@
 	</div>
 
 </jstl:if>
-
-script type="text/javascript" src="scripts/writemessage.js"></script>

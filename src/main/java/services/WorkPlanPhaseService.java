@@ -17,7 +17,23 @@ public class WorkPlanPhaseService {
 
 	@Autowired
 	private WorkPlanPhaseRepository	phaseRepo;
+	@Autowired
+	private FixupTaskService		fixupTaskService;
 
+
+	public void delete(WorkPlanPhase phase) {
+		Integer pos = phase.getPosition();
+		FixupTask task = phase.getFixupTask();
+		this.phaseRepo.delete(phase.getId());
+		List<WorkPlanPhase> phases = this.findByFixupTask(task);
+		for (WorkPlanPhase p : phases) {
+			Integer ppos = p.getPosition();
+			if (ppos > pos) {
+				p.setPosition(ppos - 1);
+				this.save(p);
+			}
+		}
+	}
 
 	public WorkPlanPhase create(FixupTask fixupTask) {
 		WorkPlanPhase res = new WorkPlanPhase();

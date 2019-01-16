@@ -97,7 +97,7 @@ public class AdministratorController extends AbstractController {
 		} else {
 			try {
 				this.siteConfigService.update(siteConfig);
-				res = new ModelAndView("redirect:siteconfig");
+				res = new ModelAndView("redirect:siteconfig.do");
 			} catch (Exception e) {
 				res = this.createEditModelAndView(siteConfig, "siteconfig.commit.error");
 			}
