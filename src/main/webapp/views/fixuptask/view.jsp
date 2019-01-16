@@ -51,6 +51,14 @@
 		<spring:message code="workplan" />
 	</h3>
 	<jstl:forEach var="phase" items="${workPlanPhases}">
+		<jstl:if test="${user.id == handyWorker.id}">
+			<div>
+				<a href="fixuptask/handyworker/editphase.do?id=${phase.id}"><i
+					class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;<a
+					href="fixuptask/handyworker/deletephase.do?id=${phase.id}"><i
+					class="fa fa-times" aria-hidden="true"></i></a>
+			</div>
+		</jstl:if>
 		<div>
 			<div>
 				<b><jstl:out value="${phase.position}" />&nbsp;-&nbsp;<jstl:out
@@ -80,8 +88,8 @@
 			<spring:message code="apply" />
 		</a>
 	</jstl:if>
-	<br/>
-	<jstl:if test="${fixupTask.locked}">
+	<br />
+	<jstl:if test="${fixupTask.locked && user.id == handyWorker.id}">
 		<div>
 			<a href="fixuptask/handyworker/newphase.do?id=${fixupTask.id}"><spring:message
 					code="workplanphase.create" /></a>

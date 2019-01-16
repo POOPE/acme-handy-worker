@@ -109,6 +109,8 @@ public class MessagingController {
 		Message message = this.messageService.findById(id);
 		mail.setRecipients(String.valueOf(message.getSender().getId()));
 		mail.setLock(true);
+		mail.setSubject("Re: " + message.getSubject());
+		mail.setBody("\n" + "\n" + "\n" + "Quote:\n" + message.getBody());
 		res = this.createMessageEditModelAndView(mail);
 		return res;
 	}
@@ -166,11 +168,14 @@ public class MessagingController {
 	}
 
 	@RequestMapping(value = "/viewmessage", method = RequestMethod.GET)
-	public ModelAndView viewMessage(@RequestParam final Integer id) {
+	public ModelAndView viewMessage(@RequestParam final Integer id, @RequestParam final Integer box) {
 		ModelAndView res;
+		MessageBox container = this.messageBoxService.findById(box);
 		Message message = this.messageService.findById(id);
+		Assert.isTrue(message.getContainer().contains(container), "Message could be loaded: bad request");
 		res = new ModelAndView("messaging/message");
 		res.addObject("mail", message);
+		res.addObject("box", container);
 		return res;
 	}
 

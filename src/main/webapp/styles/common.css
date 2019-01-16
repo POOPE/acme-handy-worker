@@ -7,6 +7,13 @@
  * http://www.tdg-seville.info/License.html
  * 
  */
+ 
+.list-item{
+	cursor: pointer;
+	border: 2px solid #cccccc;
+	width:200px;
+	margin:2px 2px 2px 2px;
+}
 
 .error {
 	color: red;

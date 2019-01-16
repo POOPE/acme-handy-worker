@@ -145,6 +145,28 @@ public class FixupTaskController {
 	}
 
 	//WORKPLAN
+	@RequestMapping(value = "/handyworker/editphase", method = RequestMethod.GET)
+	public ModelAndView editPhase(@RequestParam int id) {
+		ModelAndView res;
+		WorkPlanPhase phase = this.workPlanService.findById(id);
+		Assert.notNull(phase);
+		res = new ModelAndView("workplanphase/create");
+		res.addObject("workPlanPhase", phase);
+		return res;
+	}
+
+	@RequestMapping(value = "/handyworker/deletephase", method = RequestMethod.GET)
+	public ModelAndView deletePhase(@RequestParam int id) {
+		ModelAndView res;
+		WorkPlanPhase phase = this.workPlanService.findById(id);
+		FixupTask fixupTask = phase.getFixupTask();
+		Assert.notNull(phase);
+		this.workPlanService.delete(phase);
+
+		res = new ModelAndView("redirect:/view.do?id=" + fixupTask.getId());
+		return res;
+	}
+
 	@RequestMapping(value = "/handyworker/newphase", method = RequestMethod.GET)
 	public ModelAndView newPhase(@RequestParam int id) {
 		ModelAndView res;
@@ -165,8 +187,9 @@ public class FixupTaskController {
 
 		} else {
 			try {
-				this.workPlanService.save(phase);
-				res = new ModelAndView("redirect:/list.do");
+				WorkPlanPhase saved = this.workPlanService.save(phase);
+				FixupTask task = saved.getFixupTask();
+				res = new ModelAndView("redirect:/view.do?id=" + task.getId());
 			} catch (Exception e) {
 				res = new ModelAndView("workplanphase/create");
 				res.addObject("workPlanPhase", phase);

@@ -88,7 +88,10 @@ public class MessageService {
 		//access constraint
 		Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue(message.getSender().equals(actor), "Error on send: Owner inconsistency");
-		message.setSenderAlias(actor.getName() + " " + actor.getSurname());
+		if (message.getSenderAlias() == null) {
+			message.setSenderAlias(actor.getName() + " " + actor.getSurname());
+		}
+
 		message.setDeliveryDate(new Date());
 		String destinedCategory = "INBOX";
 		for (String spamword : this.siteService.find().getSpamWords()) {

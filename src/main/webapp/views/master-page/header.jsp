@@ -32,10 +32,10 @@
 								code="master.page.administrator.broadcast" /></a></li>
 					<li><a href="warranty/admin/list.do"><spring:message
 								code="master.page.warranty.list" /></a></li>
-					<li><a href="config/admin/edit.do"><spring:message
-								code="master.page.administrator.config" /></a></li>
 					<li><a href="category/admin/list.do"><spring:message
 								code="master.page.category.list" /></a></li>
+					<li><a href="admin/siteconfig.do"><spring:message
+								code="master.page.siteconfig" /></a></li>
 				</ul></li>
 		</security:authorize>
 

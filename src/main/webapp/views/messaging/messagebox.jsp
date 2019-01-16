@@ -92,7 +92,7 @@
 		</display:column>
 		<!-- name of message is link to open message -->
 		<display:column titleKey="message.subject">
-			<a href="messaging/viewmessage.do?id=${row.id}"> <jstl:out
+			<a href="messaging/viewmessage.do?id=${row.id}&box=${messageBox.id}"> <jstl:out
 					value="${row.subject}" />
 			</a>
 		</display:column>

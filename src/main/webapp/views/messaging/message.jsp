@@ -19,28 +19,46 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<jstl:if test="${not empty box}">
+	<div>
+		<a href="messaging/view.do?id=${box.id}"> <spring:message
+				code="back" />
+		</a>
+	</div>
+</jstl:if>
+<br />
 <jstl:if test="${not empty mail}">
 	<!-- subject -->
 	<div>
-		<jstl:out value="${mail.subject}" />
+		<h3>
+			<jstl:out value="${mail.subject}" />
+		</h3>
 	</div>
 	<!-- sender + send message to sender -->
 	<div class="tooltip">
 		<span class="tooltiptext">Send message to this user</span> <span>
-			From&nbsp; <a
-			href="messaging/send.do?recipients=${mail.sender.id}"> <jstl:out
-					value="${mail.sender.user.username}" />
+			<b><jstl:out value="${mail.senderAlias}" /></b> <jstl:out
+				value="${mail.sender.user.username}" />&nbsp;<a
+			href="messaging/reply.do?id=${mail.id}"><i
+				class="fa fa-reply" aria-hidden="true"></i>
 		</a>
 		</span>
 	</div>
 	<!-- delivery date -->
-	<div>
-		<fmt:formatDate value="${mail.deliveryDate}" pattern="dd/MM/yyyy" />
+
+	<div style="color: gray">
+
+		<fmt:formatDate value="${mail.deliveryDate}"
+			pattern="dd/MM/yyyy HH:mm" />
 	</div>
+	<br />
 	<!-- body -->
 	<div>
-		<textarea name="body">
-			<jstl:out value="${mail.body}" /> </textarea>
+
+		<jstl:out value="${mail.body}" />
+		<br /> <br />
 	</div>
-	
+
 </jstl:if>
+
+script type="text/javascript" src="scripts/writemessage.js"></script>

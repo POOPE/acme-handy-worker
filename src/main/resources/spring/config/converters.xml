@@ -32,6 +32,7 @@
 		<bean class="converters.CategoryListToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
 		<bean class="converters.AuthorityToStringConverter"/>
+		
 	</util:list>
 	
 </beans>
