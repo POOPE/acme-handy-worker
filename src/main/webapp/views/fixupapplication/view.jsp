@@ -50,8 +50,9 @@
 </div>
 <!-- add comment -->
 <security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
-	<form action="fixupapplication/addcomment.do" method="get">
-		<input type="text" id="comment" name="comment_text">
+	<form action="fixupapplication/handyworker/addcomment.do" method="get">
+		<input type="text" id="comment" name="c">
+		<input type="hidden" value="${fixupApplication.id}" name="id">
 		<button type="submit"><spring:message code="fixupapplication.addcomment"/></button>
 	</form>
 </security:authorize>

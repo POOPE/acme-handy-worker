@@ -66,6 +66,7 @@
 		<security:intercept-url pattern="/fixupapplication/handyworker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/fixupapplication/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixupapplication/view.do" access="hasAnyRole('CUSTOMER','HANDYWORKER')" />
+		<security:intercept-url pattern="/fixupapplication/addcomment.do" access="hasAnyRole('CUSTOMER','HANDYWORKER')" />
 		
 		<security:intercept-url pattern="/warranty/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/admin/**" access="hasRole('ADMIN')" />		
