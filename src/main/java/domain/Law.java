@@ -33,4 +33,9 @@ public class Law extends DomainEntity {
 		this.relevantText = relevantText;
 	}
 
+	@Override
+	public String toString() {
+		return String.valueOf(this.getId());
+	}
+
 }

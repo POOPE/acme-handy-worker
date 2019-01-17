@@ -9,9 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import repositories.WarrantyRepository;
 import domain.Law;
 import domain.Warranty;
-import repositories.WarrantyRepository;
 
 @Service
 @Transactional
@@ -20,12 +20,13 @@ public class WarrantyService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private WarrantyRepository warrantyRepository;
+	private WarrantyRepository	warrantyRepository;
 
 
 	public Warranty create() {
 		Warranty w = new Warranty();
 		w.setLaws(new ArrayList<Law>());
+		w.setTerms(new ArrayList<String>());
 		return w;
 	}
 
@@ -49,6 +50,10 @@ public class WarrantyService {
 	public Warranty initialize(Warranty warranty) {
 
 		return this.save(warranty);
+	}
+
+	public List<Warranty> findAllFinal() {
+		return this.warrantyRepository.findAllFinal();
 	}
 
 }

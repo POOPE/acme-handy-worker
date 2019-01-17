@@ -3,33 +3,27 @@ package converters;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import domain.Category;
-import services.CategoryService;
+import org.springframework.util.Assert;
 
 @Transactional
 @Component
-public class CategoryListToStringConverter implements Converter<List<Category>, String> {
-
-	@Autowired
-	private CategoryService categoryService;
-
+public class StringListToStringConverter implements Converter<List<String>, String> {
 
 	@Override
-	public String convert(List<Category> list) {
+	public String convert(List<String> list) {
 		String res = "";
 
 		if (list == null || list.isEmpty()) {
 			res = null;
 		} else {
+			Assert.isInstanceOf(String.class, list.get(0), "Object is not of type String");
 			for (int i = 0; i < list.size(); i++) {
-				res = res + list.get(i).getId();
+				res = res + list.get(i);
 				if (i < list.size() - 1) {
-					res = res + ",";
+					res = res + "&&";
 				}
 			}
 		}

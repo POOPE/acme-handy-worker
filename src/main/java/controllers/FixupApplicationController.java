@@ -84,7 +84,7 @@ public class FixupApplicationController {
 
 	@RequestMapping(value = "/handyworker/addcomment", method = RequestMethod.GET)
 	public ModelAndView comment(@RequestParam int id, @RequestParam String c) {
-
+		FixupApplication app = this.fixupApplicationService.findById(id);
 	}
 
 	//CHANGE STATUS

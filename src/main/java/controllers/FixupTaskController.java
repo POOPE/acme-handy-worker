@@ -133,7 +133,7 @@ public class FixupTaskController {
 	protected ModelAndView createEditModelAndView(FixupTask fixupTask, String messageCode) {
 		ModelAndView res;
 
-		List<Warranty> warranties = this.warrantyService.findAll();
+		List<Warranty> warranties = this.warrantyService.findAllFinal();
 		List<Category> categories = this.categoryService.findAll();
 
 		res = new ModelAndView("fixuptask/edit");

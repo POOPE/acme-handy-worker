@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Category;
-import domain.Law;
-import domain.Warranty;
 import services.ActorService;
-import services.CategoryService;
 import services.LawService;
 import services.WarrantyService;
+import domain.Law;
+import domain.Warranty;
 
 @Controller
 @RequestMapping(value = "/warranty")
@@ -31,8 +29,6 @@ public class WarrantyController {
 
 	@Autowired
 	private ActorService	actorService;
-	@Autowired
-	private CategoryService	categoryService;
 	@Autowired
 	private LawService		lawService;
 
@@ -109,6 +105,19 @@ public class WarrantyController {
 		return result;
 	}
 
+	//LOCK
+	@RequestMapping(value = "admin/final", method = RequestMethod.GET)
+	public ModelAndView lock(@RequestParam final int id) {
+		ModelAndView res;
+		Warranty warranty = this.warrantyService.findById(id);
+		Assert.notNull(warranty);
+		Assert.isTrue(!warranty.getLocked(), "Warranty already in final mode");
+		warranty.setLocked(true);
+		this.warrantyService.save(warranty);
+		res = new ModelAndView("redirect:list.do");
+		return res;
+	}
+
 	protected ModelAndView createEditModelAndView(Warranty warranty) {
 		ModelAndView res;
 		res = this.createEditModelAndView(warranty, null);
@@ -117,14 +126,10 @@ public class WarrantyController {
 
 	protected ModelAndView createEditModelAndView(Warranty warranty, String messageCode) {
 		ModelAndView res;
-
 		List<Law> laws = this.lawService.findAll();
-		List<Category> categories = this.categoryService.findAll();
 		res = new ModelAndView("warranty/edit");
 
-		res.addObject("categories", categories);
 		res.addObject("laws", laws);
-
 		res.addObject("warranty", warranty);
 		res.addObject("message", messageCode);
 		return res;
