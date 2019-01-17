@@ -38,6 +38,9 @@
 								code="master.page.siteconfig" /></a></li>
 					<li><a href="admin/stats.do"><spring:message
 								code="master.page.stats" /></a></li>
+					<li><a href="actor/create.do?role=administrator"><spring:message
+								code="master.page.createAdmin" /></a></li>
+								
 				</ul></li>
 		</security:authorize>
 
