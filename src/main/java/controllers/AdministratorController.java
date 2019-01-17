@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdminService;
 import services.MessageBoxService;
 import services.MessageService;
 import services.SiteConfigurationService;
 import domain.Actor;
+import domain.Customer;
 import domain.SiteConfiguration;
 import forms.MessageForm;
 
@@ -40,6 +42,8 @@ public class AdministratorController extends AbstractController {
 	private MessageService				messageService;
 	@Autowired
 	private ActorService				actorService;
+	@Autowired
+	private AdminService				adminService;
 	@Autowired
 	private SiteConfigurationService	siteConfigService;
 
@@ -75,6 +79,31 @@ public class AdministratorController extends AbstractController {
 		res.addObject("mail", mail);
 		res.addObject("priorities", priorities);
 		return res;
+	}
+
+	// Site config
+	@RequestMapping(value = "/stats", method = RequestMethod.GET)
+	public ModelAndView getstats() {
+		ModelAndView result;
+		List<Double> stats1 = this.adminService.fixupTasksPerCustomerStats();
+		List<Double> stats2 = this.adminService.applicationsPerFixupTaskStats();
+		List<Double> stats3 = this.adminService.maximumPricePerFixupTaskStats();
+		Double stats4 = this.adminService.pendingApplicationsRatioStats();
+		Double stats5 = this.adminService.acceptedApplicationsRatioStats();
+		Double stats6 = this.adminService.rejectedApplicationsRatioStats();
+		Double stats7 = this.adminService.pendingLapsedApplicationRatioStats();
+		List<Customer> stats8 = this.adminService.customersWithMostApplicationsStats();
+		result = new ModelAndView("administrator/stats");
+		result.addObject("stats1", stats1);
+		result.addObject("stats2", stats2);
+		result.addObject("stats3", stats3);
+		result.addObject("stats4", stats4);
+		result.addObject("stats5", stats5);
+		result.addObject("stats6", stats6);
+		result.addObject("stats7", stats7);
+		result.addObject("stats8", stats8);
+
+		return result;
 	}
 
 	// Site config
