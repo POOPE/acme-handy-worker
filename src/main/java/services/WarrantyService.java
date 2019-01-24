@@ -26,7 +26,6 @@ public class WarrantyService {
 	public Warranty create() {
 		Warranty w = new Warranty();
 		w.setLaws(new ArrayList<Law>());
-		w.setTerms(new ArrayList<String>());
 		return w;
 	}
 
@@ -48,7 +47,7 @@ public class WarrantyService {
 	}
 
 	public Warranty initialize(Warranty warranty) {
-
+		warranty.setLocked(false);
 		return this.save(warranty);
 	}
 

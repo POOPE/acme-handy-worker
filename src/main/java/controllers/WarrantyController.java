@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -65,7 +66,7 @@ public class WarrantyController {
 
 		} else {
 			try {
-				Warranty saved = this.warrantyService.initialize(warranty);
+				this.warrantyService.initialize(warranty);
 				res = new ModelAndView("redirect:list.do");
 			} catch (Exception e) {
 				res = this.createEditModelAndView(warranty, "messagebox.commit.error");
@@ -85,11 +86,12 @@ public class WarrantyController {
 	}
 
 	//DELETE
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int id) {
 		ModelAndView result = null;
 		Warranty warranty = this.warrantyService.findById(id);
 		this.warrantyService.delete(warranty);
+		result = new ModelAndView("redirect:list.do");
 		return result;
 	}
 
@@ -115,6 +117,19 @@ public class WarrantyController {
 		warranty.setLocked(true);
 		this.warrantyService.save(warranty);
 		res = new ModelAndView("redirect:list.do");
+		return res;
+	}
+
+	@RequestMapping(value = "admin/fetch", produces = "application/json")
+	public @ResponseBody
+	String findLaw(@RequestParam String lawid) {
+		String res = "";
+		if (!lawid.isEmpty()) {
+			Law law = this.lawService.findById(Integer.valueOf(lawid.trim()));
+			if (law != null) {
+				res = law.getId() + "&&" + law.getTitle() + "&&" + law.getRelevantText();
+			}
+		}
 		return res;
 	}
 

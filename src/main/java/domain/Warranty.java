@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -20,7 +19,7 @@ public class Warranty extends DomainEntity {
 	public List<Law>	laws;
 	//attributes
 	public String		title;
-	public List<String>	terms;
+	public String		terms;
 	public Boolean		locked;
 
 
@@ -42,12 +41,11 @@ public class Warranty extends DomainEntity {
 	}
 
 	@Column
-	@ElementCollection(targetClass = String.class)
-	public List<String> getTerms() {
+	public String getTerms() {
 		return this.terms;
 	}
 
-	public void setTerms(List<String> terms) {
+	public void setTerms(String terms) {
 		this.terms = terms;
 	}
 

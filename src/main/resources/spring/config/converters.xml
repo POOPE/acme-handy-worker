@@ -35,7 +35,7 @@
 		
 		<bean class="converters.LawListToStringConverter"/>
 		<bean class="converters.StringToLawListConverter"/>
-		<bean class="converters.StringListToStringConverter"/>
+<!-- 		<bean class="converters.StringListToStringConverter"/> -->
 <!-- 		<bean class="converters.StringToStringListConverter"/> -->
 	</util:list>
 	

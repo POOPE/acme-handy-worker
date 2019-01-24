@@ -1,50 +1,75 @@
-var terms = [];
+var laws = [];
 
-function removeterms(div) {
-	removeterm(div.id);
+function updatelaws() {
+	var field = document.getElementById("lawsfield");
+	field.value = laws.toString();
+}
+
+function removediv(div) {
 	div.remove();
-	updateterms();
+	removeid(div.id);
+	updatelaws();
 }
 
-function removeterm(word) {
-	var index = terms.indexOf(word);
+function removeid(num) {
+	var index = laws.indexOf(num);
 	if (index > -1) {
-		terms.splice(index, 1);
+		laws.splice(index, 1);
 	}
-}
-
-function updateterms() {
-	var stringlist = "";
-	for ( var i = 0; i < terms.length; i++) {
-		stringlist = stringlist + terms[i];
-		if (i < terms.length - 1) {
-			stringlist = stringlist + ",";
-		}
-	}
-	document.getElementById("termsfield").value = stringlist;
 }
 
 function addItem() {
-	var word = terminput.value;
-	terms.push(word);
-	updateterms();
-	$('#termslist').append('<div class="list-item" id="' + word + '">' + word + '&nbsp;<i  class="fa fa-times" aria-hidden="true"></i></div>');
-	var newterm = document.getElementById(word);
-	newterm.addEventListener("click", function(e) {
-		removeterms(this);
+	var inputfield = document.getElementById("lawselect");
+	fetchlaw(inputfield.options[inputfield.selectedIndex].value);
+}
+
+function fetchlaw(id) {
+	$.ajax({
+		url : 'warranty/admin/fetch.do',
+		type : 'GET',
+		data : {
+			lawid : id
+		},
+		complete : function(response) {
+			var lawstring = response.responseText;
+			var law = lawstring.split('&&');
+			if (id != 0) {
+				$('#lawscontainer').append(
+						'<div class="list-item" id="' + law[0] + '" onclick="removediv(this)">' + '<div><b>' + law[1] + '</b></div><div>' + law[2] + '</div></div>');
+				laws.push(id);
+				updatelaws();
+			}
+		}
 	});
 }
 
 $(document).ready(function() {
-	terms = document.getElementById("termsfield").value.split(",");
-	var terminput = document.getElementById("terminput");
 
-	function addItem() {
-		var word = terminput.value;
-		$('#spamwordlist').append('<div id="' + word + '">' + word + '&nbsp;<i  class="fa fa-times" aria-hidden="true"></i></div>');
-		var newspam = document.getElementById(word);
-		newspam.addEventListener("click", function(e) {
-			removespam(this);
+	var loadedlaws = document.getElementById("lawsfield").value.split(',');
+	laws = laws.concat(loadedlaws);
+
+	function fetchlaw(id) {
+		$.ajax({
+			url : 'messaging/fetch.do',
+			type : 'GET',
+			data : {
+				lawid : id
+			},
+			complete : function(response) {
+				var lawstring = response.responseText;
+				var law = lawstring.split('&&');
+				if (id != 0) {
+					$('#lawscontainer').append('<div class="list-item" id="' + law[0] + '">' + '<div><b>' + law[1] + '</b></div><div>' + law[2] + '</div></div>');
+					laws.push(id);
+					updatelaws();
+					var newlaw = document.getElementById(law[0]);
+					newlaw.addEventListener("click", function(e) {
+						newlaw.remove();
+						removeid(id);
+						updatelaws();
+					});
+				}
+			}
 		});
 	}
 });

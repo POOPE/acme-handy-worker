@@ -34,10 +34,8 @@
 		</jstl:if>
 	</display:column>
 	<display:column>
-		<jstl:if test="${!row.locked}">
-			<a href="warranty/admin/delete.do?id=${row.id}}"><i
-				class="fa fa-times" aria-hidden="true"> </i></a>
-		</jstl:if>
+			<a href="warranty/admin/delete.do?id=${row.id}"><i
+				class="fa fa-times" aria-hidden="true"> </i></a>		
 	</display:column>
 	<display:column>
 		<jstl:if test="${!row.locked}">

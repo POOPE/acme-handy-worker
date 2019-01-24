@@ -22,10 +22,9 @@
 <!-- info -->
 <form:form modelAttribute="warranty" action="warranty/admin/save.do">
 
-	<form:hidden path="laws" value=""/>
-
-
-	<form:hidden path="terms" id="termsfield" value=""/>
+	<form:hidden path="laws" id="lawsfield" />
+	<form:hidden path="id" />
+	<form:hidden path="version" />
 
 	<form:hidden path="locked" />
 
@@ -41,18 +40,34 @@
 		<form:label path="terms">
 			<spring:message code="warranty.terms" />
 		</form:label>
-		<div id="termslist">
-			<jstl:forEach items="${warranty.terms}" var="term">
-				<div class="list-item" onclick="removeterms(this)" id="${term}">
-					<jstl:out value="${term}"></jstl:out>
-					&nbsp;<i class="fa fa-times" aria-hidden="true"></i>
+		<input path="terms" />
+		<form:errors cssClass="error" path="terms" />
+	</div>
+	<div>
+		<form:label path="laws">
+			<spring:message code="warranty.laws" />
+		</form:label>
+		<div id="lawscontainer">
+			<jstl:forEach items="${warranty.laws}" var="law">
+				<div class="list-item" id="${law.id}" onclick="removediv(this)">
+					<div>
+						<b><jstl:out value="${law.title}" /></b>
+					</div>
+					<div>
+						<jstl:out value="${law.relevantText}" />
+					</div>
 				</div>
 			</jstl:forEach>
 		</div>
-		<input type="text" id="terminput" />
-		<button type="button" onclick="addItem(); return false;"
-			id="addterm">Add</button>
-			<form:errors cssClass="error" path="terms" />
+		<div>
+			<select id="lawselect">
+				<jstl:forEach items="${laws}" var="law">
+					<option value="${law.id}"><jstl:out value="${law.title}"/></option>
+				</jstl:forEach>
+				
+			</select>
+			<button type="button" onclick="addItem(); return false;" id="addlaw">Add</button>
+		</div>
 	</div>
 
 

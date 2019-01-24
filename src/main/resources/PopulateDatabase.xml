@@ -1019,11 +1019,8 @@
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="Default" />
 		<property name="locked" value="false" />
-		<property name="terms">
-			<list>
-				<value>term 1</value>
-			</list>
-		</property>
+		<property name="terms" value ="Default terms bro"/>
+			
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1035,11 +1032,8 @@
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="Thef" />
 		<property name="locked" value="false" />
-		<property name="terms">
-			<list>
-				<value>prove that it was a theft</value>
-			</list>
-		</property>
+		<property name="terms" value ="prove that it was a theft"/>
+			
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1052,12 +1046,8 @@
 	<bean id="warranty3" class="domain.Warranty">
 		<property name="locked" value="false" />
 		<property name="title" value="Total destruction" />
-		<property name="terms">
-			<list>
-				<value>prove that it was the handyworkers fault</value>
-				<value>idk</value>
-			</list>
-		</property>
+		<property name="terms" value ="prove that it was the handyworkers fault"/>
+			
 		<property name="laws">
 			<list>
 				<ref bean="law4" />
