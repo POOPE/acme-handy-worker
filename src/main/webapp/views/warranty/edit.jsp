@@ -40,7 +40,7 @@
 		<form:label path="terms">
 			<spring:message code="warranty.terms" />
 		</form:label>
-		<input path="terms" />
+		<form:input path="terms" />
 		<form:errors cssClass="error" path="terms" />
 	</div>
 	<div>
@@ -68,6 +68,7 @@
 			</select>
 			<button type="button" onclick="addItem(); return false;" id="addlaw">Add</button>
 		</div>
+		<form:errors cssClass="error" path="laws" />
 	</div>
 
 
