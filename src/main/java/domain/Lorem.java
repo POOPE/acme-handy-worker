@@ -17,17 +17,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Lorem {
+public class Lorem extends DomainEntity {
 
 	private FixupTask	fixupTask;
 	private Customer	author;
 	private String		ticker;
-	private Date		publishDate;
 	private String		body;
 	private String		imgURL;
-	private boolean		lock;
+	private Date		publishDate;
+	private Boolean		locked;
 
 
+	@ManyToOne(optional = false)
 	public FixupTask getFixupTask() {
 		return this.fixupTask;
 	}
@@ -54,7 +55,23 @@ public class Lorem {
 		this.ticker = ticker;
 	}
 
-	@NotNull
+	public String getBody() {
+		return this.body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	@NotBlank
+	public String getImgURL() {
+		return this.imgURL;
+	}
+
+	public void setImgURL(String imgURL) {
+		this.imgURL = imgURL;
+	}
+
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -66,29 +83,13 @@ public class Lorem {
 		this.publishDate = publishDate;
 	}
 
-	@NotBlank
-	public String getBody() {
-		return this.body;
+	@NotNull
+	public Boolean getLocked() {
+		return this.locked;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public String getImgURL() {
-		return this.imgURL;
-	}
-
-	public void setImgURL(String imgURL) {
-		this.imgURL = imgURL;
-	}
-
-	public boolean isLock() {
-		return this.lock;
-	}
-
-	public void setLock(boolean lock) {
-		this.lock = lock;
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
 	}
 
 }

@@ -12,18 +12,18 @@ import domain.Lorem;
 @Repository
 public interface LoremRepository extends JpaRepository<Lorem, Integer> {
 
-	@Query("select a from Lorem a where a.lock = TRUE")
+	@Query("select a from Lorem a where a.locked = TRUE")
 	List<Lorem> findAllFinal();
 
 	@Query("select a from Lorem a where a.author.id = ?1")
 	List<Lorem> findByAuthor(int id);
 
-	@Query("select a from Lorem a where a.fixuptask.id = ?1 and a.lock= TRUE")
+	@Query("select a from Lorem a where a.fixuptask.id = ?1 and a.locked= TRUE")
 	List<Lorem> findByFixupTask(int id);
 
-	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.lock=TRUE ")
+	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.locked=TRUE ")
 	public Float publishedLoremRatio();
 
-	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.lock=FALSE ")
+	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.locked=FALSE ")
 	public Float draftLoremRatio();
 }

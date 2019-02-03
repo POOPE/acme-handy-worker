@@ -47,14 +47,14 @@ public class LoremService {
 		res.setAuthor(author);
 		res.setFixupTask(fixupTask);
 		res.setTicker(ticker);
-		res.setLock(false);
+		res.setLocked(false);
 		return res;
 	}
 
 	public Lorem initialize(Lorem lorem) {
 		lorem.setPublishDate(new Date());
 		lorem.setTicker(this.createTicker());
-		lorem.setLock(false);
+		lorem.setLocked(false);
 		return this.save(lorem);
 	}
 
@@ -63,7 +63,7 @@ public class LoremService {
 	}
 
 	public Lorem lock(Lorem lorem) {
-		lorem.setLock(true);
+		lorem.setLocked(true);
 		lorem.setPublishDate(new Date());
 		return this.save(lorem);
 	}

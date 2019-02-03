@@ -10,16 +10,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
-	<!-- final exam -->
-	<bean id="lorem1" class="domain.Lorem">
-		<property name="fixupTask" ref="fixupTask1" />
-		<property name="author" ref="customer1" />
-		<property name="ticker" value="TEMP" />
-		<property name="publishDate" value="2018/10/10 12:00" />
-		<property name="body" value="test" />
-		<property name="imgURL" value="test" />
-		<property name="lock" value="false" />
-	</bean>
+
 
 	<!-- User accounts -->
 
@@ -1252,7 +1243,16 @@
 
 	</bean>
 
-
+	<!-- final exam -->
+	<bean id="lorem1" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer1" />
+		<property name="ticker" value="TEMP" />
+		<property name="publishDate" value="2018/10/10 12:00" />
+		<property name="body" value="test" />
+		<property name="imgURL" value="test" />
+		<property name="locked" value="false" />
+	</bean>
 
 
 

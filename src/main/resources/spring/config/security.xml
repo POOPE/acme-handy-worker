@@ -72,6 +72,10 @@
 		<security:intercept-url pattern="/category/admin/**" access="hasRole('ADMIN')" />		
 		<security:intercept-url pattern="/config/admin/**" access="hasRole('ADMIN')" />
 		
+		<security:intercept-url pattern="/lorem/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/lorem/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/lorem/**" access="isAuthenticated()" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

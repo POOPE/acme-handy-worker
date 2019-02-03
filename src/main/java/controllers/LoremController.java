@@ -33,6 +33,17 @@ public class LoremController {
 	private CustomerService		customerService;
 
 
+	//VIEW
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public ModelAndView view(@RequestParam final int id) {
+		ModelAndView res;
+		Lorem lorem = this.loremService.findById(id);
+		Assert.notNull(lorem, "Object does not exist");
+		res = new ModelAndView("lorem/view");
+		res.addObject("lorem", lorem);
+		return res;
+	}
+
 	// LISTS
 	//list all
 	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
@@ -97,8 +108,9 @@ public class LoremController {
 		} else {
 			try {
 				Lorem saved = this.loremService.save(lorem);
+				res = new ModelAndView("redirect: /lorem/view.do?id=" + saved.getId());
 			} catch (Exception e) {
-
+				res = this.createEditModelAndView(lorem, "lorem.commit.error");
 			}
 		}
 		return res;
@@ -119,12 +131,28 @@ public class LoremController {
 	}
 
 	//OTHER
+	//Display admin dashboard
 	@RequestMapping(value = "/admin/dash", method = RequestMethod.GET)
 	public ModelAndView dashboard() {
 		ModelAndView res;
 		res = new ModelAndView("lorem/dash");
 		res.addObject("publishratio", this.loremService.publishedLoremRatio());
 		res.addObject("draftratio", this.loremService.draftLoremRatio());
+		return res;
+	}
+
+	//Publish object
+	@RequestMapping(value = "/customer/lock", method = RequestMethod.GET)
+	public ModelAndView lock(@RequestParam final int id) {
+		ModelAndView res;
+
+		Customer customer = this.customerService.findPrincipal();
+		Lorem lorem = this.loremService.findById(id);
+		Assert.notNull(lorem, "Object does not exist");
+		Assert.isTrue(lorem.getAuthor().equals(customer), "Owner inconsistency");
+		this.loremService.lock(lorem);
+		res = new ModelAndView("redirect:/customer/list");
+
 		return res;
 	}
 
@@ -143,4 +171,5 @@ public class LoremController {
 		res.addObject("message", messageCode);
 		return res;
 	}
+
 }
