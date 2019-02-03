@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.FixupApplication;
-import domain.FixupTask;
-import domain.HandyWorker;
 import services.FixupApplicationService;
 import services.FixupTaskService;
 import services.HandyWorkerService;
+import domain.FixupApplication;
+import domain.FixupTask;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping(value = "/fixupapplication")
@@ -133,7 +133,7 @@ public class FixupApplicationController {
 
 		} else {
 			try {
-				FixupApplication saved = this.fixupApplicationService.publish(application);
+				FixupApplication saved = this.fixupApplicationService.save(application);
 				res = new ModelAndView("redirect:/fixuptask/view.do?id=" + saved.getFixupTask().getId());
 			} catch (Exception e) {
 				res = this.createEditModelAndView(application, application.getFixupTask(), "fixupapplication.commit.error");

@@ -53,7 +53,11 @@ public class FixupTaskService {
 	}
 
 	public FixupTask save(FixupTask f) {
-		return this.ftr.save(f);
+		if (f.getId() != 0) {
+			return this.ftr.save(f);
+		} else {
+			return this.initialize(f);
+		}
 	}
 
 	private String createTicker() {

@@ -14,4 +14,5 @@ public interface WarrantyRepository extends JpaRepository<Warranty, Integer> {
 
 	@Query("select f from Warranty f where f.locked = TRUE")
 	public List<Warranty> findAllFinal();
+
 }

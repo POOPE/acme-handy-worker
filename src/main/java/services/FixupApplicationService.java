@@ -92,7 +92,11 @@ public class FixupApplicationService {
 	}
 
 	public FixupApplication save(FixupApplication fixupApplication) {
-		return this.fixupApplicationRepository.save(fixupApplication);
+		if (fixupApplication.getId() != 0) {
+			return this.fixupApplicationRepository.save(fixupApplication);
+		} else {
+			return this.publish(fixupApplication);
+		}
 	}
 
 	public void delete(FixupApplication fixupApplication) {

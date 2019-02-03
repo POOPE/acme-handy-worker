@@ -88,7 +88,7 @@ public class FixupTaskController {
 
 		} else {
 			try {
-				FixupTask saved = this.fixupTaskService.initialize(fixupTask);
+				FixupTask saved = this.fixupTaskService.save(fixupTask);
 				res = new ModelAndView("redirect:view.do?id=" + saved.getId());
 			} catch (Exception e) {
 				res = this.createEditModelAndView(fixupTask, "messagebox.commit.error");

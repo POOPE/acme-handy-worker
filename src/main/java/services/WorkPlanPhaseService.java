@@ -53,4 +53,5 @@ public class WorkPlanPhaseService {
 	public List<WorkPlanPhase> findByFixupTask(FixupTask fixupTask) {
 		return this.phaseRepo.findByFixupTask(fixupTask.getId());
 	}
+
 }
