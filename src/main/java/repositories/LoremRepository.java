@@ -22,8 +22,8 @@ public interface LoremRepository extends JpaRepository<Lorem, Integer> {
 	List<Lorem> findByFixupTask(int id);
 
 	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.lock=TRUE ")
-	public Double publishedLoremRatio();
+	public Float publishedLoremRatio();
 
 	@Query("select count(a)*1.0/ (select count(b) *1.0 from Lorem b ) from Lorem a where a.lock=FALSE ")
-	public Double draftLoremRatio();
+	public Float draftLoremRatio();
 }

@@ -10,6 +10,17 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
+	<!-- final exam -->
+	<bean id="lorem1" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer1" />
+		<property name="ticker" value="TEMP" />
+		<property name="publishDate" value="2018/10/10 12:00" />
+		<property name="body" value="test" />
+		<property name="imgURL" value="test" />
+		<property name="lock" value="false" />
+	</bean>
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -487,7 +498,7 @@
 		<property name="parent" ref="admin2RootBox" />
 		<property name="owner" ref="admin2" />
 	</bean>
-	
+
 	<bean id="handyWorker1RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
@@ -815,7 +826,7 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
@@ -831,7 +842,7 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="false" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
@@ -866,15 +877,15 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer2" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
 	</bean>
 
 	<bean id="task2Phase1" class="domain.WorkPlanPhase">
-	<property name="fixupTask" ref="fixupTask2" />
-		<property name="position" value="1"/>
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="position" value="1" />
 		<property name="title" value="Arreglar el techo" />
 		<property name="description" value="Ponemo uno nuevo" />
 		<property name="startDate" value="2018/10/16" />
@@ -1019,8 +1030,8 @@
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="Default" />
 		<property name="locked" value="false" />
-		<property name="terms" value ="Default terms bro"/>
-			
+		<property name="terms" value="Default terms bro" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1032,8 +1043,8 @@
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="Thef" />
 		<property name="locked" value="false" />
-		<property name="terms" value ="prove that it was a theft"/>
-			
+		<property name="terms" value="prove that it was a theft" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1046,8 +1057,8 @@
 	<bean id="warranty3" class="domain.Warranty">
 		<property name="locked" value="false" />
 		<property name="title" value="Total destruction" />
-		<property name="terms" value ="prove that it was the handyworkers fault"/>
-			
+		<property name="terms" value="prove that it was the handyworkers fault" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law4" />

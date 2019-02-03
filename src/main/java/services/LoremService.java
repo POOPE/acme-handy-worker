@@ -32,6 +32,10 @@ public class LoremService {
 	private LoremRepository		loremRepository;
 
 
+	public Lorem findById(int id) {
+		return this.loremRepository.findOne(id);
+	}
+
 	public Lorem create(int fixupTaskId) {
 		Lorem res = new Lorem();
 		Customer author = this.customerService.findPrincipal();
@@ -100,6 +104,16 @@ public class LoremService {
 		Assert.isTrue(lorem.getAuthor().equals(customer));
 
 		this.loremRepository.delete(lorem);
+	}
+
+	//dashboard
+
+	public Float publishedLoremRatio() {
+		return this.loremRepository.publishedLoremRatio();
+	}
+
+	public Float draftLoremRatio() {
+		return this.loremRepository.draftLoremRatio();
 	}
 
 }
