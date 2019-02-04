@@ -63,11 +63,18 @@ public class FixupApplicationService {
 		return res;
 	}
 
+	public FixupApplication save(FixupApplication fixupApplication) {
+		if (fixupApplication.getId() == 0) {
+			fixupApplication = this.publish(fixupApplication);
+		}
+		return this.fixupApplicationRepository.save(fixupApplication);
+	}
+
 	public FixupApplication publish(FixupApplication fixupApplication) {
 		fixupApplication.setPublishDate(new Date());
 		fixupApplication.setStatus("PENDING");
 
-		return this.fixupApplicationRepository.save(fixupApplication);
+		return fixupApplication;
 	}
 
 	public FixupApplication reject(FixupApplication application) {
@@ -89,14 +96,6 @@ public class FixupApplicationService {
 		this.fixupTaskService.save(fixupTask);
 		application.setStatus("ACCEPTED");
 		return this.save(application);
-	}
-
-	public FixupApplication save(FixupApplication fixupApplication) {
-		if (fixupApplication.getId() != 0) {
-			return this.fixupApplicationRepository.save(fixupApplication);
-		} else {
-			return this.publish(fixupApplication);
-		}
 	}
 
 	public void delete(FixupApplication fixupApplication) {
