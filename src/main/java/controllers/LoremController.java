@@ -100,7 +100,7 @@ public class LoremController {
 		return res;
 	}
 
-	@RequestMapping(value = "/customer/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/customer/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Lorem lorem, BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
@@ -108,7 +108,7 @@ public class LoremController {
 		} else {
 			try {
 				Lorem saved = this.loremService.save(lorem);
-				res = new ModelAndView("redirect: /lorem/view.do?id=" + saved.getId());
+				res = new ModelAndView("redirect: view.do?id=" + saved.getId());
 			} catch (Exception e) {
 				res = this.createEditModelAndView(lorem, "lorem.commit.error");
 			}

@@ -37,6 +37,7 @@
 		<value>/views/actor/messages</value>
 		<value>/views/warranty/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/lorem/messages</value>
 		
 		
 	</util:list>

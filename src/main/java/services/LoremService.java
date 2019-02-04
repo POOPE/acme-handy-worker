@@ -55,10 +55,13 @@ public class LoremService {
 		lorem.setPublishDate(new Date());
 		lorem.setTicker(this.createTicker());
 		lorem.setLocked(false);
-		return this.save(lorem);
+		return lorem;
 	}
 
 	public Lorem save(Lorem lorem) {
+		if (lorem.getId() == 0) {
+			lorem = this.initialize(lorem);
+		}
 		return this.loremRepository.save(lorem);
 	}
 

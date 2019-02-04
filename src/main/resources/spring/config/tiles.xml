@@ -34,6 +34,7 @@
 		<value>/views/category/tiles.xml</value>
 		<value>/views/workplanphase/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
+		<value>/views/lorem/tiles.xml</value>
 	</util:list>
 
 </beans>
