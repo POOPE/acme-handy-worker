@@ -49,15 +49,14 @@ public class FixupTaskService {
 		fixupTask.setPublishDate(new Date());
 		fixupTask.setTicker(this.createTicker());
 
-		return this.save(fixupTask);
+		return fixupTask;
 	}
 
 	public FixupTask save(FixupTask f) {
-		if (f.getId() != 0) {
-			return this.ftr.save(f);
-		} else {
-			return this.initialize(f);
+		if (f.getId() == 0) {
+			f = this.initialize(f);
 		}
+		return this.ftr.save(f);
 	}
 
 	private String createTicker() {

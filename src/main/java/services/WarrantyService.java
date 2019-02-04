@@ -30,6 +30,9 @@ public class WarrantyService {
 	}
 
 	public Warranty save(Warranty w) {
+		if (w.getId() == 0) {
+			w = this.initialize(w);
+		}
 		return this.warrantyRepository.save(w);
 	}
 
@@ -48,7 +51,7 @@ public class WarrantyService {
 
 	public Warranty initialize(Warranty warranty) {
 		warranty.setLocked(false);
-		return this.save(warranty);
+		return warranty;
 	}
 
 	public List<Warranty> findAllFinal() {
