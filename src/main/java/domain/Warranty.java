@@ -4,11 +4,15 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Access(AccessType.PROPERTY)
 public class Warranty extends DomainEntity {
 
 	//relations
@@ -27,7 +31,6 @@ public class Warranty extends DomainEntity {
 		this.title = title;
 	}
 
-	@NotBlank
 	public ArrayList<String> getTerms() {
 		return this.terms;
 	}
@@ -36,6 +39,7 @@ public class Warranty extends DomainEntity {
 		this.terms = terms;
 	}
 
+	@ManyToMany
 	public Collection<Law> getLaws() {
 		return this.laws;
 	}

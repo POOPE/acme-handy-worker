@@ -1,12 +1,15 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Access(AccessType.PROPERTY)
 public class MessageBox extends DomainEntity {
 
 	//relation
@@ -17,7 +20,7 @@ public class MessageBox extends DomainEntity {
 	public String		category;
 
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public Actor getOwner() {
 		return this.owner;
 	}
@@ -27,6 +30,7 @@ public class MessageBox extends DomainEntity {
 	}
 
 	//if null : root folder
+	@ManyToOne(optional = true)
 	public MessageBox getParent() {
 		return this.parent;
 	}

@@ -4,16 +4,21 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.validation.Valid;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Complaint extends DomainEntity {
 
 	//relations
-	public Actor				author;
 	public FixupTask			reference;
 	//attributes
 	public String				ticker;
@@ -22,16 +27,7 @@ public class Complaint extends DomainEntity {
 	public Collection<String>	attachments;
 
 
-	public Actor getAuthor() {
-		return this.author;
-	}
-
-	public void setAuthor(final Actor author) {
-		this.author = author;
-	}
-
-	@NotNull
-	@Valid
+	@ManyToOne(optional = false)
 	public FixupTask getReference() {
 		return this.reference;
 	}
@@ -68,6 +64,7 @@ public class Complaint extends DomainEntity {
 		this.description = description;
 	}
 
+	@ElementCollection
 	public Collection<String> getAttachments() {
 		return this.attachments;
 	}

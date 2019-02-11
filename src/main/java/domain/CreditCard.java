@@ -1,12 +1,17 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class CreditCard {
 
 	//relation
@@ -15,13 +20,17 @@ public class CreditCard {
 	public String			holder;
 	public int				expirationMonth;
 	public int				expirationYear;
-	public int				number;
+	public String			number;
 	public int				CCV;
 
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public CreditCardMake getCreditCardMake() {
 		return this.creditCardMake;
+	}
+
+	public void setCreditCardMake(final CreditCardMake creditCardMake) {
+		this.creditCardMake = creditCardMake;
 	}
 
 	public void setBank(final CreditCardMake creditCardMake) {
@@ -54,11 +63,12 @@ public class CreditCard {
 		this.expirationYear = expirationYear;
 	}
 
-	public int getNumber() {
+	@NotBlank
+	public String getNumber() {
 		return this.number;
 	}
 
-	public void setNumber(final int number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
 	@Range(min = 100, max = 999)

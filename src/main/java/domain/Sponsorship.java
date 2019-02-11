@@ -1,23 +1,31 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Sponsorship extends DomainEntity {
 
 	//relations
-	public Actor		author;
+	public Sponsor		author;
 	//attributes
 	public String		bannerUrl;
 	public String		targetPage;
 	public CreditCard	creditcard;
 
 
-	public Actor getAuthor() {
+	@ManyToOne(optional = false)
+	public Sponsor getAuthor() {
 		return this.author;
 	}
 
-	public void setAuthor(final Actor author) {
+	public void setAuthor(final Sponsor author) {
 		this.author = author;
 	}
 	@URL

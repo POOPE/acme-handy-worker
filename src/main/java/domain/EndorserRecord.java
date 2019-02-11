@@ -1,9 +1,16 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class EndorserRecord extends Record {
 
 	public String			endorserName;
@@ -41,6 +48,7 @@ public class EndorserRecord extends Record {
 		this.phone = phone;
 	}
 
+	@ManyToOne(optional = true)
 	public SocialProfile getSocialProfile() {
 		return this.socialProfile;
 	}

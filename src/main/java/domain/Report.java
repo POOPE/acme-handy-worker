@@ -1,47 +1,52 @@
 
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Report extends DomainEntity {
 
 	//relations
-	public Actor				author;
-	public Complaint			reference;
+	public Referee				author;
+	public Complaint			complaint;
 	//attribute
 	public Date					publishDate;
 	public String				description;
 	public boolean				locked;
 	public Collection<String>	attachments;
-	public ArrayList<String>	comments;
+	public Collection<String>	comments;
 
 
-	@NotNull
-	public Actor getAuthor() {
+	@ManyToOne(optional = false)
+	public Referee getAuthor() {
 		return this.author;
 	}
 
-	public void setAuthor(final Actor author) {
+	public void setAuthor(final Referee author) {
 		this.author = author;
 	}
 
-	@NotNull
-	public Complaint getReference() {
-		return this.reference;
+	@ManyToOne(optional = false)
+	public Complaint getComplaint() {
+		return this.complaint;
 	}
 
-	public void setReference(final Complaint reference) {
-		this.reference = reference;
+	public void setComplaint(final Complaint complaint) {
+		this.complaint = complaint;
 	}
 
 	@Past
@@ -72,6 +77,7 @@ public class Report extends DomainEntity {
 		this.locked = locked;
 	}
 
+	@ElementCollection
 	public Collection<String> getAttachments() {
 		return this.attachments;
 	}
@@ -80,11 +86,12 @@ public class Report extends DomainEntity {
 		this.attachments = attachments;
 	}
 
-	public ArrayList<String> getComments() {
+	@ElementCollection
+	public Collection<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final ArrayList<String> comments) {
+	public void setComments(final Collection<String> comments) {
 		this.comments = comments;
 	}
 

@@ -3,9 +3,16 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+
 import org.hibernate.validator.constraints.URL;
 
-public class SiteConfiguration {
+@Entity
+@Access(AccessType.PROPERTY)
+public class SiteConfiguration extends DomainEntity {
 
 	public String				siteName;
 	public String				bannerUrl;
@@ -43,6 +50,7 @@ public class SiteConfiguration {
 		this.welcomeMessage = welcomeMessage;
 	}
 
+	@ElementCollection
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
@@ -51,6 +59,7 @@ public class SiteConfiguration {
 		this.spamWords = spamWords;
 	}
 
+	@ElementCollection
 	public Collection<String> getGoodWords() {
 		return this.goodWords;
 	}
@@ -59,6 +68,7 @@ public class SiteConfiguration {
 		this.goodWords = goodWords;
 	}
 
+	@ElementCollection
 	public Collection<String> getBadWords() {
 		return this.badWords;
 	}
