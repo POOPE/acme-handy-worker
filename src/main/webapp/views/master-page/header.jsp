@@ -14,11 +14,29 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div>
-	<a href="#"><img src="images/logo.png"
-		alt="Acme Handy Worker Co., Inc." /></a>
-</div>
+<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" user="acme-user"
+	password="ACME-Us3r-P@ssw0rd" />
+
+<sql:query dataSource="${snapshot}" var="result">
+         SELECT * from site_configuration limit 1;
+      </sql:query>
+
+<a href="#">
+	<div
+		style="position:relative;height:150px;background-size:contain;background-repeat:no-repeat;background-image:url(${result.rows[0].banner_url})">
+		<!-- 	<a href="#"><img style="height: 200px;" -->
+		<%-- 		src="${result.rows[0].banner_url}" /></a> --%>
+		<div style="color: white; position: absolute; bottom: 0;">
+			<h3>
+				<jstl:out value="${result.rows[0].site_name}" />
+			</h3>
+		</div>
+	</div>
+</a>
 
 <div>
 	<ul id="jMenu">
@@ -40,7 +58,7 @@
 								code="master.page.stats" /></a></li>
 					<li><a href="actor/create.do?role=administrator"><spring:message
 								code="master.page.createAdmin" /></a></li>
-								
+
 				</ul></li>
 		</security:authorize>
 

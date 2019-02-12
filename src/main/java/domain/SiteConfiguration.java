@@ -17,6 +17,7 @@ public class SiteConfiguration extends DomainEntity {
 	public String				siteName;
 	public String				bannerUrl;
 	public String				welcomeMessage;
+	public String				welcomeMessageEsp;
 	public Collection<String>	spamWords;
 	public Collection<String>	goodWords;
 	public Collection<String>	badWords;
