@@ -24,11 +24,7 @@
 
 <display:table name="lorems" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
-	<display:column titleKey="lorem.ticker">
-		<a href="lorem/view.do?id=${row.id}">
-			<jstl:out value="${row.ticker}"/>
-		</a>
-	</display:column>
+	
 	<display:column titleKey="lorem.reference">
 		<a href="fixuptask/view.do?id=${row.fixupTask.id}">
 			<jstl:out value="${row.fixupTask.ticker}"/>
@@ -40,23 +36,24 @@
 	<display:column property="ticker" titleKey="lorem.ticker"/>
 	<display:column>
 		<jstl:if test="${!row.locked}">
-			<a href="lorem/customer/edit.do?id=${row.id}"><i
-				class="fa fa-pencil" aria-hidden="true"></i></a>
+			<a href="lorem/customer/edit.do?id=${row.id}">
+					<spring:message code="lorem.edit"/>			</a>
 		</jstl:if>
 	</display:column>
 	<display:column>
 		<jstl:if test="${!row.locked}">
-			<a href="lorem/customer/delete.do?id=${row.id}"><i
-				class="fa fa-times" aria-hidden="true"></i></a>
+			<a href="lorem/customer/delete.do?id=${row.id}">
+			<spring:message code="lorem.delete"/>	</a>
 		</jstl:if>
 	</display:column>
 	<display:column>
 		<jstl:if test="${!row.locked}">
-			<a href="lorem/customer/lock.do?id=${row.id}"><i
-				class="fa fa-floppy-o" aria-hidden="true"></i></a>
+			<a href="lorem/customer/lock.do?id=${row.id}">
+				<spring:message code="lorem.Lock"/>
+			</a>
 		</jstl:if>
 		<jstl:if test="${row.locked}">
-			<i class="fa fa-lock" aria-hidden="true"></i>
+			<spring:message code="lorem.Locked"/>
 		</jstl:if>
 	</display:column>
 	

@@ -11,8 +11,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -55,6 +57,8 @@ public class Lorem extends DomainEntity {
 		this.ticker = ticker;
 	}
 
+	@NotBlank
+	@Size(min = 1, max = 250)
 	public String getBody() {
 		return this.body;
 	}
@@ -64,6 +68,7 @@ public class Lorem extends DomainEntity {
 	}
 
 	@NotBlank
+	@URL
 	public String getImgURL() {
 		return this.imgURL;
 	}

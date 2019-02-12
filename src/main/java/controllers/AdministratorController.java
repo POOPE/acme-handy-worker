@@ -1,8 +1,8 @@
 /*
  * AdministratorController.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -22,15 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.AdminService;
-import services.MessageBoxService;
-import services.MessageService;
-import services.SiteConfigurationService;
 import domain.Actor;
 import domain.Customer;
 import domain.SiteConfiguration;
 import forms.MessageForm;
+import services.ActorService;
+import services.AdminService;
+import services.LoremService;
+import services.MessageBoxService;
+import services.MessageService;
+import services.SiteConfigurationService;
 
 @Controller
 @RequestMapping("/admin")
@@ -46,6 +47,8 @@ public class AdministratorController extends AbstractController {
 	private AdminService				adminService;
 	@Autowired
 	private SiteConfigurationService	siteConfigService;
+	@Autowired
+	private LoremService				loremService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -54,7 +57,7 @@ public class AdministratorController extends AbstractController {
 		super();
 	}
 
-	// Broadcast message ---------------------------------------------------------------		
+	// Broadcast message ---------------------------------------------------------------
 
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public ModelAndView broadcast() {
@@ -85,6 +88,8 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping(value = "/stats", method = RequestMethod.GET)
 	public ModelAndView getstats() {
 		ModelAndView result;
+		Float examen1 = this.loremService.publishedLoremRatio();
+		Float examen2 = this.loremService.draftLoremRatio();
 		List<Double> stats1 = this.adminService.fixupTasksPerCustomerStats();
 		List<Double> stats2 = this.adminService.applicationsPerFixupTaskStats();
 		List<Double> stats3 = this.adminService.maximumPricePerFixupTaskStats();
@@ -94,6 +99,8 @@ public class AdministratorController extends AbstractController {
 		Double stats7 = this.adminService.pendingLapsedApplicationRatioStats();
 		List<Customer> stats8 = this.adminService.customersWithMostApplicationsStats();
 		result = new ModelAndView("administrator/stats");
+		result.addObject("examen1", examen1);
+		result.addObject("examen2", examen2);
 		result.addObject("stats1", stats1);
 		result.addObject("stats2", stats2);
 		result.addObject("stats3", stats3);

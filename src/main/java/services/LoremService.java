@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.LoremRepository;
 import domain.Customer;
 import domain.FixupTask;
 import domain.Lorem;
+import repositories.LoremRepository;
 
 @Service
 @Transactional
@@ -72,16 +72,24 @@ public class LoremService {
 	}
 
 	private String createTicker() {
-		String res, dict;
+		String res, dict, dict2;
 		dict = "QWERTYUIOPASDFGHJKLZXCVBNM";
-		DateFormat df = new SimpleDateFormat("YYYYMMdd");
-		Date d = new Date();
-		res = df.format(d);
-		res = res + "-";
-		for (int i = 0; i < 6; i++) {
+		dict2 = "1234567890";
+		DateFormat df = new SimpleDateFormat("YYMM");
+		DateFormat df2 = new SimpleDateFormat("dd");
+		res = "";
+		for (int i = 0; i < 2; i++) {
 			int randomNum = ThreadLocalRandom.current().nextInt(0, dict.length());
 			res = res + dict.charAt(randomNum);
 		}
+		Date d = new Date();
+		res = res + df.format(d);
+		res = res + "/";
+		for (int i = 0; i < 2; i++) {
+			int randomNum = ThreadLocalRandom.current().nextInt(0, dict2.length());
+			res = res + dict2.charAt(randomNum);
+		}
+		res = res + df2.format(d) + "$";
 
 		return res;
 	}

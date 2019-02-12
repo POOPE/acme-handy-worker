@@ -10,6 +10,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
+
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -383,7 +385,7 @@
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="customer1" />
+		<property name="owner" ref="customer2" />
 	</bean>
 
 	<bean id="customer2Inbox" class="domain.MessageBox">
@@ -420,7 +422,7 @@
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="customer1" />
+		<property name="owner" ref="admin1" />
 	</bean>
 
 	<bean id="admin1Inbox" class="domain.MessageBox">
@@ -457,7 +459,7 @@
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="customer1" />
+		<property name="owner" ref="admin2" />
 	</bean>
 
 	<bean id="admin2Inbox" class="domain.MessageBox">
@@ -488,39 +490,40 @@
 		<property name="owner" ref="admin2" />
 	</bean>
 
-	<bean id="handyWorker1Inbox" class="domain.MessageBox">
-		<property name="name" value="Inbox" />
-		<property name="category" value="INBOX" />
+	<bean id="handyWorker1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
+		<property name="owner" ref="handyWorker1" />
+	</bean>
+
+	<bean id="handyWorker1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="handyWorker1RootBox" />
 		<property name="owner" ref="handyWorker1" />
 	</bean>
 
 	<bean id="handyWorker1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="handyWorker1RootBox" />
 		<property name="owner" ref="handyWorker1" />
 	</bean>
 
 	<bean id="handyWorker1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="handyWorker1RootBox" />
 		<property name="owner" ref="handyWorker1" />
 	</bean>
 
 	<bean id="handyWorker1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent">
-			<null />
-		</property>
+		<property name="parent" ref="handyWorker1RootBox" />
 		<property name="owner" ref="handyWorker1" />
 	</bean>
 
@@ -814,7 +817,7 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
@@ -830,7 +833,7 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="false" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer1" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
@@ -865,15 +868,15 @@
 		<property name="endDate" value="2018/10/20" />
 		<property name="locked" value="true" />
 		<property name="creditCard" ref="creditCard1" />
-		
+
 		<property name="author" ref="customer2" />
 		<property name="category" ref="category2" />
 		<property name="warranty" ref="warranty1" />
 	</bean>
 
 	<bean id="task2Phase1" class="domain.WorkPlanPhase">
-	<property name="fixupTask" ref="fixupTask2" />
-		<property name="position" value="1"/>
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="position" value="1" />
 		<property name="title" value="Arreglar el techo" />
 		<property name="description" value="Ponemo uno nuevo" />
 		<property name="startDate" value="2018/10/16" />
@@ -1018,11 +1021,8 @@
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="Default" />
 		<property name="locked" value="false" />
-		<property name="terms">
-			<list>
-				<value>term 1</value>
-			</list>
-		</property>
+		<property name="terms" value="Default terms bro" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1034,11 +1034,8 @@
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="Thef" />
 		<property name="locked" value="false" />
-		<property name="terms">
-			<list>
-				<value>prove that it was a theft</value>
-			</list>
-		</property>
+		<property name="terms" value="prove that it was a theft" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
@@ -1051,12 +1048,8 @@
 	<bean id="warranty3" class="domain.Warranty">
 		<property name="locked" value="false" />
 		<property name="title" value="Total destruction" />
-		<property name="terms">
-			<list>
-				<value>prove that it was the handyworkers fault</value>
-				<value>idk</value>
-			</list>
-		</property>
+		<property name="terms" value="prove that it was the handyworkers fault" />
+
 		<property name="laws">
 			<list>
 				<ref bean="law4" />
@@ -1250,7 +1243,46 @@
 
 	</bean>
 
-
+	<!-- final exam -->
+	<bean id="lorem1" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer1" />
+		<property name="ticker" value="hj19014503" />
+		<property name="publishDate" value="2019/02/02 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem2" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer1" />
+		<property name="ticker" value="hj19014502" />
+		<property name="publishDate" value="2019/01/01 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem3" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer2" />
+		<property name="ticker" value="hj19014501" />
+		<property name="publishDate" value="2018/09/09 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem4" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer2" />
+		<property name="ticker" value="hj19014505" />
+		<property name="publishDate" value="2018/09/09 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
 
 
 

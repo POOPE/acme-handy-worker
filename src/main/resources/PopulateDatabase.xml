@@ -1247,10 +1247,40 @@
 	<bean id="lorem1" class="domain.Lorem">
 		<property name="fixupTask" ref="fixupTask1" />
 		<property name="author" ref="customer1" />
-		<property name="ticker" value="TEMP" />
-		<property name="publishDate" value="2018/10/10 12:00" />
-		<property name="body" value="test" />
-		<property name="imgURL" value="test" />
+		<property name="ticker" value="hj19014503" />
+		<property name="publishDate" value="2019/02/02 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem2" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer1" />
+		<property name="ticker" value="hj19014502" />
+		<property name="publishDate" value="2019/01/01 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem3" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer2" />
+		<property name="ticker" value="hj19014501" />
+		<property name="publishDate" value="2018/09/09 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
+		<property name="locked" value="false" />
+	</bean>
+	
+	<bean id="lorem4" class="domain.Lorem">
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="author" ref="customer2" />
+		<property name="ticker" value="hj19014505" />
+		<property name="publishDate" value="2018/09/09 12:00" />
+		<property name="body" value="TEST" />
+		<property name="imgURL" value="https://i.ytimg.com/vi/bkb92UdRA4k/maxresdefault.jpg" />
 		<property name="locked" value="false" />
 	</bean>
 

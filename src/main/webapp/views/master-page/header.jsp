@@ -49,7 +49,7 @@
 						code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message
+					<li><a href="lorem/customer/list.do"><spring:message
 								code="master.page.customer.action.1" /></a></li>
 					<li><a href="customer/action-2.do"><spring:message
 								code="master.page.customer.action.2" /></a></li>

@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CustomerService;
-import services.FixupTaskService;
-import services.LoremService;
 import domain.Customer;
 import domain.FixupTask;
 import domain.Lorem;
+import services.CustomerService;
+import services.FixupTaskService;
+import services.LoremService;
 
 @Controller
 @RequestMapping(value = "/lorem")
@@ -33,19 +33,16 @@ public class LoremController {
 	private CustomerService		customerService;
 
 
-	//VIEW
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam final int id) {
 		ModelAndView res;
 		Lorem lorem = this.loremService.findById(id);
-		Assert.notNull(lorem, "Object does not exist");
+		Assert.notNull(lorem, "Must be not Null");
 		res = new ModelAndView("lorem/view");
 		res.addObject("lorem", lorem);
 		return res;
 	}
 
-	// LISTS
-	//list all
 	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
 	public ModelAndView listAll() {
 		ModelAndView res;
@@ -55,7 +52,6 @@ public class LoremController {
 		return res;
 	}
 
-	//list by author
 	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
 	public ModelAndView listByAuthor() {
 		ModelAndView res;
@@ -65,21 +61,18 @@ public class LoremController {
 		return res;
 	}
 
-	//list by referenced object
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listByFixupTask(@RequestParam final int id) {
 		ModelAndView res;
 
 		FixupTask fixupTask = this.fixupTaskService.findById(id);
-		Assert.isTrue(fixupTask != null, "FixupTask does not exist");
+		Assert.isTrue(fixupTask != null, "FixupTask has a problem");
 		List<Lorem> lorems = this.loremService.findByFixupTask(fixupTask);
 		res = new ModelAndView("lorem/list");
 		res.addObject("lorems", lorems);
 		return res;
 	}
 
-	//CREATE
-	//Input: id of referenced object
 	@RequestMapping(value = "/customer/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int id) {
 		ModelAndView res;
@@ -89,13 +82,13 @@ public class LoremController {
 		return res;
 	}
 
-	//EDIT
-	//Input: id of object
 	@RequestMapping(value = "/customer/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int id) {
 		ModelAndView res;
 		Lorem lorem = this.loremService.findById(id);
-		Assert.notNull(lorem, "Object does not exist");
+		Assert.isTrue(!lorem.getLocked());
+		Assert.notNull(lorem, "Must not be null");
+
 		res = this.createEditModelAndView(lorem);
 		return res;
 	}
@@ -108,7 +101,7 @@ public class LoremController {
 		} else {
 			try {
 				Lorem saved = this.loremService.save(lorem);
-				res = new ModelAndView("redirect: view.do?id=" + saved.getId());
+				res = new ModelAndView("redirect:list.do");
 			} catch (Exception e) {
 				res = this.createEditModelAndView(lorem, "lorem.commit.error");
 			}
@@ -122,16 +115,15 @@ public class LoremController {
 		ModelAndView res;
 		Lorem lorem = this.loremService.findById(id);
 		Customer customer = this.customerService.findPrincipal();
-		Assert.notNull(lorem, "Object does not exist");
-		Assert.isTrue(lorem.getAuthor().equals(customer), "Ownership inconsistency");
+		//Assert.notNull(lorem, "It must not be null");
+		Assert.isTrue(!lorem.getLocked());
+		Assert.isTrue(lorem.getAuthor().equals(customer), "Author problems");
 		this.loremService.delete(lorem);
 
-		res = new ModelAndView("redirect:/list");
+		res = new ModelAndView("redirect:list.do");
 		return res;
 	}
 
-	//OTHER
-	//Display admin dashboard
 	@RequestMapping(value = "/admin/dash", method = RequestMethod.GET)
 	public ModelAndView dashboard() {
 		ModelAndView res;
@@ -141,22 +133,20 @@ public class LoremController {
 		return res;
 	}
 
-	//Publish object
 	@RequestMapping(value = "/customer/lock", method = RequestMethod.GET)
 	public ModelAndView lock(@RequestParam final int id) {
 		ModelAndView res;
 
 		Customer customer = this.customerService.findPrincipal();
 		Lorem lorem = this.loremService.findById(id);
-		Assert.notNull(lorem, "Object does not exist");
-		Assert.isTrue(lorem.getAuthor().equals(customer), "Owner inconsistency");
+		Assert.notNull(lorem, "It must not be null");
+		Assert.isTrue(lorem.getAuthor().equals(customer), "Author problem");
 		this.loremService.lock(lorem);
-		res = new ModelAndView("redirect:/customer/list");
+		res = new ModelAndView("redirect:list.do");
 
 		return res;
 	}
 
-	//AUX
 	protected ModelAndView createEditModelAndView(Lorem lorem) {
 		ModelAndView res;
 		res = this.createEditModelAndView(lorem, null);

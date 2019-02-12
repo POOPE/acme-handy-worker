@@ -9,6 +9,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<spring:message code="stats.examen1" />
+<jstl:out value="${examen1}" />
+<br />
+
+<spring:message code="stats.examen2" />
+<jstl:out value="${examen2}" />
+<br />
+
 <h4><spring:message code="stats.tasksPerUser" /></h4>
 
 <spring:message code="stats.average" />
