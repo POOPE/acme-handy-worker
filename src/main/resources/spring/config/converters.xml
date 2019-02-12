@@ -28,15 +28,15 @@
 		<bean class="converters.StringToFixupTaskConverter"/>
 		<bean class="converters.StringToWorkPlanPhaseListConverter"/>
 		<bean class="converters.WorkPlanPhaseListToStringConverter"/>
-<!-- 		<bean class="converters.WarrantyListToStringConverter"/> -->
+		
+		<bean class="converters.StringToLawConverter"/>
 		
 		<bean class="converters.StringToAuthorityConverter"/>
 		<bean class="converters.AuthorityToStringConverter"/>
 		
 		<bean class="converters.LawListToStringConverter"/>
 		<bean class="converters.StringToLawListConverter"/>
-<!-- 		<bean class="converters.StringListToStringConverter"/> -->
-<!-- 		<bean class="converters.StringToStringListConverter"/> -->
+
 	</util:list>
 	
 </beans>
