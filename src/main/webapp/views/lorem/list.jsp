@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jstl:set var="df"><spring:message code="lorem.pattern"/></jstl:set>
-
+<script type="text/javascript" src="scripts/betrax.js"></script>
 <button type="button" name="back" onclick="history.back()"><spring:message code="back"/></button>
 
 <display:table name="lorems" id="row" requestURI="${requestURI}"

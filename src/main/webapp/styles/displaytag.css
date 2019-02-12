@@ -70,6 +70,10 @@ tr.tableRowEven,tr.even {
 	background-color: #fea
 }
 
+tr.locura {
+	background-color: #eee
+}
+
 div.exportlinks {
 	background-color: #eee;
 	border: 1px dotted #999;
