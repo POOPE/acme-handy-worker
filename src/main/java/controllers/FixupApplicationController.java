@@ -19,9 +19,12 @@ import security.LoginService;
 import services.FixupApplicationService;
 import services.FixupTaskService;
 import services.HandyWorkerService;
+import services.MessageService;
+import domain.Actor;
 import domain.FixupApplication;
 import domain.FixupTask;
 import domain.HandyWorker;
+import domain.Message;
 
 @Controller
 @RequestMapping(value = "/fixupapplication")
@@ -33,6 +36,8 @@ public class FixupApplicationController {
 	private FixupTaskService		fixupTaskService;
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
+	@Autowired
+	private MessageService			messageService;
 
 
 	//VIEW
@@ -107,12 +112,23 @@ public class FixupApplicationController {
 		FixupApplication saved = null;
 		if (status == 0) {
 			saved = this.fixupApplicationService.reject(application);
-			res = new ModelAndView("redirect:customer/bytask.do?id=" + task.getId());
+			res = new ModelAndView("redirect:bytask.do?id=" + task.getId());
 
 		} else if (status == 1) {
 			saved = this.fixupApplicationService.accept(application);
 			res = new ModelAndView("redirect:/fixuptask/view.do?id=" + task.getId());
 		}
+		Message notif = this.messageService.create();
+		notif.setPriority("HIGH");
+
+		notif.setSubject("Application " + ((status == 0) ? "rejected" : "accepted"));
+		notif.setBody("Application for " + saved.getFixupTask().getTicker() + " " + ((status == 0) ? "rejected" : "accepted"));
+		List<Actor> recipients = new ArrayList<>();
+		recipients.add(saved.getAuthor());
+		recipients.add(saved.getFixupTask().getAuthor());
+		notif.setRecipients(recipients);
+		this.messageService.send(notif);
+
 		return res;
 	}
 

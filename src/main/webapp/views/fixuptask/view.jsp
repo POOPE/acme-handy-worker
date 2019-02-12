@@ -18,6 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!-- browse applications // only available to author -->
 <security:authorize access="hasRole('CUSTOMER')">
@@ -38,7 +39,15 @@
 	<spring:message code="fixuptask.address" />
 	<jstl:out value="${fixupTask.address}" />
 	<br /> <b><spring:message code="fixuptask.price" /></b> <br />
+	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" user="acme-user"
+		password="ACME-Us3r-P@ssw0rd" />
+	<sql:query dataSource="${snapshot}" var="res">
+         SELECT * from site_configuration limit 1;
+      </sql:query>
 	<jstl:out value="${fixupTask.maximumPrice}" />
+	<b>EUR</b> <span style="color:gray">(<jstl:out value="${fixupTask.maximumPrice*res.rows[0].vat_rate}"/> VAT)</span>
+	
 	<br /> <b><spring:message code="fixuptask.date" /></b> <br />
 	<jstl:out value="${fixupTask.startDate}" />
 	&nbsp;-&nbsp;

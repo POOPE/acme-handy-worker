@@ -17,17 +17,19 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<script type="text/javascript" src="scripts/fixupapplication.js"></script>
 <jstl:set var="userId" value="${user.id}" />
 
 <display:table name="fixupApplications" id="row"
 	requestURI="${requestURI}" pagesize="10" class="displaytag">
 	<display:column>
-		<a href="fixupapplication/view.do?id=${row.id}"> <spring:message code="view"/>
-		</a>
+		<div class="${row.status}">
+			<a href="fixupapplication/view.do?id=${row.id}"> <spring:message
+					code="view" />
+			</a>
+		</div>
 	</display:column>
-	<display:column
-		titleKey="fixupapplication.fixup">
+	<display:column titleKey="fixupapplication.fixup">
 		<a href="fixuptask/view.do?id=${row.fixupTask.id}"> <jstl:out
 				value="${row.fixupTask.ticker}" />
 		</a>
@@ -59,12 +61,13 @@
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
 			<jstl:if test="${row.author.id==user.id && row.status=='PENDING'}">
-				<a href="fixupapplication/handyworker/edit.do?id=${row.id}"><i class="fa fa-pencil"
-					aria-hidden="true"></i></a>
+				<a href="fixupapplication/handyworker/edit.do?id=${row.id}"><i
+					class="fa fa-pencil" aria-hidden="true"></i></a>
 			</jstl:if>
 		</display:column>
 		<display:column>
-			<jstl:if test="${row.author.user.id==user.user.id && row.status=='PENDING'}">
+			<jstl:if
+				test="${row.author.user.id==user.user.id && row.status=='PENDING'}">
 				<a href="fixupapplication/handyworker/delete.do?id=${row.id}"><i
 					class="fa fa-times" aria-hidden="true"></i></a>
 			</jstl:if>

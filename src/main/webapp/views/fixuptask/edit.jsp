@@ -26,8 +26,6 @@
 	<form:errors cssClass="error" path="author" />
 	<form:hidden path="publishDate" />
 	<form:errors cssClass="error" path="publishDate" />
-	<form:hidden path="phases" />
-	<form:errors cssClass="error" path="phases" />
 	<form:hidden path="ticker" />
 	<form:errors cssClass="error" path="ticker" />
 	<form:hidden path="locked" />

@@ -41,7 +41,7 @@ public class Message extends DomainEntity {
 		this.senderAlias = senderAlias;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Actor getSender() {
 		return this.sender;
 	}

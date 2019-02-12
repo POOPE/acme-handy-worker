@@ -40,7 +40,6 @@ public class FixupTaskService {
 		res.setLocked(false);
 		res.setTicker("TEMP");
 		res.setPublishDate(new Date());
-
 		res.setAuthor(customer);
 		return res;
 	}

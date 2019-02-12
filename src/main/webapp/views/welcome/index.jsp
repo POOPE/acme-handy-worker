@@ -22,13 +22,19 @@
 <%-- <p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p> --%>
 
 <p>
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" user="acme-user"
-	password="ACME-Us3r-P@ssw0rd" />
+	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" user="acme-user"
+		password="ACME-Us3r-P@ssw0rd" />
 	<sql:query dataSource="${snapshot}" var="res">
          SELECT * from site_configuration limit 1;
       </sql:query>
-	<jstl:out value="${res.rows[0].welcome_message}" />
+	<jstl:set var="language"
+		value="${not empty param.language ? param.language : not empty language ? language : 'ru'}"
+		scope="session" />
+	<jstl:if test="${language==en}">
+		<jstl:out value="${res.rows[0].welcome_message}" />
+	</jstl:if>
+	
 </p>
 <p>
 	<spring:message code="welcome.greeting.current.time" />

@@ -87,9 +87,11 @@ public class MessageService {
 		//check for author is the one sending the message
 		//access constraint
 		Actor actor = this.actorService.findPrincipal();
-		Assert.isTrue(message.getSender().equals(actor), "Error on send: Owner inconsistency");
+
 		if (message.getSenderAlias() == null) {
 			message.setSenderAlias(actor.getName() + " " + actor.getSurname());
+		} else {
+			message.setSender(null);
 		}
 
 		message.setDeliveryDate(new Date());
