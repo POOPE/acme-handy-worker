@@ -67,7 +67,7 @@ if (form.addEventListener) {
 function validateForm(evt) {
 	checkuser(passinput.value);
 	if (passStatus && comparePass()) {
-		document.getElementById("passval").value = passinput.value;
+		document.getElementById("passval").value = newinput.value;
 		return true;
 	} else {
 		evt.preventDefault();

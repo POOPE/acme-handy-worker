@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.FixupApplicationService;
 import services.FixupTaskService;
 import services.HandyWorkerService;
@@ -41,7 +42,7 @@ public class FixupApplicationController {
 		FixupApplication application = this.fixupApplicationService.findById(id);
 		res = new ModelAndView("fixupapplication/view");
 		res.addObject("fixupApplication", application);
-		res.addObject("user", this.handyWorkerService.findPrincipal());
+		res.addObject("user", LoginService.getPrincipal());
 		return res;
 	}
 
@@ -83,7 +84,7 @@ public class FixupApplicationController {
 		return result;
 	}
 
-	@RequestMapping(value = "/handyworker/addcomment", method = RequestMethod.GET)
+	@RequestMapping(value = "/addcomment", method = RequestMethod.GET)
 	public ModelAndView comment(@RequestParam int id, @RequestParam String c) {
 
 		FixupApplication application = this.fixupApplicationService.findById(id);
@@ -93,7 +94,7 @@ public class FixupApplicationController {
 		application.setComments(ros);
 		this.fixupApplicationService.save(application);
 
-		return new ModelAndView("redirect:/fixupapplication/view.do?id=" + application.getId());
+		return new ModelAndView("redirect:view.do?id=" + id);
 
 	}
 

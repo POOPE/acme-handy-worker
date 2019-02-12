@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form:form id="passform" action="actor/password.do" modelAttribute="user" >
+<form:form id="passform" action="actor/password.do" modelAttribute="user" onSubmit="return validateForm(this)">
 
 	<spring:message code="actor.signupTitle2" />
 
@@ -33,9 +33,6 @@
 		<input type="password" name="confirmpass"><i id="newpassstatus"
 			class="fa " aria-hidden="true">
 	</div>
-
-
-
 
 	<div>
 
