@@ -66,7 +66,7 @@ public class WarrantyController {
 
 		} else {
 			try {
-				this.warrantyService.initialize(warranty);
+				this.warrantyService.save(warranty);
 				res = new ModelAndView("redirect:list.do");
 			} catch (Exception e) {
 				res = this.createEditModelAndView(warranty, "messagebox.commit.error");

@@ -31,6 +31,8 @@ public class FinderService {
 
 	@Autowired
 	private HandyWorkerService			handyWorkerService;
+	@Autowired
+	private FixupTaskService			fixupTaskService;
 
 
 	//CRUD ---------------------------------------------------------------
@@ -38,6 +40,8 @@ public class FinderService {
 	public Finder create() {
 		Finder finder = new Finder();
 		finder.setFixUpTasks(new ArrayList<FixupTask>());
+		finder.setCreationDate(new Date());
+		finder.setHandyWorker(this.handyWorkerService.findPrincipal());
 		return finder;
 	}
 
@@ -54,12 +58,43 @@ public class FinderService {
 	//OTHER ----------------------------------------------------------------
 
 	public Finder doSearch(Finder finder) {
-		List<FixupTask> fixupTasks = this.finderRepository.doSearch(finder.getKeyWord(), finder.getCategory(), finder.getWarranty(), finder.getMinPrice(), finder.getMaxPrice(), finder.getMinDate(), finder.getMaxDate());
-		finder.setFixUpTasks(fixupTasks);
+		List<FixupTask> fixupTasks = this.fixupTaskService.findAll();
+		List<FixupTask> resultList = new ArrayList<>();
+		for (FixupTask fixupTask : fixupTasks) {
+			boolean add = true;
+			if (!finder.getKeyWord().matches("") && !finder.getKeyWord().trim().equalsIgnoreCase(fixupTask.getTicker()) || !finder.getKeyWord().matches("") && !finder.getKeyWord().trim().equalsIgnoreCase(fixupTask.getDescription())
+				|| !finder.getKeyWord().matches("") && !finder.getKeyWord().trim().equalsIgnoreCase(fixupTask.getAddress())) {
+				add = false;
+			}
+			if (!finder.getCategory().matches("") && !finder.getCategory().trim().equalsIgnoreCase(fixupTask.getCategory().getTitle())) {
+				add = false;
+			}
+			if (!finder.getWarranty().matches("") && !finder.getWarranty().trim().equalsIgnoreCase(fixupTask.getWarranty().getTitle())) {
+				add = false;
+			}
+			if (finder.getMinPrice() != null && finder.getMinPrice() > fixupTask.getMaximumPrice()) {
+				add = false;
+			}
+			if (finder.getMaxPrice() != null && finder.getMaxPrice() < fixupTask.getMaximumPrice()) {
+				add = false;
+			}
+			if (finder.getMinDate() != null && finder.getMinDate().after(fixupTask.getStartDate())) {
+				add = false;
+			}
+			if (finder.getMaxDate() != null && finder.getMaxDate().before(fixupTask.getStartDate())) {
+				add = false;
+			}
+			if (add) {
+				resultList.add(fixupTask);
+			}
+		}
+
+		finder.setFixUpTasks(resultList);
 		finder.setCreationDate(new Date());
 		finder = this.save(finder);
 		return finder;
 	}
+
 	public Finder assignFinder(HandyWorker owner) {
 		Finder res = this.create();
 		res.setHandyWorker(owner);

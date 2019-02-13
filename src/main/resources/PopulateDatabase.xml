@@ -178,8 +178,8 @@
 	<!-- SITE CONFIGURATION -->
 	<bean id="siteConfiguration" class="domain.SiteConfiguration">
 		<property name="siteName" value="Acme Handy Worker" />
-		<property name="bannerUrl" value="http://www.sample-banner.com/banner.png" />
-		<property name="welcomeMessage" value="" />
+		<property name="bannerUrl" value=" https://tinyurl.com/acme-handy-worker-logo" />
+		<property name="welcomeMessage" value="Welcome my guy" />
 		<property name="vatRate" value="0.20" />
 		<property name="defaultCountryCode" value="34" />
 		<property name="finderResLimit" value="10" />
@@ -743,20 +743,8 @@
 
 	<bean id="finder1" class="domain.Finder">
 		<property name="creationDate" value="2018/11/11" />
-		<property name="keyWord" value="bici" />
-		<property name="category">
-			<null />
-		</property>
-		<property name="warranty">
-			<null />
-		</property>
+		<property name="keyWord" value="bici" />		
 		<property name="minPrice" value="20.0" />
-		<property name="maxPrice">
-			<null />
-		</property>
-		<property name="minDate">
-			<null />
-		</property>
 		<property name="maxDate" value="2018/12/12" />
 		<property name="handyWorker" ref="handyWorker1" />
 		<property name="fixUpTasks">
@@ -1090,7 +1078,7 @@
 		<property name="author" ref="handyWorker1" />
 		<property name="publishDate" value="15/10/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>do it faster</value>
@@ -1116,7 +1104,7 @@
 		<property name="author" ref="handyWorker1" />
 		<property name="publishDate" value="08/11/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>do it faster</value>
@@ -1129,7 +1117,7 @@
 		<property name="author" ref="handyWorker2" />
 		<property name="publishDate" value="15/11/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>do it faster</value>
@@ -1155,7 +1143,7 @@
 		<property name="author" ref="handyWorker2" />
 		<property name="publishDate" value="01/11/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>do it faster</value>
@@ -1168,7 +1156,7 @@
 		<property name="author" ref="handyWorker1" />
 		<property name="publishDate" value="15/08/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>no like</value>
@@ -1181,7 +1169,7 @@
 		<property name="author" ref="handyWorker1" />
 		<property name="publishDate" value="15/08/2017 20:32" />
 		<property name="offeredRate" value="100" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="REJECTED" />
 		<property name="comments">
 			<list>
 				<value>no like</value>

@@ -1,17 +1,13 @@
 
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -19,7 +15,6 @@ import services.CategoryService;
 import services.FinderService;
 import services.FixupTaskService;
 import domain.Finder;
-import domain.FixupTask;
 
 @Controller
 @RequestMapping(value = "/finder")
@@ -51,19 +46,20 @@ public class FinderController {
 		return res;
 	}
 
-	@RequestMapping(value = "/fetch", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public @ResponseBody
-	List<FixupTask> fetchFixupTasks(@RequestParam Finder finder, BindingResult binding) {
-		List<FixupTask> res;
+	@RequestMapping(value = "/handyworker/find", method = RequestMethod.POST, params = "save")
+	public ModelAndView fetchFixupTasks(@Valid Finder finder, BindingResult binding) {
+		ModelAndView res;
 		if (binding.hasErrors()) {
-			res = new ArrayList<FixupTask>();
+			res = this.createEditModelAndView(finder);
 		} else {
 			try {
-				this.finderService.save(finder);
-				this.finderService.doSearch(finder);
-				return finder.getFixUpTasks();
+				Finder saved = this.finderService.doSearch(finder);
+				res = new ModelAndView("finder/edit");
+				res.addObject("finder", saved);
+				res.addObject("fixupTasks", saved.getFixUpTasks());
+				return res;
 			} catch (Exception e) {
-				res = new ArrayList<>();
+				res = this.createEditModelAndView(finder, "finder.commit.error");
 			}
 		}
 		return res;
@@ -78,7 +74,7 @@ public class FinderController {
 	protected ModelAndView createEditModelAndView(Finder finder, String messageCode) {
 		ModelAndView res;
 
-		res = new ModelAndView("messaging/edit");
+		res = new ModelAndView("finder/edit");
 		res.addObject("finder", finder);
 		res.addObject("message", messageCode);
 		return res;

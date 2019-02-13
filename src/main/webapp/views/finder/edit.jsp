@@ -22,10 +22,15 @@
 <jstl:set var="userId" value="${user.id}" />
 
 <!-- info -->
-<form:form id="finderform" modelAttribute="finder">
-	<form:hidden path="handyWorker" />
+<form:form id="finderform" modelAttribute="finder" action="finder/handyworker/find.do">
+	<form:hidden path="id"/>
+	<form:hidden path="version"/>
+	<form:hidden path="handyWorker" value="${finder.handyWorker.id}"/>
+	<form:errors cssClass="error" path="handyWorker" />
 	<form:hidden path="creationDate"/>
+	<form:errors cssClass="error" path="creationDate" />
 	<form:hidden path="fixUpTasks"/>
+	<form:errors cssClass="error" path="fixUpTasks" />
 	<div>
 		<form:label path="keyWord">
 			<spring:message code="finder.keyWord" />
@@ -75,19 +80,17 @@
 		<form:input path="maxPrice" />
 		<form:errors cssClass="error" path="maxPrice" />
 	</div>
-
-	<button id="savebutton" type="button"><spring:message code="save"/></button>
+	<input type="submit" name="save" value="<spring:message code="save"/>" />
 </form:form>
 
-<display:table name="fixupTasks" id="row" requestURI="${requestURI}"
-	pagesize="10" class="displaytag">
-	<display:column property="ticker" titleKey="fixuptask.ticker" />
-	<display:column property="publishDate" titleKey="fixuptask.publishdate" />
-	<display:column property="description" titleKey="fixuptask.description" />
-	<display:column property="maximumPrice" titleKey="fixuptask.price" />
-	<display:column property="startDate" titleKey="fixuptask.start" />
-	<display:column property="endDate" titleKey="fixuptask.end" />
+<display:table name="fixupTasks" id="row" 
+pagesize="10" class="displaytag"> 
+	<display:column property="ticker" titleKey="fixuptask.ticker" /> 
+	<display:column property="publishDate" titleKey="fixuptask.publishdate" /> 
+	<display:column property="description" titleKey="fixuptask.description" /> 
+	<display:column property="maximumPrice" titleKey="fixuptask.price" /> 
+ 	<display:column property="startDate" titleKey="fixuptask.start" /> 
+ 	<display:column property="endDate" titleKey="fixuptask.end" /> 
+ </display:table> 
 
-</display:table>
 
-<script type="text/javascript" src="scripts/finder.js"></script>

@@ -91,7 +91,7 @@ public class Finder extends DomainEntity {
 		this.maxPrice = maxPrice;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMinDate() {
 		return this.minDate;
 	}
@@ -100,7 +100,7 @@ public class Finder extends DomainEntity {
 		this.minDate = minDate;
 	}
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMaxDate() {
 		return this.maxDate;
 	}
