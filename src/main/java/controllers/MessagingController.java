@@ -211,6 +211,7 @@ public class MessagingController {
 	protected ModelAndView createEditModelAndView(MessageBox messageBox, String messageCode) {
 		ModelAndView res;
 		List<MessageBox> boxes = this.messageBoxService.findByPrincipal();
+		boxes.remove(messageBox);
 
 		res = new ModelAndView("messaging/edit");
 		res.addObject("messageBoxes", boxes);
